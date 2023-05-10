@@ -1,21 +1,48 @@
 <%- include("templates/header") %>
 <div class="text-center">
-<h1>Login</h1>
-<% if (errorMessage) { %>
-    <p class="error-message">
-        <%= errorMessage %>
-    </p>
-    <% } %>
-        <form action="/loginSubmit" method="POST">
-            <div>
-                <label for="email">Email:</label>
-                <input type="email" name="email" id="email" required>
-            </div>
-            <div>
-                <label for="password">Password:</label>
-                <input type="password" name="password" id="password" required>
-            </div>
-            <button type="submit">Log In</button>
-        </form>
+  <h1>Login</h1>
+  <% if (errorMessage) { %>
+  <p class="error-message"><%= errorMessage %></p>
+  <% } %>
+
+  <!-- Login form -->
+  <div class="container d-flex justify-content-center">
+    <form action="/loginSubmit" method="POST" style="width: 100%">
+      <!-- Email input -->
+      <div class="form-outline mb-4">
+        <input type="email" name="email" id="email" class="form-control" />
+        <label class="form-label" for="loginName">Email Address</label>
+      </div>
+
+      <!-- Password input -->
+      <div class="form-outline mb-4">
+        <input
+          type="password"
+          name="password"
+          id="password"
+          class="form-control"
+        />
+        <label class="form-label" for="loginPassword">Password</label>
+      </div>
+
+      <!-- 2 column grid layout -->
+      <div class="row mb-4">
+        <div class="col-md-6 d-flex justify-content-center" style="right: 0">
+          <!-- Simple link -->
+          <a href="#!">Forgot password?</a>
+        </div>
+      </div>
+
+      <!-- Submit button -->
+      <button type="submit" class="btn btn-primary btn-block mb-4">
+        Log In
+      </button>
+
+      <!-- Register buttons -->
+      <div class="text-center">
+        <p>Not a member? <a href="/signup">Register</a></p>
+      </div>
+    </form>
+  </div>
 </div>
-    <%- include("templates/footer") %>
+<%- include("templates/footer") %>
