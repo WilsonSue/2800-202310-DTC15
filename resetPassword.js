@@ -1,6 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const nodemailer = require("nodemailer");
+const { v4: uuidv4 } = require("uuid");
+const bcrypt = require("bcrypt");
+const NodeCache = require("node-cache");
+const cache = new NodeCache();
 const { database } = require("./databaseConnection");
 require("dotenv").config();
 
@@ -16,6 +20,7 @@ router.get("/resetPassword", (req, res) => {
 router.post("/resetPassword", async (req, res) => {
   const { recipient } = req.body;
   const user = await userCollection.findOne({ email: recipient });
+
   if (!user) {
     // Email address not found in the database
     const errorMessage =
@@ -26,7 +31,11 @@ router.post("/resetPassword", async (req, res) => {
   }
 
   try {
-    await sendEmail(recipient);
+    const currentUrl = req.protocol + "://" + req.get("host") + req.originalUrl;
+    const uniqueString = uuidv4();
+    cache.set(uniqueString, recipient, 60 * 60 * 1000); // cache for 1 hour
+    //console.log("currentURL:", currentUrl);
+    await sendEmail(recipient, currentUrl, uniqueString);
     res.send(
       "An email with instructions to reset your password has been sent to your registered email address. Please check your inbox and follow the provided link to reset your password."
     );
@@ -37,7 +46,7 @@ router.post("/resetPassword", async (req, res) => {
   }
 });
 
-async function sendEmail(recipient) {
+async function sendEmail(recipient, currentUrl, uniqueString) {
   let transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
     port: 465,
@@ -55,6 +64,7 @@ async function sendEmail(recipient) {
     html: `
         <h1>Techommend</h1>
         <p>To reset your password, click on the link below:</p>
+        <a href="${currentUrl}/user/${uniqueString}">Reset Password</a>
       `,
   });
 }
