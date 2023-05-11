@@ -17,6 +17,15 @@ const transporter = nodemailer.createTransport({
   },
 });
 
+// testing the transporter
+transporter.verify((error, success) => {
+  if (error) {
+    console.log(error);
+  } else {
+    console.log("ready to send messages");
+  }
+});
+
 router.post("/resetPassword", async (req, res) => {
   const { email } = req.body;
 });
