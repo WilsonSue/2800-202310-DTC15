@@ -22,6 +22,7 @@ const node_session_secret = process.env.NODE_SESSION_SECRET;
 
 var { database } = include("databaseConnection");
 const userCollection = database.db(mongodb_database).collection("users");
+const jobCollection = database.db(mongodb_database).collection("glassdoor_jobs");
 
 app.use(express.urlencoded({ extended: false }));
 
@@ -207,7 +208,8 @@ app.post("/savedListings", async (req, res) => {
 });
 
 app.get("/populatedListings", async (req, res) => {
-  res.render("populatedListings");
+  const listings = await jobCollection.find({}).toArray();
+  res.render("populatedListings", { listings });
 });
 
 app.post("/populatedListings", async (req, res) => {
