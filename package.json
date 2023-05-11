@@ -4,7 +4,7 @@
   "description": "Team Members:\r   1. Wilson\r   2. Elijah\r   3. Joanne",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "start": "node index.js"
   },
   "repository": {
     "type": "git",
