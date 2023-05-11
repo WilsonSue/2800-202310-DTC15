@@ -8,23 +8,33 @@ router.get("/resetPassword", (req, res) => {
   res.render("resetPassword");
 });
 
-// create a transporter using Gmail SMTP
-const transporter = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-    user: process.env.EMAIL_ADDRESS,
-    pass: process.env.EMAIL_PASSWORD,
-  },
-});
+async function main() {
+  // create a transporter using Gmail SMTP
+  let transporter = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true,
+    auth: {
+      user: process.env.EMAIL_ADDRESS,
+      pass: process.env.EMAIL_PASSWORD,
+    },
+  });
 
-// testing the transporter
-transporter.verify((error, success) => {
-  if (error) {
-    console.log(error);
-  } else {
-    console.log("ready to send messages");
-  }
-});
+  // define and send message inside transporter.sendEmail() and await info about send from promise:
+  let info = await transporter.sendMail({
+    from: `"DTC 15" <${process.env.EMAIL_ADDRESS}>`,
+    to: "comp2800dtc15@gmail.com",
+    subject: "test resetting password link",
+    html: `
+    <h1>Hello</h1>
+    <p>test </p>
+    `,
+  });
+
+  console.log(info.messageId); // log message id
+}
+
+main().catch((err) => console.log(err)); // catch any errors
 
 router.post("/resetPassword", async (req, res) => {
   const { email } = req.body;
