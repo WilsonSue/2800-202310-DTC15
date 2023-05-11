@@ -184,7 +184,8 @@ app.post("/home", async (req, res) => {
 });
 
 app.get("/explore", async (req, res) => {
-  res.render("explore");
+  const listings = await jobCollection.find({}).toArray();
+  res.render("explore", { listings });
 });
 
 app.post("/explore", async (req, res) => {
