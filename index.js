@@ -168,6 +168,10 @@ app.post("/loginSubmit", async (req, res) => {
 });
 
 app.get("/userProfile", async (req, res) => {
+  if (!req.session.authenticated) {
+    res.redirect("/login");
+    return;
+  }
   res.render("userProfile");
 });
 
@@ -193,6 +197,10 @@ app.post("/explore", async (req, res) => {
 });
 
 app.get("/editProfile", async (req, res) => {
+  if (!req.session.authenticated) {
+    res.redirect("/login");
+    return;
+  }
   res.render("editProfile");
 });
 
@@ -201,6 +209,10 @@ app.post("/editProfile", async (req, res) => {
 });
 
 app.get("/savedListings", async (req, res) => {
+  if (!req.session.authenticated) {
+    res.redirect("/login");
+    return;
+  }
   res.render("savedListings");
 });
 
@@ -209,6 +221,10 @@ app.post("/savedListings", async (req, res) => {
 });
 
 app.get("/populatedListings", async (req, res) => {
+  if (!req.session.authenticated) {
+    res.redirect("/login");
+    return;
+  }
   const listings = await jobCollection.find({}).toArray();
   res.render("populatedListings", { listings });
 });
@@ -231,6 +247,10 @@ app.get("/admin", async (req, res) => {
 });
 
 app.get("/notAdmin", (req, res) => {
+  if (!req.session.authenticated) {
+    res.redirect("/login");
+    return;
+  }
   res.render("notAdmin");
 });
 
@@ -244,6 +264,10 @@ app.post("/updateRole", async (req, res) => {
 });
 
 app.get("/logout", (req, res) => {
+  if (!req.session.authenticated) {
+    res.redirect("/login");
+    return;
+  }
   req.session.destroy();
   res.redirect("/");
 });
