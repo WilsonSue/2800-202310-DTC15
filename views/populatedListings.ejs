@@ -1,0 +1,122 @@
+<%- include("templates/header") %>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Listings</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .search {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        .search input {
+            width: 50%;
+            padding: 0.5rem;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+        }
+
+        .job-listings {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .job-card {
+            width: 30%;
+            background-color: #f8f8f8;
+            border: 1px solid #e6e6e6;
+            border-radius: 4px;
+            padding: 1rem;
+            box-sizing: border-box;
+            margin-bottom: 2rem;
+        }
+
+        .job-card h3 {
+            margin: 0 0 1rem;
+        }
+
+        .job-card p {
+            margin: 0 0 1rem;
+        }
+
+        @media screen and (max-width: 1024px) {
+            .job-card {
+                width: 48%;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .job-card {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Job Listings</h1>
+        <div class="search">
+            <input type="text" placeholder="Search for jobs...">
+        </div>
+        <div class="job-listings">
+            <!-- Job card -->
+            <div class="job-card">
+                <h3>Software Engineer</h3>
+                <p>Company: Tech Corp</p>
+                <p>Location: New York, NY</p>
+                <p>Posted: 3 days ago</p>
+            </div>
+            <!-- Job card -->
+            <div class="job-card">
+                <h3>Project Manager</h3>
+                <p>Company: Global Solutions</p>
+                <p>Location: San Francisco, CA</p>
+                <p>Posted: 1 week ago</p>
+            </div>
+            <!-- Job card -->
+            <div class="job-card">
+                <h3>Data Analyst</h3>
+                <p>Company: Data Intelligence</p>
+                <p>Location: Boston, MA</p>
+                <p>Posted: 2 days ago</p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+
+    <%- include("templates/footer") %>
+<!-- <%- include('templates/header') %>
+<div class="container">
+  <div>Joblistings:</div>
+  <ul>
+    <% for(let i=0; i < listings.length; i++) { %>
+      <%- include('templates/joblisting.ejs', {listing: listings[i]}); %>
+        <% } %>
+  </ul>
+</div>
+<%- include('templates/footer') %> -->

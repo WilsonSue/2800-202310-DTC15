@@ -1,0 +1,69 @@
+<%- include("templates/header") %>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Job Listings</title>
+  <style>
+    .job-listings {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+
+    .job-card {
+      width: 30%;
+      background-color: #f8f8f8;
+      border: 1px solid #e6e6e6;
+      border-radius: 4px;
+      padding: 1rem;
+      box-sizing: border-box;
+      margin-bottom: 2rem;
+    }
+
+    .job-card h3 {
+      margin: 0 0 1rem;
+    }
+
+    .job-card p {
+      margin: 0 0 1rem;
+    }
+
+    @media screen and (max-width: 1024px) {
+      .job-card {
+        width: 48%;
+      }
+    }
+
+    @media screen and (max-width: 768px) {
+      .job-card {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<div style="text-align: center;">
+<h1>Saved Listings</h1>
+<hr>
+  <div class="job-card">
+    <h3>Software Engineer</h3>
+    <p>Company: Tech Corp</p>
+    <p>Location: New York, NY</p>
+    <p>Posted: 3 days ago</p>
+  </div>
+  <div class="job-card">
+    <h3>Software Engineer</h3>
+    <p>Company: Tech Corp</p>
+    <p>Location: New York, NY</p>
+    <p>Posted: 3 days ago</p>
+  </div>
+  <div class="job-card">
+    <h3>Software Engineer</h3>
+    <p>Company: Tech Corp</p>
+    <p>Location: New York, NY</p>
+    <p>Posted: 3 days ago</p>
+  </div>
+  </div>
+    <%- include("templates/footer") %>
