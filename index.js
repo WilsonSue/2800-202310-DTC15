@@ -189,7 +189,7 @@ app.get("/userProfile", async (req, res) => {
 
     res.render("userProfile", { user });
   } else {
-    res.redirect("/signup");
+    res.redirect("/");
     return;
   }
 });
