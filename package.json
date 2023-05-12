@@ -25,5 +25,8 @@
     "express-session": "^1.17.3",
     "joi": "^17.9.2",
     "mongodb": "^5.4.0"
+    "node-cache": "^5.1.2",
+    "nodemailer": "^6.9.1",
+    "uuid": "^9.0.0"
   }
 }

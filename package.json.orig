@@ -4,11 +4,7 @@
   "description": "Team Members:\r   1. Wilson\r   2. Elijah\r   3. Joanne",
   "main": "index.js",
   "scripts": {
-<<<<<<< HEAD
     "start": "node index.js"
-=======
-  "start": "node index.js"
->>>>>>> Wilson_FrontEnd_Pages
   },
   "repository": {
     "type": "git",
@@ -28,6 +24,12 @@
     "express": "^4.18.2",
     "express-session": "^1.17.3",
     "joi": "^17.9.2",
+<<<<<<< HEAD
     "mongodb": "^5.4.0"
+=======
+    "node-cache": "^5.1.2",
+    "nodemailer": "^6.9.1",
+    "uuid": "^9.0.0"
+>>>>>>> joanne_user_credentials
   }
 }

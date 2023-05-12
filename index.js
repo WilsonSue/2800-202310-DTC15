@@ -41,6 +41,9 @@ app.use(
   })
 );
 
+const resetPasswordRouter = require("./resetPassword.js");
+app.use(resetPasswordRouter);
+
 app.get("/", (req, res) => {
   const authenticated = req.session.authenticated;
   const username = req.session.username;
