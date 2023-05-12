@@ -269,6 +269,14 @@ app.post("/populatedListings", async (req, res) => {
   // placeholder
 });
 
+app.get("/filter", async (req, res) => {
+  res.render("filter");
+});
+
+app.post("/filter", async (req, res) => {
+  // placeholder
+});
+
 app.get("/logout", (req, res) => {
   req.session.destroy();
   res.redirect("/");

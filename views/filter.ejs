@@ -1,0 +1,102 @@
+<%- include("templates/header") %>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filter Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 0.5rem;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            width: 100%;
+            padding: 0.5rem;
+            background-color: rgb(103, 169, 231);
+            color: white;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+
+        button:hover {
+            background-color: rgb(80, 140, 200);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Filter</h1>
+        <form>
+            <div class="form-group">
+                <label for="skills">Skills</label>
+                <input type="text" id="skills" name="skills" placeholder="Enter skills separated by commas">
+            </div>
+            <div class="form-group">
+                <label for="minSalary">Minimum Salary</label>
+                <input type="number" id="minSalary" name="minSalary" placeholder="Enter minimum salary">
+            </div>
+            <div class="form-group">
+                <label for="maxSalary">Maximum Salary</label>
+                <input type="number" id="maxSalary" name="maxSalary" placeholder="Enter maximum salary">
+            </div>
+            <div class="form-group">
+                <label for="location">Location</label>
+                <input type="text" id="location" name="location" placeholder="Enter location">
+            </div>
+            <div class="form-group">
+                <label for="personality">Personality Type</label>
+                <select id="personality" name="personality">
+                    <option value="" selected>Select preferred Personality Type for Job</option>
+                    <% const personalities=['INTJ', 'INTP' , 'ENTJ' , 'ENTP' , 'INFJ' , 'INFP' , 'ENFJ' , 'ENFP'
+                        , 'ISTJ' , 'ISFJ' , 'ESTJ' , 'ESFJ' , 'ISTP' , 'ISFP' , 'ESTP' , 'ESFP' ]; %>
+                        <% for (let personality of personalities) { %>
+                            <option value="<%= personality %>">
+                                <%= personality %>
+                            </option>
+                            <% } %>
+                </select>
+            </div>
+            <button type="submit">Apply Filters</button>
+        </form>
+    </div>
+</body>
+
+</html>
+
+    <%- include("templates/footer") %>
