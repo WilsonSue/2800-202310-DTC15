@@ -12,6 +12,7 @@
             margin: 0;
             padding: 0;
         }
+
         .container {
             width: 100%;
             max-width: 800px;
@@ -40,6 +41,10 @@
             padding: 0.5rem;
             font-size: 1rem;
             border: 1px solid #ccc;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            margin-right: 0.5rem;
         }
 
         button {
@@ -82,7 +87,7 @@
             <div class="form-group">
                 <label for="personality">Personality Type</label>
                 <select id="personality" name="personality">
-                    <option value="" selected>Select preferred Personality Type for Job</option>
+                    <option value="" selected>Select your personality type</option>
                     <% const personalities=['INTJ', 'INTP' , 'ENTJ' , 'ENTP' , 'INFJ' , 'INFP' , 'ENFJ' , 'ENFP'
                         , 'ISTJ' , 'ISFJ' , 'ESTJ' , 'ESFJ' , 'ISTP' , 'ISFP' , 'ESTP' , 'ESFP' ]; %>
                         <% for (let personality of personalities) { %>
@@ -92,11 +97,31 @@
                             <% } %>
                 </select>
             </div>
-            <button type="submit">Apply Filters</button>
-        </form>
-    </div>
-</body>
-
-</html>
+            <div class="form-group">
+                <label>Job Type</label>
+                <div class="checkbox-group">
+                <div class="checkbox-group">
+                    <input type="checkbox" id="fullTime" name="jobType" value="Full-Time">
+                    <label for="fullTime">Full-Time</label>
+                </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="partTime" name="jobType" value="Part-Time">
+                    <label for="partTime">Part-Time</label>
+                </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="remote" name="jobType" value="Remote">
+                    <label for="remote">Remote</label>
+                </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="freelance" name="jobType" value="Freelance">
+                    <label for="freelance">Freelance</label>
+                </div>
+                </div>
+                <button type="submit">Apply Filters</button>
+                </form>
+                </div>
+                </body>
+                
+                </html>
 
     <%- include("templates/footer") %>

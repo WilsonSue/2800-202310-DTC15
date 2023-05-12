@@ -73,17 +73,14 @@
         cursor: pointer;
       }
     </style>
-
     <script>
-      function toggleFilterMenu() {
-        var filterMenu = document.querySelector(".filter-menu");
-        if (filterMenu.style.display === "none") {
-          filterMenu.style.display = "block";
-        } else {
-          filterMenu.style.display = "none";
-        }
+      function redirectToFilterPage() {
+        window.location.href = "/filter";
       }
+      function redirectToPopulatedListingsPage() {
+        window.location.href = "/populatedListings";}
     </script>
+
   </head>
 
   <body>
@@ -93,8 +90,8 @@
 
     <div class="search-bar">
       <input type="text" placeholder="Search for job listings..." />
-      <button>Search</button>
-      <button onclick="toggleFilterMenu()">Filter</button>
+      <button onclick="redirectToPopulatedListingsPage()">Search</button>
+      <button onclick="redirectToFilterPage()">Filter</button>
       <div class="filter-menu">
         <label
           ><input type="checkbox" name="filter" value="full-time" />
