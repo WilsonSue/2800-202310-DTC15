@@ -111,7 +111,7 @@
       </div>
     </div>
 
-    <div class="job-listings">
+    <!-- <div class="job-listings">
       <div class="job-listing">
         <h3>Software Developer</h3>
         <p>Company: XYZ Tech</p>
@@ -128,7 +128,11 @@
         <h3>Product Manager</h3>
         <p>Company: MegaTech Inc</p>
         <p>Location: Seattle, WA</p>
-      </div>
+      </div> -->
+
+      <% for(let i=0; i < listings.length; i++) { %>
+          <%- include('templates/joblisting.ejs', {listing: listings[i]}); %>
+      <% } %>
     </div>
   </body>
 </html>

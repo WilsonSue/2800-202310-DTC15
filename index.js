@@ -194,6 +194,8 @@ app.get("/userProfile", async (req, res) => {
     res.render("userProfile", { user });
   } else {
     res.redirect("/");
+    return;
+  }
 });
 
 app.post("/userProfile", async (req, res) => {
