@@ -245,14 +245,6 @@ app.post("/explore", async (req, res) => {
   // placeholder
 });
 
-app.get("/editProfile", async (req, res) => {
-  res.render("editProfile");
-});
-
-app.post("/editProfile", async (req, res) => {
-  // placeholder
-});
-
 app.get("/savedListings", async (req, res) => {
   res.render("savedListings");
 });
