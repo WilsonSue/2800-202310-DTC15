@@ -53,9 +53,9 @@ router.post("/resetPassword", async (req, res) => {
     const uniqueString = uuidv4();
     cache.set(uniqueString, recipient, 60 * 60 * 1000); // cache for 1 hour
     await sendEmail(recipient, currentUrl, uniqueString);
-    res.send(
-      "An email with instructions to reset your password has been sent to your registered email address. Please check your inbox and follow the provided link to reset your password."
-    );
+    const emailSent =
+      "An email with instructions to reset your password has been sent to your registered email address. Please check your inbox and follow the provided link to reset your password.";
+    res.render("resetPassword", { emailSent });
   } catch (error) {
     console.error(error);
     const errorMessage = "Failed to send email. Please try again later.";
@@ -76,20 +76,21 @@ router.post("/resetPassword/:token", async (req, res) => {
   }
 
   const { newPassword } = req.body;
-  const hashedPassword = await bcrypt.hash(newPassword, 12);
-  console.log("New Password:", newPassword);
-  console.log("Hashed Password:", hashedPassword);
+  try {
+    const hashedPassword = await bcrypt.hash(newPassword, 12);
+    // update the user password in the database
+    await userCollection.updateOne(
+      { email: recipient },
+      { $set: { password: hashedPassword } }
+    );
 
-  // update the user password in the database
-  await userCollection.updateOne(
-    { email: recipient },
-    { $set: { password: hashedPassword } }
-  );
-
-  cache.del(token);
-
-  // redirect to login page
-  res.redirect("/login");
+    cache.del(token); // delete the token from the cache
+    res.redirect("/login");
+  } catch (error) {
+    console.error(error);
+    const errorMessage = "Failed to reset password. Please try again later.";
+    res.render("resetPassword", { errorMessage });
+  }
 });
 
 async function sendEmail(recipient, currentUrl, uniqueString) {
