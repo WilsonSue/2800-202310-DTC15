@@ -90,7 +90,7 @@ app.post("/submitUser", async (req, res) => {
   req.session.username = username;
   console.log("Inserted user");
   req.session.authenticated = true;
-  res.redirect("/members");
+  res.redirect("/editProfile");
 });
 
 app.get("/signupSubmit", (req, res) => {
