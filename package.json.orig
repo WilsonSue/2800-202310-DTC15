@@ -1,0 +1,33 @@
+{
+  "name": "2800-202310-dtc15",
+  "version": "1.0.0",
+  "description": "Team Members:\r   1. Wilson\r   2. Elijah\r   3. Joanne",
+  "main": "index.js",
+  "scripts": {
+<<<<<<< HEAD
+    "start": "node index.js"
+=======
+  "start": "node index.js"
+>>>>>>> Wilson_FrontEnd_Pages
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WilsonSue/2800-202310-DTC15.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/WilsonSue/2800-202310-DTC15/issues"
+  },
+  "homepage": "https://github.com/WilsonSue/2800-202310-DTC15#readme",
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "connect-mongo": "^5.0.0",
+    "dotenv": "^16.0.3",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "joi": "^17.9.2",
+    "mongodb": "^5.4.0"
+  }
+}

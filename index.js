@@ -85,11 +85,14 @@ app.post("/submitUser", async (req, res) => {
     username: username,
     password: hashedPassword,
     email: email,
+    skills: "",
+    personality: "",
   });
-  req.session.username = username;
-  console.log("Inserted user");
   req.session.authenticated = true;
-  res.redirect("/members");
+  req.session.username = username;
+  req.session.email = email; // Add this line to store the email in the session
+  console.log("Inserted user");
+  res.redirect("/userProfile"); // Change this line to redirect to userProfile instead of /members
 });
 
 app.get("/signupSubmit", (req, res) => {
@@ -103,7 +106,15 @@ app.get("/signupSubmit", (req, res) => {
   res.render("signupSubmit", { missingInput, errorMessages });
 });
 
-app.get("/login", (req, res) => {
+function redirectToProfileIfAuthenticated(req, res, next) {
+  if (req.session.authenticated) {
+    res.redirect("/userProfile");
+  } else {
+    next();
+  }
+}
+
+app.get("/login", redirectToProfileIfAuthenticated, (req, res) => {
   res.render("login", { errorMessage: null });
 });
 
@@ -153,9 +164,9 @@ app.post("/loginSubmit", async (req, res) => {
       if (await bcrypt.compare(password, result[0].password)) {
         req.session.authenticated = true;
         req.session.username = result[0].username;
-        req.session.role = result[0].role; // Store the user's role in the session
+        req.session.email = result[0].email;
         req.session.cookie.maxAge = expireTime;
-        res.redirect("/members");
+        res.redirect("/userProfile");
         return;
       } else {
         errorMessage = "Invalid email/password combination.";
@@ -167,18 +178,62 @@ app.post("/loginSubmit", async (req, res) => {
 });
 
 app.get("/userProfile", async (req, res) => {
-  res.render("userProfile");
+  if (req.session.authenticated) {
+    const email = req.session.email;
+    const user = await userCollection.findOne({ email: email });
+
+    if (!user) {
+      res.redirect("/login");
+      return;
+    }
+
+    res.render("userProfile", { user });
+  } else {
+    res.redirect("/");
+    return;
+  }
 });
 
 app.post("/userProfile", async (req, res) => {
-  // placeholder
+  if (req.session.authenticated) {
+    const email = req.session.email;
+    const username = req.body.username;
+    const newEmail = req.body.email;
+    const password = req.body.password;
+    const skills = req.body.skills;
+    const personality = req.body.personality;
+
+    const updateFields = {
+      username: username,
+      email: newEmail,
+      skills: skills,
+      personality: personality,
+    };
+
+    if (password && password.trim() !== "") {
+      const hashedPassword = await bcrypt.hash(password, saltRounds);
+      updateFields.password = hashedPassword;
+    }
+
+    await userCollection.updateOne({ email: email }, { $set: updateFields });
+
+    // Update session email if it changed
+    if (email !== newEmail) {
+      req.session.email = newEmail;
+    }
+
+    res.redirect("/userProfile");
+  } else {
+    res.redirect("/signup");
+    return;
+  }
 });
 
-app.get("/home", async (req, res) => {
-  res.render("home");
+app.get("/search", async (req, res) => {
+  res.render("search");
 });
 
-app.post("/home", async (req, res) => {
+app.post("/search", async (req, res) => {
   // placeholder
 });
 
@@ -187,14 +242,6 @@ app.get("/explore", async (req, res) => {
 });
 
 app.post("/explore", async (req, res) => {
-  // placeholder
-});
-
-app.get("/editProfile", async (req, res) => {
-  res.render("editProfile");
-});
-
-app.post("/editProfile", async (req, res) => {
   // placeholder
 });
 
@@ -214,30 +261,12 @@ app.post("/populatedListings", async (req, res) => {
   // placeholder
 });
 
-app.get("/admin", async (req, res) => {
-  console.log("Authenticated:", req.session.authenticated); // Debug output
-  console.log("Role:", req.session.role); // Debug output
-
-  if (!req.session.authenticated || req.session.role !== "admin") {
-    res.render("notAdmin");
-    return;
-  }
-
-  const users = await userCollection.find({}).toArray();
-  res.render("admin", { users });
+app.get("/filter", async (req, res) => {
+  res.render("filter");
 });
 
-app.get("/notAdmin", (req, res) => {
-  res.render("notAdmin");
-});
-
-app.post("/updateRole", async (req, res) => {
-  const { userId, role } = req.body;
-  await userCollection.updateOne(
-    { _id: new ObjectId(userId) },
-    { $set: { role: role } }
-  );
-  res.redirect("/admin");
+app.post("/filter", async (req, res) => {
+  // placeholder
 });
 
 app.get("/logout", (req, res) => {

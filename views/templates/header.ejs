@@ -3,51 +3,169 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Navigation Bar</title>
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        /* Basic styling for the body and font */
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        /* Styling for the nav bar */
+        .navbar {
+            background-color: rgb(103, 169, 231);
+            display: flex;
+            padding: 1rem;
+            align-items: center;
+            /* Add this style to hide the overflow-x on mobile devices */
+            overflow-x: hidden;
+        }
+
+        .navbar-center {
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;  /* Add this style */
+        }
+
+        /* Logo styles */
+        .logo {
+            display: flex;
+            align-items: center;
+            margin: 0 auto;
+        }
+
+        .logo img {
+            height: 60px;
+            margin: 0 auto;
+        }
+
+        /* Dropdown menu styles */
+        .dropdown {
+        position: relative;
+        display: inline-block;
+        }
+
+        .dropdown-content {
+        display: none;
+        position: absolute;
+        right: 0;
+        background-color: rgb(105, 168, 240);
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+        }
+
+        .dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        }
+
+        .dropdown-content a:hover {
+        background-color: rgb(103, 169, 231);
+        }
+
+        .dropdown:hover .dropdown-content {
+        display: block;
+        }
+
+        .dropdown:hover .dropbtn {
+        color: rgb(255, 255, 255);
+        }
+
+        /* Hamburger menu styles */
+        .hamburger {
+        display: none;
+        font-size: 30px;
+        cursor: pointer;
+        }
+
+        a {
+        margin-left: auto;
+        margin-right: auto;
+        }
+
+        .mobile-menu a:hover {
+            text-decoration: none;
+            color: rgb(255, 255, 255);
+        }
+
+        /* Media query for mobile view */
+        @media screen and (max-width: 768px) {
+        .navbar {
+        flex-wrap: wrap;
+        }
+        .navbar-left,
+        .navbar-right {
+            display: none;
+        }
+
+        .hamburger {
+            display: block;
+        }
+
+        .navbar-center {
+            width: 100%;
+            justify-content: space-between;
+        }
+
+        .logo img {
+            height: 50px;
+        }
+
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            width: 100%;
+            background-color: rgb(105, 168, 240);
+        }
+
+        .mobile-menu a,
+        .mobile-menu a:hover {
+            color: white;
+            text-align: center;
+            text-decoration: none;
+        }
+    }
+        /* Add this script to toggle the mobile menu */
+</style>
+
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Navbar</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Dropdown
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#">Disabled</a>
-                </li>
-            </ul>
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
+    <nav class="navbar">
+        <div class="navbar-center logo">
+            <a href="#">
+                <img src="LogoPrototypeTechommend2.png" alt="TechommendLogo">
+            </a>
+            <span class="hamburger" onclick="toggleMenu()">&#9776;</span>
         </div>
-    </nav>
-</body>
-
+        <div class="mobile-menu" id="mobile-menu">
+            <a href="/search">Search</a>
+            <a href="/explore">Explore</a>
+            <a href="/savedListings">Saved Listings</a>
+            <a href="/userProfile">Profile</a>
+            <a href="/logout">Logout</a>
+            </div>
+            </nav>
+            <script>
+                function toggleMenu() {
+                    var mobileMenu = document.getElementById("mobile-menu");
+                    if (mobileMenu.style.display === "none" || mobileMenu.style.display === "") {
+                        mobileMenu.style.display = "flex";
+                    } else {
+                        mobileMenu.style.display = "none";
+                    }
+                }
+        </script>
+    </body>
 </html>

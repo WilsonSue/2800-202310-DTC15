@@ -1,0 +1,46 @@
+<%- include("templates/header") %>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page - Job Search</title>
+    <style>
+        .search-container {
+            text-align: center;
+            color: white;
+        }
+
+        .search-container h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .search-container input[type="text"] {
+            width: 60%;
+            padding: 0.5rem;
+        }
+
+        .search-container button {
+            padding: 0.5rem 1rem;
+            background-color: white;
+            color: rgb(103, 169, 231);
+            border: none;
+            cursor: pointer;
+            margin-left: 0.5rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="search-container">
+        <h1>Search Jobs</h1>
+        <input type="text" placeholder="Search jobs...">
+        <button>Search</button>
+    </div>
+
+</body>
+</html>
+    <%- include("templates/footer") %>
