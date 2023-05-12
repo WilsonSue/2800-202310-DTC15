@@ -213,7 +213,8 @@ app.get("/savedListings", async (req, res) => {
     res.redirect("/login");
     return;
   }
-  res.render("savedListings");
+  const listings = await jobCollection.find({}).toArray();
+  res.render("savedListings" , { listings });
 });
 
 app.post("/savedListings", async (req, res) => {
