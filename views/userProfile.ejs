@@ -65,19 +65,19 @@
         <form>
             <div class="form-group">
                 <label for="username">Username</label>
-                <input type="text" id="username" name="username" required>
+                <input type="text" id="username" name="username" value="<%= user.username %>" required>
             </div>
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="text" id="email" name="email" required>
+                <input type="text" id="email" name="email" value="<%= user.email %>" required>
             </div>
             <div class="form-group">
                 <label for="password">Password</label>
-                <input type="text" id="password" name="password" required>
+                <input type="text" id="password" name="password" value="" placeholder="Enter new password to update">
             </div>
             <div class="form-group">
                 <label for="skills">Skills</label>
-                <input type="text" id="skills" name="skills" required>
+                <input type="text" id="skills" name="skills" value="<%= user.skills ? user.skills : '' %>" required>
             </div>
             <div class="form-group">
                 <label for="personality">Personality Type</label>
