@@ -49,7 +49,8 @@ router.post("/resetPassword", async (req, res) => {
   }
 
   try {
-    const currentUrl = req.protocol + "://" + req.get("host") + req.originalUrl;
+    const currentUrl = "https://encouraging-lime-wrap.cyclic.app/resetPassword";
+    // const currentUrl = req.protocol + "://" + req.get("host") + req.originalUrl;
     const uniqueString = uuidv4();
     cache.set(uniqueString, recipient, 60 * 60 * 1000); // cache for 1 hour
     await sendEmail(recipient, currentUrl, uniqueString);
