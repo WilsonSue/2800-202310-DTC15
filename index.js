@@ -166,7 +166,7 @@ app.post("/loginSubmit", async (req, res) => {
         req.session.username = result[0].username;
         req.session.email = result[0].email;
         req.session.cookie.maxAge = expireTime;
-        res.redirect("/members");
+        res.redirect("/home");
         return;
       } else {
         errorMessage = "Invalid email/password combination.";
