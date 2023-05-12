@@ -106,7 +106,15 @@ app.get("/signupSubmit", (req, res) => {
   res.render("signupSubmit", { missingInput, errorMessages });
 });
 
-app.get("/login", (req, res) => {
+function redirectToProfileIfAuthenticated(req, res, next) {
+  if (req.session.authenticated) {
+    res.redirect("/userProfile");
+  } else {
+    next();
+  }
+}
+
+app.get("/login", redirectToProfileIfAuthenticated, (req, res) => {
   res.render("login", { errorMessage: null });
 });
 
