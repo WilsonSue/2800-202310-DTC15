@@ -229,11 +229,11 @@ app.post("/userProfile", async (req, res) => {
   }
 });
 
-app.get("/home", async (req, res) => {
-  res.render("home");
+app.get("/search", async (req, res) => {
+  res.render("search");
 });
 
-app.post("/home", async (req, res) => {
+app.post("/search", async (req, res) => {
   // placeholder
 });
 
