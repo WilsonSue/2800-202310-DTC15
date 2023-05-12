@@ -1,6 +1,7 @@
 <%- include("templates/header") %>
 <div class="text-center">
   <h1>Login</h1>
+  <br />
   <% if (errorMessage) { %>
   <p class="error-message"><%= errorMessage %></p>
   <% } %>
@@ -10,24 +11,31 @@
     <form action="/loginSubmit" method="POST" style="width: 100%">
       <!-- Email input -->
       <div class="form-outline mb-4">
-        <input type="email" name="email" id="email" class="form-control" />
-        <label class="form-label" for="loginName">Email Address</label>
+        <!-- <label class="form-label" for="loginName">Email Address</label> -->
+        <input
+          type="email"
+          name="email"
+          id="email"
+          class="form-control"
+          placeholder="Email Address"
+        />
       </div>
 
       <!-- Password input -->
       <div class="form-outline mb-4">
+        <!-- <label class="form-label" for="loginPassword">Password</label> -->
         <input
           type="password"
           name="password"
           id="password"
           class="form-control"
+          placeholder="Password"
         />
-        <label class="form-label" for="loginPassword">Password</label>
       </div>
 
       <!-- 2 column grid layout -->
       <div class="row mb-4">
-        <div class="col-md-6 d-flex justify-content-center" style="right: 0">
+        <div class="col d-flex justify-content-center">
           <!-- Simple link -->
           <a href="/resetPassword">Forgot password?</a>
         </div>
