@@ -22,6 +22,7 @@ const node_session_secret = process.env.NODE_SESSION_SECRET;
 
 var { database } = include("databaseConnection");
 const userCollection = database.db(mongodb_database).collection("users");
+const jobCollection = database.db(mongodb_database).collection("glassdoor_jobs");
 
 app.use(express.urlencoded({ extended: false }));
 
@@ -193,8 +194,6 @@ app.get("/userProfile", async (req, res) => {
     res.render("userProfile", { user });
   } else {
     res.redirect("/");
-    return;
-  }
 });
 
 app.post("/userProfile", async (req, res) => {
@@ -241,7 +240,8 @@ app.post("/search", async (req, res) => {
 });
 
 app.get("/explore", async (req, res) => {
-  res.render("explore");
+  const listings = await jobCollection.find({}).toArray();
+  res.render("explore", { listings });
 });
 
 app.post("/explore", async (req, res) => {
@@ -249,7 +249,12 @@ app.post("/explore", async (req, res) => {
 });
 
 app.get("/savedListings", async (req, res) => {
-  res.render("savedListings");
+  if (!req.session.authenticated) {
+    res.redirect("/login");
+    return;
+  }
+  const listings = await jobCollection.find({}).toArray();
+  res.render("savedListings" , { listings });
 });
 
 app.post("/savedListings", async (req, res) => {
@@ -257,7 +262,12 @@ app.post("/savedListings", async (req, res) => {
 });
 
 app.get("/populatedListings", async (req, res) => {
-  res.render("populatedListings");
+  if (!req.session.authenticated) {
+    res.redirect("/login");
+    return;
+  }
+  const listings = await jobCollection.find({}).toArray();
+  res.render("populatedListings", { listings });
 });
 
 app.post("/populatedListings", async (req, res) => {
@@ -273,6 +283,10 @@ app.post("/filter", async (req, res) => {
 });
 
 app.get("/logout", (req, res) => {
+  if (!req.session.authenticated) {
+    res.redirect("/login");
+    return;
+  }
   req.session.destroy();
   res.redirect("/");
 });
