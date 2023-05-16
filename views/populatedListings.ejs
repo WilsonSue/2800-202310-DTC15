@@ -57,21 +57,6 @@
       .job-listing h3 {
         margin-top: 0;
       }
-
-      /* Filter menu */
-      .filter-menu {
-        display: none;
-        position: absolute;
-        background-color: white;
-        padding: 1rem;
-        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-        z-index: 1;
-      }
-
-      .filter-menu label {
-        display: block;
-        cursor: pointer;
-      }
     </style>
     <script>
       function redirectToFilterPage() {
@@ -92,23 +77,6 @@
       <input type="text" placeholder="Search for job listings..." />
       <button onclick="redirectToPopulatedListingsPage()">Search</button>
       <button onclick="redirectToFilterPage()">Filter</button>
-      <div class="filter-menu">
-        <label
-          ><input type="checkbox" name="filter" value="full-time" />
-          Full-Time</label
-        >
-        <label
-          ><input type="checkbox" name="filter" value="part-time" />
-          Part-Time</label
-        >
-        <label
-          ><input type="checkbox" name="filter" value="remote" /> Remote</label
-        >
-        <label
-          ><input type="checkbox" name="filter" value="internship" />
-          Internship</label
-        >
-      </div>
     </div>
 
      <div class="job-listings">

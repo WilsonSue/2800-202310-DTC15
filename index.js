@@ -253,15 +253,6 @@ app.post("/search", async (req, res) => {
   // placeholder
 });
 
-app.get("/explore", async (req, res) => {
-  const listings = await jobCollection.find({}).toArray();
-  res.render("explore", { listings });
-});
-
-app.post("/explore", async (req, res) => {
-  // placeholder
-});
-
 app.get("/savedListings", async (req, res) => {
   if (!req.session.authenticated) {
     res.redirect("/login");
