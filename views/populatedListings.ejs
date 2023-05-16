@@ -1,122 +1,123 @@
 <%- include("templates/header") %>
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Job Listings</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Job Listings - Explore</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+      }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
+      .header {
+        background-color: rgb(103, 169, 231);
+        padding: 1rem;
+        text-align: center;
+        color: white;
+      }
 
-        h1 {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
+      .search-bar {
+        display: flex;
+        justify-content: center;
+        margin: 1rem;
+      }
 
-        .search {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 2rem;
-        }
+      .search-bar input[type="text"] {
+        width: 60%;
+        padding: 0.5rem;
+      }
 
-        .search input {
-            width: 50%;
-            padding: 0.5rem;
-            font-size: 1rem;
-            border: 1px solid #ccc;
-        }
+      .search-bar button {
+        padding: 0.5rem 1rem;
+        background-color: rgb(103, 169, 231);
+        color: white;
+        border: none;
+        cursor: pointer;
+      }
 
-        .job-listings {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-        }
+      .job-listings {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 1rem;
+      }
 
-        .job-card {
-            width: 30%;
-            background-color: #f8f8f8;
-            border: 1px solid #e6e6e6;
-            border-radius: 4px;
-            padding: 1rem;
-            box-sizing: border-box;
-            margin-bottom: 2rem;
-        }
+      .job-listing {
+        background-color: #f2f2f2;
+        width: 80%;
+        padding: 1rem;
+        margin: 0.5rem;
+        box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12),
+          0px 1px 2px rgba(0, 0, 0, 0.24);
+      }
 
-        .job-card h3 {
-            margin: 0 0 1rem;
-        }
+      .job-listing h3 {
+        margin-top: 0;
+      }
 
-        .job-card p {
-            margin: 0 0 1rem;
-        }
+      /* Filter menu */
+      .filter-menu {
+        display: none;
+        position: absolute;
+        background-color: white;
+        padding: 1rem;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+      }
 
-        @media screen and (max-width: 1024px) {
-            .job-card {
-                width: 48%;
-            }
-        }
-
-        @media screen and (max-width: 768px) {
-            .job-card {
-                width: 100%;
-            }
-        }
+      .filter-menu label {
+        display: block;
+        cursor: pointer;
+      }
     </style>
-</head>
+    <script>
+      function redirectToFilterPage() {
+        window.location.href = "/filter";
+      }
+      function redirectToPopulatedListingsPage() {
+        window.location.href = "/populatedListings";}
+    </script>
 
-<body>
-    <div class="container">
-        <h1>Job Listings</h1>
-        <div class="search">
-            <input type="text" placeholder="Search for jobs...">
-        </div>
-        <div class="job-listings">
-            <!-- Job card -->
-            <div class="job-card">
-                <h3>Software Engineer</h3>
-                <p>Company: Tech Corp</p>
-                <p>Location: New York, NY</p>
-                <p>Posted: 3 days ago</p>
-            </div>
-            <!-- Job card -->
-            <div class="job-card">
-                <h3>Project Manager</h3>
-                <p>Company: Global Solutions</p>
-                <p>Location: San Francisco, CA</p>
-                <p>Posted: 1 week ago</p>
-            </div>
-            <!-- Job card -->
-            <div class="job-card">
-                <h3>Data Analyst</h3>
-                <p>Company: Data Intelligence</p>
-                <p>Location: Boston, MA</p>
-                <p>Posted: 2 days ago</p>
-            </div>
-        </div>
+  </head>
+
+  <body>
+    <div class="header">
+      <h1>Explore Job Listings</h1>
     </div>
-</body>
 
+    <div class="search-bar">
+      <input type="text" placeholder="Search for job listings..." />
+      <button onclick="redirectToPopulatedListingsPage()">Search</button>
+      <button onclick="redirectToFilterPage()">Filter</button>
+      <div class="filter-menu">
+        <label
+          ><input type="checkbox" name="filter" value="full-time" />
+          Full-Time</label
+        >
+        <label
+          ><input type="checkbox" name="filter" value="part-time" />
+          Part-Time</label
+        >
+        <label
+          ><input type="checkbox" name="filter" value="remote" /> Remote</label
+        >
+        <label
+          ><input type="checkbox" name="filter" value="internship" />
+          Internship</label
+        >
+      </div>
+    </div>
+
+     <div class="job-listings">
+
+      <% for(let i=0; i < listings.length; i++) { %>
+          <%- include('templates/joblisting.ejs', {listing: listings[i]}); %>
+      <% } %>
+
+    </div>
+  </body>
 </html>
-
-    <%- include("templates/footer") %>
-<!-- <%- include('templates/header') %>
-<div class="container">
-  <div>Joblistings:</div>
-  <ul>
-    <% for(let i=0; i < listings.length; i++) { %>
-      <%- include('templates/joblisting.ejs', {listing: listings[i]}); %>
-        <% } %>
-  </ul>
-</div>
-<%- include('templates/footer') %> -->
+<%- include("templates/footer") %>
