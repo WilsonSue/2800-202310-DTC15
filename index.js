@@ -60,10 +60,14 @@ app.get("/signup", (req, res) => {
 });
 
 app.post("/submitUser", async (req, res) => {
+  var firstName = req.body.firstName;
+  var lastName = req.body.lastName;
   var username = req.body.username;
   var password = req.body.password;
   var email = req.body.email;
   const schema = Joi.object({
+    firstName: Joi.string().alphanum().max(20).required(),
+    lastName: Joi.string().alphanum().max(20).required(),
     username: Joi.string().alphanum().max(20).required(),
     password: Joi.string().max(20).required(),
     email: Joi.string().email().required(),
@@ -88,6 +92,8 @@ app.post("/submitUser", async (req, res) => {
   }
   var hashedPassword = await bcrypt.hash(password, saltRounds);
   await userCollection.insertOne({
+    firstName: firstName,
+    lastName: lastName,
     username: username,
     password: hashedPassword,
     email: email,
@@ -203,6 +209,8 @@ app.get("/userProfile", async (req, res) => {
 app.post("/userProfile", async (req, res) => {
   if (req.session.authenticated) {
     const email = req.session.email;
+    const firstName = req.body.firstName;
+    const lastName = req.body.lastName;
     const username = req.body.username;
     const newEmail = req.body.email;
     const password = req.body.password;
@@ -210,6 +218,8 @@ app.post("/userProfile", async (req, res) => {
     const personality = req.body.personality;
 
     const updateFields = {
+      firstName: firstName,
+      lastName: lastName,
       username: username,
       email: newEmail,
       skills: skills,
