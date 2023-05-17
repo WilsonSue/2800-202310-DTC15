@@ -1,48 +1,59 @@
-const { PythonShell } = require('python-shell');
+const { spawn } = require('child_process');
+
 const pythonScriptPath = './PersonalitySort.py'; // Update this if necessary
 
-function updateDocumentsWithMbti(collection) {
-  collection.find({}).toArray((err, documents) => {
-    if (err) {
-      console.error('Error retrieving documents from MongoDB:', err);
-      return;
-    }
+async function runPythonScript(jobDescription) {
+  return new Promise((resolve, reject) => {
+    const pythonProcess = spawn('python3', [pythonScriptPath, jobDescription], { stdio: 'pipe' });
 
-    // Iterate over each document
-    documents.forEach((document) => {
-      // Prepare input for Python script
-      const jobDescription = document.JobDescription;
-      const options = {
-        mode: 'text',
-        pythonPath: 'python3', // Update this if necessary
-        pythonOptions: ['-u'], // Enable unbuffered output for Python shell
-        scriptPath: pythonScriptPath,
-        args: [jobDescription],
-      };
+    let output = '';
 
-      // Execute Python script
-      PythonShell.run('PersonalitySort.py', options, (err, results) => {
-        if (err) {
-          console.error('Error executing Python script:', err);
-          return;
-        }
+    pythonProcess.stdout.on('data', (data) => {
+      output += data.toString();
+    });
 
-        const mbti = results[0]; // Get the MBTI value from Python script output
-        // Update the document with the new field
-        collection.updateOne(
-          { _id: document._id },
-          { $set: { mbti: mbti } },
-          (err) => {
-            if (err) {
-              console.error('Error updating document:', err);
-            } else {
-              console.log('Document updated successfully');
-            }
-          }
-        );
-      });
+    pythonProcess.stderr.on('data', (data) => {
+      reject(data.toString());
+    });
+
+    pythonProcess.on('close', (code) => {
+      if (code === 0) {
+        resolve(output.trim());
+      } else {
+        reject(`Python script process exited with code ${code}`);
+      }
     });
   });
+}
+
+async function updateMBTI(collection, jobDescription, document) {
+  try {
+    const scriptResults = await runPythonScript(jobDescription);
+    const mbti = scriptResults; // Get the MBTI value from Python script output
+    // Update the document with the new field
+    console.log('Updating document with MBTI:', mbti);
+    await collection.updateOne(
+      { _id: document._id },
+      { $set: { mbti: mbti } }
+    );
+    console.log('Document updated successfully');
+  } catch (err) {
+    console.error('Error updating document:', err);
+  }
+}
+
+async function updateDocumentsWithMbti(collection) {
+  const documents = await collection.find({}).toArray();
+
+  // Iterate over each document in the collection
+  for (const document of documents) {
+    // Prepare input for Python script
+    const jobDescription = document.JobDescription;
+    // Execute Python script
+    await updateMBTI(collection, jobDescription, document);
+  }
+
+  console.log('All documents updated.');
 }
 
 module.exports = { updateDocumentsWithMbti };
