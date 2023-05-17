@@ -27,6 +27,7 @@
     "mongodb": "^5.4.0",
     "node-cache": "^5.1.2",
     "nodemailer": "^6.9.2",
+    "python-shell": "^5.0.0",
     "uuid": "^9.0.0"
   }
 }
