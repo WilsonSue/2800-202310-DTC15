@@ -1,0 +1,60 @@
+import sys
+
+
+def sort_priority_order(jobs_with_mbti, personality):
+    sorted_list = []
+    mbti_types = {"INFP": [], "ESTJ": [], "INTJ": [], "ENFP": [], "ISFP": [], "ENTJ": [], "ISTP": [], "ENFJ": [],
+                  "ESFP": [], "ISTJ": [], "INFJ": [], "ESTP": [], "ESFJ": [], "ENTP": [], "ISFJ": [], "INTP": []}
+
+    priority_order = {
+        "INTJ": ["INTJ", "INTP", "ENTJ", "ENTP", "INFJ", "INFP", "ENFJ", "ENFP", "ISTJ", "ISFJ", "ESTJ", "ESFJ", "ISTP",
+                 "ISFP", "ESTP", "ESFP"],
+        "INTP": ["INTP", "INTJ", "ENTP", "ENTJ", "INFP", "INFJ", "ENFP", "ENFJ", "ISTP", "ISFP", "ESTP", "ESFP", "ISTJ",
+                 "ISFJ", "ESTJ", "ESFJ"],
+        "ENTJ": ["ENTJ", "INTJ", "ENTP", "INTP", "ENFJ", "INFJ", "ESTJ", "ISTJ", "ESTP", "ISTP", "ESFJ", "ISFJ", "ESFP",
+                 "ISFP", "ENFP", "INFP"],
+        "ENTP": ["ENTP", "INTP", "ENTJ", "INTJ", "ENFP", "INFP", "ENFJ", "INFJ", "ESTP", "ISTP", "ESTJ", "ISTJ", "ESFP",
+                 "ISFP", "ESFJ", "ISFJ"],
+        "INFJ": ["INFJ", "INTJ", "INFP", "INTP", "ENFJ", "ENTJ", "ENFP", "ENTP", "ISFJ", "ISTJ", "ESFJ", "ESTJ", "ISFP",
+                 "ISTP", "ESFP", "ESTP"],
+        "INFP": ["INFP", "INFJ", "INTP", "INTJ", "ENFP", "ENFJ", "ENTP", "ENTJ", "ISFP", "ISFJ", "ISTP", "ISTJ", "ESFP",
+                 "ESFJ", "ESTP", "ESTJ"],
+        "ENFJ": ["ENFJ", "INFJ", "ENFP", "INFP", "ENTJ", "INTJ", "ENTP", "INTP", "ESFJ", "ISFJ", "ESFP", "ISFP", "ESTJ",
+                 "ISTJ", "ESTP", "ISTP"],
+        "ENFP": ["ENFP", "INFP", "ENFJ", "INFJ", "ENTP", "INTP", "ENTJ", "INTJ", "ESFP", "ISFP", "ESFJ", "ISFJ", "ESTP",
+                 "ISTP", "ESTJ", "ISTJ"],
+        "ISTJ": ["ISTJ", "ESTJ", "ISFJ", "ESFJ", "ISTP", "ESTP", "ISFP", "ESFP", "INTJ", "ENTJ", "INFJ", "ENFJ", "INTP",
+                 "ENTP", "INFP", "ENFP"],
+        "ISFJ": ["ISFJ", "ESFJ", "ISTJ", "ESTJ", "ISFP", "ESFP", "ISTP", "ESTP", "INFJ", "ENFJ", "INFP", "ENFP", "INTP",
+                 "ENTP", "INTJ", "ENTJ"],
+        "ESTJ": ["ESTJ", "ISTJ", "ENTJ", "INTJ", "ESTP", "ISTP", "ENFJ", "INFJ", "ESFJ", "ISFJ", "ENTP", "INTP", "ENFP",
+                 "INFP", "ESFP", "ISFP"],
+        "ESFJ": ["ESFJ", "ISFJ", "ESTJ", "ISTJ", "ESFP", "ISFP", "ESTP", "ISTP", "ENFJ", "INFJ", "ENFP", "INFP", "ENTJ",
+                 "INTJ", "ENTP", "INTP"],
+        "ISTP": ["ISTP", "ESTP", "INTP", "ENTP", "ISTJ", "ESTJ", "ISFP", "ESFP", "INTJ", "ENTJ", "INFJ", "ENFJ", "INFP",
+                 "ENFP", "ISFJ", "ESFJ"],
+        "ISFP": ["ISFP", "ESFP", "INFP", "ENFP", "ISFJ", "ESFJ", "ISTP", "ESTP", "INFJ", "ENFJ", "INTJ", "ENTJ", "ISTJ",
+                 "ESTJ", "INTP", "ENTP"],
+        "ESTP": ["ESTP", "ISTP", "ESFP", "ISFP", "ESTJ", "ISTJ", "ENTP", "INTP", "ENFP", "INFP", "ENTJ", "INTJ", "ESFJ",
+                 "ISFJ", "ENFJ", "INFJ"],
+        "ESFP": ["ESFP", "ISFP", "ENFP", "INFP", "ESTP", "ISTP", "ESFJ", "ISFJ", "ESTJ", "ISTJ", "ENFJ", "INFJ", "ENTP",
+                 "INTP", "ENTJ", "INTJ"]
+    }
+    for job in jobs_with_mbti:
+        mbti_types[job["mbti"]].append(job)
+    for mbti in priority_order[personality]:
+        sorted_list.extend(mbti_types[mbti])
+    return sorted_list
+
+
+# Get the job description from the command-line argument
+args = sys.argv[1:]
+
+jobs_with_mbti = args[0]
+personality = args[1]
+
+# Perform the MBTI calculation
+sorted_list = sort_priority_order(jobs_with_mbti, personality)
+
+# Output the MBTI result
+print(sorted_list)
