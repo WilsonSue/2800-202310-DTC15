@@ -1,51 +1,49 @@
 <%- include("templates/header") %>
-<!DOCTYPE html>
-<html lang="en">
+    <!DOCTYPE html>
+    <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Page - Job Search</title>
-    <style>
-        .search-container {
-            text-align: center;
-            color: white;
-        }
-
-        .search-container h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .search-container input[type="text"] {
-            width: 60%;
-            padding: 0.5rem;
-        }
-
-        .search-container button {
-            padding: 0.5rem 1rem;
-            background-color: white;
-            color: rgb(103, 169, 231);
-            border: none;
-            cursor: pointer;
-            margin-left: 0.5rem;
-        }
-    </style>
-    <script>
-        function redirectToPopulatedListingsPage() {
-                window.location.href = "/populatedListings";
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Home Page - Job Search</title>
+        <style>
+            .search-container {
+                text-align: center;
+                color: white;
             }
-    </script>
-</head>
 
-<body>
+            .search-container h1 {
+                font-size: 2.5rem;
+                margin-bottom: 1rem;
+            }
 
-    <div class="search-container">
-        <h1>Search Jobs</h1>
-        <input type="text" placeholder="Search jobs...">
-        <button onclick="redirectToPopulatedListingsPage()">Search</button>
-    </div>
+            .search-container input[type="text"] {
+                width: 60%;
+                padding: 0.5rem;
+            }
 
-</body>
-</html>
+            .search-container button {
+                padding: 0.5rem 1rem;
+                background-color: white;
+                color: rgb(103, 169, 231);
+                border: none;
+                cursor: pointer;
+                margin-left: 0.5rem;
+            }
+        </style>
+    </head>
+
+    <body>
+
+        <div class="search-container">
+            <h1>Search Jobs</h1>
+            <form action="/search" method="GET">
+                <input name="query" type="text" placeholder="Search jobs...">
+                <button type="submit">Search</button>
+            </form>
+        </div>
+
+    </body>
+
+    </html>
     <%- include("templates/footer") %>

@@ -20,11 +20,9 @@ const mongodb_database = process.env.MONGODB_DATABASE;
 const mongodb_session_secret = process.env.MONGODB_SESSION_SECRET;
 const node_session_secret = process.env.NODE_SESSION_SECRET;
 
-var { database } = include("databaseConnection");
+var { database } = include("./databaseConnection");
 const userCollection = database.db(mongodb_database).collection("users");
-const jobCollection = database
-  .db(mongodb_database)
-  .collection("glassdoor_jobs");
+const jobCollection = database.db(mongodb_database).collection("jobs");
 
 app.use(express.urlencoded({ extended: false }));
 
@@ -246,7 +244,64 @@ app.post("/userProfile", async (req, res) => {
 });
 
 app.get("/search", async (req, res) => {
-  res.render("search");
+  let query = (req.query.query || "").trim();
+  let mbti = (req.query.mbti || "").trim();
+  const page = parseInt(req.query.page) || 1;
+  const limit = 10;
+  const skip = (page - 1) * limit;
+
+  // Ensure query is a string
+  if (query && typeof query !== "string") {
+    return res.status(400).send({ error: "Invalid query parameter." });
+  }
+
+  if (!query) {
+    // If there's no query, redirect back to the search page
+    if (!query) {
+      return res.redirect("/searchPage");
+    }
+  }
+
+  // Build MongoDB query
+  let mongoQuery = {
+    $and: [
+      {
+        $or: [
+          { JobTitle: { $regex: query, $options: "i" } },
+          { JobDescription: { $regex: query, $options: "i" } },
+          { CompanyName: { $regex: query, $options: "i" } },
+        ],
+      },
+    ],
+  };
+
+  // If an MBTI filter is provided, add it to the query
+  if (mbti) {
+    mongoQuery.$and.push({ mbti: mbti }); // use "mbti" instead of "MBTI"
+  }
+
+  const totalListings = await jobCollection.countDocuments(mongoQuery);
+  const totalPages = Math.ceil(totalListings / limit);
+
+  // Perform a case-insensitive search in the 'jobs' collection
+  const listings = await jobCollection
+    .find(mongoQuery)
+    .skip(skip)
+    .limit(limit)
+    .toArray();
+
+  res.render("searchResults", {
+    listings,
+    page,
+    totalPages,
+    query,
+    mbti,
+    totalListings,
+  }); // pass the mbti to the view
+});
+
+app.get("/searchPage", (req, res) => {
+  res.render("search"); // assuming the search form is in a view named "search.ejs"
 });
 
 app.post("/search", async (req, res) => {

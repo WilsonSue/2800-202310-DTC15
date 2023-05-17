@@ -1,0 +1,87 @@
+<%- include("templates/header") %>
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Search Results - Job Search</title>
+        <style>
+            .job-listing {
+                border: 1px solid #ddd;
+                padding: 1rem;
+                margin: 1rem 0;
+            }
+
+            .job-listing h2 {
+                margin: 0;
+            }
+
+            .job-listing p {
+                margin: 0.5rem 0;
+            }
+        </style>
+    </head>
+
+    <body>
+
+        <div class="search-results-container">
+            <h1>Search Results</h1>
+            <p>
+                <%= totalListings %> listings found
+            </p>
+
+
+            <!-- Here we add the MBTI filter form -->
+            <form action="/search" method="get">
+                <input type="hidden" name="query" value="<%= query %>">
+                <select name="mbti" onchange="this.form.submit()">
+                    <option value="">Any personality</option>
+                    <option value="INTJ" <%=mbti==='INTJ' ? 'selected' : '' %>>INTJ</option>
+                    <option value="INTP" <%=mbti==='INTP' ? 'selected' : '' %>>INTP</option>
+                    <option value="ENTJ" <%=mbti==='ENTJ' ? 'selected' : '' %>>ENTJ</option>
+                    <option value="ENTP" <%=mbti==='ENTP' ? 'selected' : '' %>>ENTP</option>
+                    <option value="INFJ" <%=mbti==='INFJ' ? 'selected' : '' %>>INFJ</option>
+                    <option value="INFP" <%=mbti==='INFP' ? 'selected' : '' %>>INFP</option>
+                    <option value="ENFJ" <%=mbti==='ENFJ' ? 'selected' : '' %>>ENFJ</option>
+                    <option value="ENFP" <%=mbti==='ENFP' ? 'selected' : '' %>>ENFP</option>
+                    <option value="ISTJ" <%=mbti==='ISTJ' ? 'selected' : '' %>>ISTJ</option>
+                    <option value="ISFJ" <%=mbti==='ISFJ' ? 'selected' : '' %>>ISFJ</option>
+                    <option value="ESTJ" <%=mbti==='ESTJ' ? 'selected' : '' %>>ESTJ</option>
+                    <option value="ESFJ" <%=mbti==='ESFJ' ? 'selected' : '' %>>ESFJ</option>
+                    <option value="ISTP" <%=mbti==='ISTP' ? 'selected' : '' %>>ISTP</option>
+                    <option value="ISFP" <%=mbti==='ISFP' ? 'selected' : '' %>>ISFP</option>
+                    <option value="ESTP" <%=mbti==='ESTP' ? 'selected' : '' %>>ESTP</option>
+                    <option value="ESFP" <%=mbti==='ESFP' ? 'selected' : '' %>>ESFP</option>
+                </select>
+            </form>
+
+            <% if(listings && listings.length> 0) { %>
+                <% listings.forEach(function(job) { %>
+                    <div class="job-listing">
+                        <h2>
+                            <%= job.JobTitle %>
+                        </h2>
+                        <p>
+                            <%= job.JobDescription %>
+                        </p>
+                        <p><strong>Location:</strong>
+                            <%= job.Location %>
+                        </p>
+                    </div>
+                    <% }); %>
+                        <% } else { %>
+                            <p>No jobs found for your search.</p>
+                            <% } %>
+        </div>
+        <% if (page> 1) { %>
+            <a href="/search?page=<%= page - 1 %>">Previous</a>
+            <% } %>
+                <% if (page < totalPages) { %>
+                    <a href="/search?query=<%= query %>&page=<%= page + 1 %>">Next</a>
+                    <% } %>
+
+    </body>
+
+    </html>
+    <%- include("templates/footer") %>
