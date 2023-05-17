@@ -1,6 +1,6 @@
 const { spawn } = require('child_process');
 
-const pythonScriptPath = './PersonalitySort.py'; // Update this if necessary
+const pythonScriptPath = './PersonalityAssign.py'; // Update this if necessary
 
 async function runPythonScript(jobDescription) {
   return new Promise((resolve, reject) => {
