@@ -1,4 +1,4 @@
-function sort_priority_order(jobs_with_mbti, personality) {
+export function sort_priority_order(jobs_with_mbti, personality) {
   const sorted_list = [];
   const mbti_types = {
     "INFP": [], "ESTJ": [], "INTJ": [], "ENFP": [], "ISFP": [], "ENTJ": [], "ISTP": [], "ENFJ": [],
@@ -50,6 +50,3 @@ function sort_priority_order(jobs_with_mbti, personality) {
 
   return sorted_list;
 }
-
-
-module.exports = { sort_priority_order };
