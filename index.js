@@ -10,7 +10,6 @@ const app = express();
 const expireTime = 60 * 60 * 1000;
 const saltRounds = 12;
 const port = process.env.PORT || 4000;
-import { sort_priority_order } from "./sortListings.js";
 
 app.set("view engine", "ejs");
 
