@@ -244,7 +244,7 @@ app.post("/userProfile", async (req, res) => {
 });
 
 app.get("/search", async (req, res) => {
-  let query = (req.query.query || "").trim();
+  let query = req.query.query || "";
   const page = parseInt(req.query.page) || 1;
   const limit = 10;
   const skip = (page - 1) * limit;
@@ -265,13 +265,8 @@ app.get("/search", async (req, res) => {
 
   console.log(`Search query: ${query}`); // Debug log
   if (!query) {
-    // If there's no query, return all job listings
-    const listings = await jobCollection
-      .find({})
-      .skip(skip)
-      .limit(limit)
-      .toArray();
-    res.render("searchResults", { listings, page, totalPages, query });
+    // If there's no query, just render the search page
+    res.render("search");
   } else {
     // Perform a case-insensitive search in the 'jobs' collection
     // This version searches across the 'JobTitle', 'JobDescription', and 'CompanyName' fields
