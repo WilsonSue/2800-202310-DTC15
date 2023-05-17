@@ -44,7 +44,7 @@ app.use(
   })
 );
 
-const resetPasswordRouter = require("./resetPassword.js");
+const resetPasswordRouter = require("./routes/resetPassword.js");
 app.use(resetPasswordRouter);
 
 app.get("/", (req, res) => {
