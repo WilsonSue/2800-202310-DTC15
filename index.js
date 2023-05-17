@@ -244,7 +244,8 @@ app.post("/userProfile", async (req, res) => {
 });
 
 app.get("/search", async (req, res) => {
-  let query = req.query.query || "";
+  let query = (req.query.query || "").trim();
+  let mbti = (req.query.mbti || "").trim();
   const page = parseInt(req.query.page) || 1;
   const limit = 10;
   const skip = (page - 1) * limit;
@@ -254,36 +255,46 @@ app.get("/search", async (req, res) => {
     return res.status(400).send({ error: "Invalid query parameter." });
   }
 
-  const totalListings = await jobCollection.countDocuments({
-    $or: [
-      { JobTitle: { $regex: query, $options: "i" } },
-      { JobDescription: { $regex: query, $options: "i" } },
-      { CompanyName: { $regex: query, $options: "i" } },
-    ],
-  });
-  const totalPages = Math.ceil(totalListings / limit);
-
-  console.log(`Search query: ${query}`); // Debug log
   if (!query) {
-    // If there's no query, just render the search page
-    res.render("search");
-  } else {
-    // Perform a case-insensitive search in the 'jobs' collection
-    // This version searches across the 'JobTitle', 'JobDescription', and 'CompanyName' fields
-    const listings = await jobCollection
-      .find({
+    // If there's no query, redirect back to the search page
+    if (!query) {
+      return res.redirect("/searchPage");
+    }
+  }
+
+  // Build MongoDB query
+  let mongoQuery = {
+    $and: [
+      {
         $or: [
           { JobTitle: { $regex: query, $options: "i" } },
           { JobDescription: { $regex: query, $options: "i" } },
           { CompanyName: { $regex: query, $options: "i" } },
         ],
-      })
-      .skip(skip)
-      .limit(limit)
-      .toArray();
-    console.log(`Found ${listings.length} listings`); // Debug log
-    res.render("searchResults", { listings, page, totalPages, query }); // render a new 'searchResults.ejs' view and pass the listings to it
+      },
+    ],
+  };
+
+  // If an MBTI filter is provided, add it to the query
+  if (mbti) {
+    mongoQuery.$and.push({ mbti: mbti }); // use "mbti" instead of "MBTI"
   }
+
+  const totalListings = await jobCollection.countDocuments(mongoQuery);
+  const totalPages = Math.ceil(totalListings / limit);
+
+  // Perform a case-insensitive search in the 'jobs' collection
+  const listings = await jobCollection
+    .find(mongoQuery)
+    .skip(skip)
+    .limit(limit)
+    .toArray();
+
+  res.render("searchResults", { listings, page, totalPages, query, mbti }); // pass the mbti to the view
+});
+
+app.get("/searchPage", (req, res) => {
+  res.render("search"); // assuming the search form is in a view named "search.ejs"
 });
 
 app.post("/search", async (req, res) => {
