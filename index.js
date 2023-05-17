@@ -20,11 +20,9 @@ const mongodb_database = process.env.MONGODB_DATABASE;
 const mongodb_session_secret = process.env.MONGODB_SESSION_SECRET;
 const node_session_secret = process.env.NODE_SESSION_SECRET;
 
-var { database } = include("databaseConnection");
+var { database } = include("./databaseConnection");
 const userCollection = database.db(mongodb_database).collection("users");
-const jobCollection = database
-  .db(mongodb_database)
-  .collection("glassdoor_jobs");
+const jobCollection = database.db(mongodb_database).collection("jobs");
 
 app.use(express.urlencoded({ extended: false }));
 
@@ -246,7 +244,26 @@ app.post("/userProfile", async (req, res) => {
 });
 
 app.get("/search", async (req, res) => {
-  res.render("search");
+  const query = req.query.query;
+  console.log(`Search query: ${query}`); // Debug log
+  if (!query) {
+    // If there's no query, just render the search page
+    res.render("search");
+  } else {
+    // Perform a case-insensitive search in the 'jobs' collection
+    // This version searches across the 'JobTitle', 'JobDescription', and 'CompanyName' fields
+    const listings = await jobCollection
+      .find({
+        $or: [
+          { JobTitle: { $regex: query, $options: "i" } },
+          { JobDescription: { $regex: query, $options: "i" } },
+          { CompanyName: { $regex: query, $options: "i" } },
+        ],
+      })
+      .toArray();
+    console.log(`Found ${listings.length} listings`); // Debug log
+    res.render("searchResults", { listings }); // render a new 'searchResults.ejs' view and pass the listings to it
+  }
 });
 
 app.post("/search", async (req, res) => {
