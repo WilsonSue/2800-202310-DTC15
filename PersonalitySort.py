@@ -138,11 +138,11 @@ def assign_mbti(job_description):
 #     return sorted_list
 
 
-def main():
-    # for job in (sort_priority_order(loop_through_jobs(), "INFP")):
-    #     print(job)
-    return
+# Get the job description from the command-line argument
+job_description = sys.argv[1]
 
+# Perform the MBTI calculation
+mbti_result = assign_mbti(job_description)
 
-if __name__ == '__main__':
-    main()
+# Output the MBTI result
+print(mbti_result)
