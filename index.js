@@ -291,7 +291,14 @@ app.get("/search", async (req, res) => {
     .limit(limit)
     .toArray();
 
-  res.render("searchResults", { listings, page, totalPages, query, mbti }); // pass the mbti to the view
+  res.render("searchResults", {
+    listings,
+    page,
+    totalPages,
+    query,
+    mbti,
+    totalListings,
+  }); // pass the mbti to the view
 });
 
 app.get("/searchPage", (req, res) => {

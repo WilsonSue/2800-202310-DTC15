@@ -27,6 +27,11 @@
 
         <div class="search-results-container">
             <h1>Search Results</h1>
+            <p>
+                <%= totalListings %> listings found
+            </p>
+
+
             <!-- Here we add the MBTI filter form -->
             <form action="/search" method="get">
                 <input type="hidden" name="query" value="<%= query %>">
