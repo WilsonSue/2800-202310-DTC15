@@ -10,6 +10,7 @@ const app = express();
 const expireTime = 60 * 60 * 1000;
 const saltRounds = 12;
 const port = process.env.PORT || 4000;
+const { updateDocumentsWithMbti } = require("./mbtiAssignment.js");
 
 app.set("view engine", "ejs");
 
@@ -24,7 +25,8 @@ var { database } = include("databaseConnection");
 const userCollection = database.db(mongodb_database).collection("users");
 const jobCollection = database
   .db(mongodb_database)
-  .collection("glassdoor_jobs");
+  .collection("jobs");
+const jobArray = async () => {await jobCollection.find({}).toArray()};
 
 app.use(express.urlencoded({ extended: false }));
 
@@ -54,6 +56,18 @@ app.get("/", (req, res) => {
 });
 
 app.use(express.static(__dirname + "/public"));
+
+app.get('/update-mbti', (req, res) => {
+  // Call your MongoDB function
+  console.log(jobCollection);
+  updateDocumentsWithMbti(jobCollection)
+    .then(() => {
+      res.send('Documents updated with MBTI');
+    })
+    .catch((error) => {
+      res.status(500).send('Error updating documents with MBTI');
+    });
+});
 
 app.get("/signup", (req, res) => {
   res.render("signup");
