@@ -1,4 +1,5 @@
 # import csv
+import sys
 
 
 def assign_mbti(job_description):
