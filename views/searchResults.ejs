@@ -45,6 +45,12 @@
                             <p>No jobs found for your search.</p>
                             <% } %>
         </div>
+        <% if (page> 1) { %>
+            <a href="/search?page=<%= page - 1 %>">Previous</a>
+            <% } %>
+        <% if (page < totalPages) { %>
+            <a href="/search?query=<%= query %>&page=<%= page + 1 %>">Next</a>
+            <% } %>
 
     </body>
 

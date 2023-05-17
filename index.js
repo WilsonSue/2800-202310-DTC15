@@ -244,11 +244,34 @@ app.post("/userProfile", async (req, res) => {
 });
 
 app.get("/search", async (req, res) => {
-  const query = req.query.query;
+  let query = (req.query.query || "").trim();
+  const page = parseInt(req.query.page) || 1;
+  const limit = 10;
+  const skip = (page - 1) * limit;
+
+  // Ensure query is a string
+  if (query && typeof query !== "string") {
+    return res.status(400).send({ error: "Invalid query parameter." });
+  }
+
+  const totalListings = await jobCollection.countDocuments({
+    $or: [
+      { JobTitle: { $regex: query, $options: "i" } },
+      { JobDescription: { $regex: query, $options: "i" } },
+      { CompanyName: { $regex: query, $options: "i" } },
+    ],
+  });
+  const totalPages = Math.ceil(totalListings / limit);
+
   console.log(`Search query: ${query}`); // Debug log
   if (!query) {
-    // If there's no query, just render the search page
-    res.render("search");
+    // If there's no query, return all job listings
+    const listings = await jobCollection
+      .find({})
+      .skip(skip)
+      .limit(limit)
+      .toArray();
+    res.render("searchResults", { listings, page, totalPages, query });
   } else {
     // Perform a case-insensitive search in the 'jobs' collection
     // This version searches across the 'JobTitle', 'JobDescription', and 'CompanyName' fields
@@ -260,9 +283,11 @@ app.get("/search", async (req, res) => {
           { CompanyName: { $regex: query, $options: "i" } },
         ],
       })
+      .skip(skip)
+      .limit(limit)
       .toArray();
     console.log(`Found ${listings.length} listings`); // Debug log
-    res.render("searchResults", { listings }); // render a new 'searchResults.ejs' view and pass the listings to it
+    res.render("searchResults", { listings, page, totalPages, query }); // render a new 'searchResults.ejs' view and pass the listings to it
   }
 });
 
