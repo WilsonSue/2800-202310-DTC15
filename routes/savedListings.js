@@ -2,25 +2,33 @@ const express = require("express");
 const router = express.Router();
 const { database } = require("../databaseConnection");
 require("dotenv").config();
+const { ObjectId } = require("mongodb");
 
 const userCollection = database
   .db(process.env.MONGODB_DATABASE)
   .collection("users");
+const jobCollection = database
+  .db(process.env.MONGODB_DATABASE)
+  .collection("jobs");
 
 // GET request for savedListings
 router.get("/savedListings", async (req, res) => {
   console.log(req.session);
-  console.log("User ID in session:", req.session.userId);
   if (!req.session.authenticated) {
     res.redirect("/login");
     return;
   }
-
   try {
     const user = await userCollection.findOne({ email: req.session.email });
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    }
+    console.log("user:", user);
+    const bookmarkedJobIds = user.bookmarks;
+    const objectIds = bookmarkedJobIds.map((id) => new ObjectId(id));
+    const listings = await jobCollection
+      .find({ _id: { $in: objectIds } })
+      .toArray();
+
+    console.log("bookmarkedJobIds:", bookmarkedJobIds);
+    console.log("listings:", listings);
     res.render("savedListings");
   } catch (error) {
     console.error(error);
