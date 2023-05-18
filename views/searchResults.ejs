@@ -1,182 +1,165 @@
 <%- include("templates/header") %>
-    <!DOCTYPE html>
-    <html lang="en">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Search Results - Job Search</title>
-        <style>
-            .job-listing {
-                border: 1px solid #ddd;
-                padding: 1rem;
-                margin: 1rem 0;
-            }
-
-            .job-listing h2 {
-                margin: 0;
-            }
-
-            .job-listing p {
-                margin: 0.5rem 0;
-            }
-        </style>
+  <div class="search-results-container container">
+      <h1>Search Results</h1>
+      <div class="filter mb-3">
+        <p>
+            <%= totalListings %> listings found
+        </p>
+        <!-- Here we add the MBTI filter form -->
+        <form action="/search" method="get">
+            <input type="hidden" name="query" value="<%= query %>">
+            <select name="mbti" onchange="this.form.submit()">
+                <option value="">Any personality</option>
+                <option value="INTJ" <%=mbti==='INTJ' ? 'selected' : '' %>>INTJ</option>
+                <option value="INTP" <%=mbti==='INTP' ? 'selected' : '' %>>INTP</option>
+                <option value="ENTJ" <%=mbti==='ENTJ' ? 'selected' : '' %>>ENTJ</option>
+                <option value="ENTP" <%=mbti==='ENTP' ? 'selected' : '' %>>ENTP</option>
+                <option value="INFJ" <%=mbti==='INFJ' ? 'selected' : '' %>>INFJ</option>
+                <option value="INFP" <%=mbti==='INFP' ? 'selected' : '' %>>INFP</option>
+                <option value="ENFJ" <%=mbti==='ENFJ' ? 'selected' : '' %>>ENFJ</option>
+                <option value="ENFP" <%=mbti==='ENFP' ? 'selected' : '' %>>ENFP</option>
+                <option value="ISTJ" <%=mbti==='ISTJ' ? 'selected' : '' %>>ISTJ</option>
+                <option value="ISFJ" <%=mbti==='ISFJ' ? 'selected' : '' %>>ISFJ</option>
+                <option value="ESTJ" <%=mbti==='ESTJ' ? 'selected' : '' %>>ESTJ</option>
+                <option value="ESFJ" <%=mbti==='ESFJ' ? 'selected' : '' %>>ESFJ</option>
+                <option value="ISTP" <%=mbti==='ISTP' ? 'selected' : '' %>>ISTP</option>
+                <option value="ISFP" <%=mbti==='ISFP' ? 'selected' : '' %>>ISFP</option>
+                <option value="ESTP" <%=mbti==='ESTP' ? 'selected' : '' %>>ESTP</option>
+                <option value="ESFP" <%=mbti==='ESFP' ? 'selected' : '' %>>ESFP</option>
+            </select>
+        </form>
         
-    </head>
+        <!-- location filter -->
+        <form action="/search" method="get">
+          <input type="hidden" name="query" value="<%= query %>">
+          <select name="location" onchange="this.form.submit()">
+            <option value="">Anywhere</option>
+            <option value="BC" <%=location==='BC' ? 'selected' : '' %>>British Columbia</option>
+            <option value="AB" <%=location==='AB' ? 'selected' : '' %>>Alberta</option>
+            <option value="SK" <%=location==='SK' ? 'selected' : '' %>>Saskatchewan</option>
+            <option value="MB" <%=location==='MB' ? 'selected' : '' %>>Manitoba</option>
+            <option value="ON" <%=location==='ON' ? 'selected' : '' %>>Ontario</option>
+            <option value="QC" <%=location==='QC' ? 'selected' : '' %>>Quebec</option>
+            <option value="NL" <%=location==='NL' ? 'selected' : '' %>>Newfoundland and Labrador</option>
+            <option value="NB" <%=location==='NB' ? 'selected' : '' %>>New Brunswick</option>
+            <option value="PE" <%=location==='PE' ? 'selected' : '' %>>Prince Edward Island</option>
+            <option value="NS" <%=location==='NS' ? 'selected' : '' %>>Nova Scotia</option>
+          </select>
+        </form>
+        <!-- min/max rating -->
+        <form action="/search" method="get">
+          <input type="hidden" name="query" value="<%= query %>">
+          <select name="minRating" onchange="this.form.submit()">
+            <option value="">Min Rating</option>
+            <option value='0' <%=minRating===0 ? 'selected' : '' %>>0</option>
+            <option value='1' <%=minRating===1 ? 'selected' : '' %>>1</option>
+            <option value='2' <%=minRating===2 ? 'selected' : '' %>>2</option>
+            <option value='3' <%=minRating===3 ? 'selected' : '' %>>3</option>
+            <option value='4' <%=minRating===4 ? 'selected' : '' %>>4</option>
+            <option value='5' <%=minRating===5 ? 'selected' : '' %>>5</option>
+          </select>
+        </form>
+        <form action="/search" method="get">
+          <input type="hidden" name="query" value="<%= query %>">
+          <select name="maxRating" onchange="this.form.submit()">
+            <option value="">Max Rating</option>
+            <option value='0' <%=maxRating===0 ? 'selected' : '' %>>0</option>
+            <option value='1' <%=maxRating===1 ? 'selected' : '' %>>1</option>
+            <option value='2' <%=maxRating===2 ? 'selected' : '' %>>2</option>
+            <option value='3' <%=maxRating===3 ? 'selected' : '' %>>3</option>
+            <option value='4' <%=maxRating===4 ? 'selected' : '' %>>4</option>
+            <option value='5' <%=maxRating===5 ? 'selected' : '' %>>5</option>
+          </select>
+        </form>
+        <!-- job type -->
+        <form action="/search" method="get">
+          <input type="hidden" name="query" value="<%= query %>">
+          <select name="jobType" onchange="this.form.submit()">
+            <option value="">Job Type</option>
+            <option value='part' <%=jobType==='part' ? 'selected' : '' %>>Part-Time</option>
+            <option value='full' <%=jobType==='full' ? 'selected' : '' %>>Full-Time</option>
+          </select>
+        </form>
+      </div>
 
-    <body>
+      <!-- minSalary -->
+      <!-- <form action="/search" method="get">
+        <input type="hidden" name="query" value="<%= query %>">
+        <select name="maxRating" onchange="this.form.submit()">
+          <option value="">Min Salary</option>
+          <option value='40,000' <%=minSalary===0 ? 'selected' : '' %>>40,000</option>
+          <option value='50,000' <%=minSalary===1 ? 'selected' : '' %>>50,000</option>
+          <option value='60,000' <%=minSalary===2 ? 'selected' : '' %>>60,000</option>
+          <option value='70,000' <%=minSalary===3 ? 'selected' : '' %>>70,000</option>
+          <option value='80,000' <%=minSalary===4 ? 'selected' : '' %>>80,000</option>
+          <option value='90,000' <%=minSalary===5 ? 'selected' : '' %>>90,000</option>
+        </select>
+      </form>
 
-        <div class="search-results-container">
-            <h1>Search Results</h1>
-           
-            <p>
-                <%= totalListings %> listings found
-            </p>
-       
-
-
-            <!-- Here we add the MBTI filter form -->
-            <form action="/search" method="get">
-                <input type="hidden" name="query" value="<%= query %>">
-                <select name="mbti" onchange="this.form.submit()">
-                    <option value="">Any personality</option>
-                    <option value="INTJ" <%=mbti==='INTJ' ? 'selected' : '' %>>INTJ</option>
-                    <option value="INTP" <%=mbti==='INTP' ? 'selected' : '' %>>INTP</option>
-                    <option value="ENTJ" <%=mbti==='ENTJ' ? 'selected' : '' %>>ENTJ</option>
-                    <option value="ENTP" <%=mbti==='ENTP' ? 'selected' : '' %>>ENTP</option>
-                    <option value="INFJ" <%=mbti==='INFJ' ? 'selected' : '' %>>INFJ</option>
-                    <option value="INFP" <%=mbti==='INFP' ? 'selected' : '' %>>INFP</option>
-                    <option value="ENFJ" <%=mbti==='ENFJ' ? 'selected' : '' %>>ENFJ</option>
-                    <option value="ENFP" <%=mbti==='ENFP' ? 'selected' : '' %>>ENFP</option>
-                    <option value="ISTJ" <%=mbti==='ISTJ' ? 'selected' : '' %>>ISTJ</option>
-                    <option value="ISFJ" <%=mbti==='ISFJ' ? 'selected' : '' %>>ISFJ</option>
-                    <option value="ESTJ" <%=mbti==='ESTJ' ? 'selected' : '' %>>ESTJ</option>
-                    <option value="ESFJ" <%=mbti==='ESFJ' ? 'selected' : '' %>>ESFJ</option>
-                    <option value="ISTP" <%=mbti==='ISTP' ? 'selected' : '' %>>ISTP</option>
-                    <option value="ISFP" <%=mbti==='ISFP' ? 'selected' : '' %>>ISFP</option>
-                    <option value="ESTP" <%=mbti==='ESTP' ? 'selected' : '' %>>ESTP</option>
-                    <option value="ESFP" <%=mbti==='ESFP' ? 'selected' : '' %>>ESFP</option>
-                </select>
+      <form action="/search" method="get">
+        <input type="hidden" name="query" value="<%= query %>">
+        <select name="maxRating" onchange="this.form.submit()">
+          <option value="">Max Salary</option>
+          <option value='80,000' <%=minSalary===0 ? 'selected' : '' %>>80,000</option>
+          <option value='90,000' <%=minSalary===1 ? 'selected' : '' %>>90,000</option>
+          <option value='100,000' <%=minSalary===2 ? 'selected' : '' %>>100,000</option>
+          <option value='150,000' <%=minSalary===3 ? 'selected' : '' %>>150,000</option>
+          <option value='200,000' <%=minSalary===4 ? 'selected' : '' %>>200,000</option>
+          <option value='250,000' <%=minSalary===5 ? 'selected' : '' %>>250,000</option>
+        </select>
+      </form> -->
+<% if (listings && listings.length > 0) { %>
+  <% listings.forEach(function(job) { %>
+    <div class="card mb-3">
+      <div class="card-body">
+        <div class="row">
+          <h6 class="col py-1 mb-0 align-items-center"><%= job.JobTitle %></h6>
+          <div class="col-2">
+            <form method="POST" action="/savedListings">
+              <button
+                type="submit"
+                name="save-btn"
+                value="<%= job._id %>"
+                class="btn btn-light btn-outline-primary btn-sm "
+              >
+                <i class="fa fa-bookmark"></i>
+              </button>
             </form>
-            
-            <!-- location filter -->
-            <form action="/search" method="get">
-              <input type="hidden" name="query" value="<%= query %>">
-              <select name="location" onchange="this.form.submit()">
-                <option value="">Anywhere</option>
-                <option value="BC" <%=location==='BC' ? 'selected' : '' %>>British Columbia</option>
-                <option value="AB" <%=location==='AB' ? 'selected' : '' %>>Alberta</option>
-                <option value="SK" <%=location==='SK' ? 'selected' : '' %>>Saskatchewan</option>
-                <option value="MB" <%=location==='MB' ? 'selected' : '' %>>Manitoba</option>
-                <option value="ON" <%=location==='ON' ? 'selected' : '' %>>Ontario</option>
-                <option value="QC" <%=location==='QC' ? 'selected' : '' %>>Quebec</option>
-                <option value="NL" <%=location==='NL' ? 'selected' : '' %>>Newfoundland and Labrador</option>
-                <option value="NB" <%=location==='NB' ? 'selected' : '' %>>New Brunswick</option>
-                <option value="PE" <%=location==='PE' ? 'selected' : '' %>>Prince Edward Island</option>
-                <option value="NS" <%=location==='NS' ? 'selected' : '' %>>Nova Scotia</option>
-              </select>
-            </form>
-
-            <!-- min/max rating -->
-            <form action="/search" method="get">
-              <input type="hidden" name="query" value="<%= query %>">
-              <select name="minRating" onchange="this.form.submit()">
-                <option value="">Min Rating</option>
-                <option value='0' <%=minRating===0 ? 'selected' : '' %>>0</option>
-                <option value='1' <%=minRating===1 ? 'selected' : '' %>>1</option>
-                <option value='2' <%=minRating===2 ? 'selected' : '' %>>2</option>
-                <option value='3' <%=minRating===3 ? 'selected' : '' %>>3</option>
-                <option value='4' <%=minRating===4 ? 'selected' : '' %>>4</option>
-                <option value='5' <%=minRating===5 ? 'selected' : '' %>>5</option>
-              </select>
-            </form>
-
-            <form action="/search" method="get">
-              <input type="hidden" name="query" value="<%= query %>">
-              <select name="maxRating" onchange="this.form.submit()">
-                <option value="">Max Rating</option>
-                <option value='0' <%=maxRating===0 ? 'selected' : '' %>>0</option>
-                <option value='1' <%=maxRating===1 ? 'selected' : '' %>>1</option>
-                <option value='2' <%=maxRating===2 ? 'selected' : '' %>>2</option>
-                <option value='3' <%=maxRating===3 ? 'selected' : '' %>>3</option>
-                <option value='4' <%=maxRating===4 ? 'selected' : '' %>>4</option>
-                <option value='5' <%=maxRating===5 ? 'selected' : '' %>>5</option>
-              </select>
-            </form>
-
-            <!-- job type -->
-            <form action="/search" method="get">
-              <input type="hidden" name="query" value="<%= query %>">
-              <select name="jobType" onchange="this.form.submit()">
-                <option value="">Job Type</option>
-                <option value='part' <%=jobType==='part' ? 'selected' : '' %>>Part-Time</option>
-                <option value='full' <%=jobType==='full' ? 'selected' : '' %>>Full-Time</option>
-              </select>
-            </form>
-
-            <!-- minSalary -->
-            <!-- <form action="/search" method="get">
-              <input type="hidden" name="query" value="<%= query %>">
-              <select name="maxRating" onchange="this.form.submit()">
-                <option value="">Min Salary</option>
-                <option value='40,000' <%=minSalary===0 ? 'selected' : '' %>>40,000</option>
-                <option value='50,000' <%=minSalary===1 ? 'selected' : '' %>>50,000</option>
-                <option value='60,000' <%=minSalary===2 ? 'selected' : '' %>>60,000</option>
-                <option value='70,000' <%=minSalary===3 ? 'selected' : '' %>>70,000</option>
-                <option value='80,000' <%=minSalary===4 ? 'selected' : '' %>>80,000</option>
-                <option value='90,000' <%=minSalary===5 ? 'selected' : '' %>>90,000</option>
-              </select>
-            </form>
-
-            <form action="/search" method="get">
-              <input type="hidden" name="query" value="<%= query %>">
-              <select name="maxRating" onchange="this.form.submit()">
-                <option value="">Max Salary</option>
-                <option value='80,000' <%=minSalary===0 ? 'selected' : '' %>>80,000</option>
-                <option value='90,000' <%=minSalary===1 ? 'selected' : '' %>>90,000</option>
-                <option value='100,000' <%=minSalary===2 ? 'selected' : '' %>>100,000</option>
-                <option value='150,000' <%=minSalary===3 ? 'selected' : '' %>>150,000</option>
-                <option value='200,000' <%=minSalary===4 ? 'selected' : '' %>>200,000</option>
-                <option value='250,000' <%=minSalary===5 ? 'selected' : '' %>>250,000</option>
-              </select>
-            </form> -->
-
-            <% if(listings && listings.length> 0) { %>
-                <% listings.forEach(function(job) { %>
-                    <div class="job-listing">
-                        <form method="POST" action="/savedListings">
-                          <button
-                            type="submit"
-                            name="save-btn"
-                            value="<%= job._id %>"
-                            class="btn rounded-pill btn-light btn-outline-primary"
-                          >
-                            <i class="fa fa-bookmark"></i>
-                          </button>
-                      </form>
-                        <h2>
-                            <%= job.JobTitle %>
-                        </h2>
-                        <p>
-                            <%= job.JobDescription %>
-                        </p>
-                        <p><strong>Location:</strong>
-                            <%= job.Location %>
-                        </p>
-                    </div>
-                    <% }); %>
-                        <% } else { %>
-                            <p>No jobs found for your search.</p>
-                            <% } %>
+          </div>
         </div>
-        <% if (page> 1) { %>
-            <a href="/search?page=<%= page - 1 %>">Previous</a>
-            <% } %>
-                <% if (page < totalPages) { %>
-                    <a href="/search?query=<%= query %>&page=<%= page + 1 %>">Next</a>
-                    <% } %>
+        <p class="mb-0"><i class="fas fa-building fa-sm"></i> <small><%= job.CompanyName %></small></p>
+        <p class="mb-0"><i class="fa fa-map-marker-alt fa-sm"></i> <small><%= job.Location %></small></p>
+        <div class="row d-flex flex-row">
+          <% if (job.JobType !== "None Given") { %>
+            <p class="mb-0 py-0"><span class="badge text-bg-light"><%= job.JobType %></span></p>
+          <% } %>
+          <% if (job.SalaryEstimate !== "None Given") { %>
+            <p class="mb-0 py-0 "><span class="badge text-bg-light"><%= job.SalaryEstimate %></span></p>
+          <% } %>
+        </div>
+
+          <p class="mb-2"><small><%= job.Summary %></small></p>
+
+        <a href="<%= job.Link %>" class="btn btn-primary btn-sm">Read more</a>
+      </div>
+    </div>
+  <% }) %>
+    
+
+
+          
+        
+                  <% } else { %>
+                      <p>No jobs found for your search.</p>
+                      <% } %>
+  </div>
+  <% if (page> 1) { %>
+      <a href="/search?page=<%= page - 1 %>">Previous</a>
+      <% } %>
+          <% if (page < totalPages) { %>
+              <a href="/search?query=<%= query %>&page=<%= page + 1 %>">Next</a>
+              <% } %>
      
 
-    </body>
-    </html>
     <%- include("templates/footer") %>
