@@ -64,8 +64,6 @@ app.post("/submitUser", async (req, res) => {
   var password = req.body.password;
   var email = req.body.email;
   const schema = Joi.object({
-    firstName: Joi.string().alphanum().max(20).required(),
-    lastName: Joi.string().alphanum().max(20).required(),
     username: Joi.string().alphanum().max(20).required(),
     password: Joi.string().max(20).required(),
     email: Joi.string().email().required(),
