@@ -42,8 +42,8 @@
 </div>
 <script>
   function unbookmarkListing(listingId) {
-    console.log("unbookmarking listing " + listingId);
     $("#card-" + listingId).remove();
+    $.post("/savedListings", { "save-btn": listingId });
   }
 </script>
 

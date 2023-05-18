@@ -19,6 +19,9 @@ router.get("/savedListings", async (req, res) => {
   }
   try {
     const user = await userCollection.findOne({ email: req.session.email });
+    if (!user.bookmarks) {
+      user.bookmarks = [];
+    }
     const bookmarkedJobIds = user.bookmarks;
     const objectIds = bookmarkedJobIds.map((id) => new ObjectId(id));
     const listings = await jobCollection
@@ -45,6 +48,12 @@ router.post("/savedListings", async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
+    console.log("req.session.email:", req.session.email);
+    console.log("user:", user);
+    if (!user.bookmarks) {
+      user.bookmarks = [];
+    }
+
     const jobId = req.body["save-btn"];
     const index = user.bookmarks.indexOf(jobId);
 
@@ -58,8 +67,9 @@ router.post("/savedListings", async (req, res) => {
 
     await userCollection.updateOne(
       { email: req.session.email },
-      { $set: user }
+      { $set: { bookmarks: user.bookmarks } }
     );
+
     console.log("updated bookmarks:", user.bookmarks);
   } catch (error) {
     console.error(error);
