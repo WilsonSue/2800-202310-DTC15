@@ -10,7 +10,7 @@ const app = express();
 const expireTime = 60 * 60 * 1000;
 const saltRounds = 12;
 const port = process.env.PORT || 4000;
-const sort_priority_order = require('./sortListings.js');
+const sort_priority_order = require("./sortListings.js");
 
 app.set("view engine", "ejs");
 
@@ -288,7 +288,7 @@ app.get("/search", async (req, res) => {
   if (mbti) {
     mongoQuery.$and.push({ mbti: mbti }); // use "mbti" instead of "MBTI"
   }
-  // Filter by rating (number 0-5) 
+  // Filter by rating (number 0-5)
   if (minRating && maxRating) {
     mongoQuery.$and.push({ Rating: { $gte: minRating, $lte: maxRating } });
   }
@@ -302,7 +302,6 @@ app.get("/search", async (req, res) => {
   }
   // salary(max, min)
 
-
   const totalListings = await jobCollection.countDocuments(mongoQuery);
   const totalPages = Math.ceil(totalListings / limit);
 
@@ -312,6 +311,9 @@ app.get("/search", async (req, res) => {
     .skip(skip)
     .limit(limit)
     .toArray();
+
+  req.session.lastSearchResults = listings.slice(0, 3); // only save first 3 listings
+  req.session.lastSearchTerm = query; // Save the last search term into the session
 
   res.render("searchResults", {
     listings,
@@ -328,7 +330,9 @@ app.get("/search", async (req, res) => {
 });
 
 app.get("/searchPage", (req, res) => {
-  res.render("search"); // assuming the search form is in a view named "search.ejs"
+  const lastSearchResults = req.session.lastSearchResults || [];
+  const lastSearchTerm = req.session.lastSearchTerm || ""; // Retrieve the last search term from the session
+  res.render("search", { lastSearchResults, lastSearchTerm }); // pass the lastSearchResults and lastSearchTerm to the view
 });
 
 app.post("/search", async (req, res) => {
