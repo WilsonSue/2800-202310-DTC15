@@ -102,7 +102,7 @@ app.post("/submitUser", async (req, res) => {
   req.session.username = username;
   req.session.email = email; // Add this line to store the email in the session
   console.log("Inserted user");
-  res.redirect("/userProfile"); // Change this line to redirect to userProfile instead of /members
+  res.redirect("/search"); // Change this line to redirect to userProfile instead of /members
 });
 
 app.get("/signupSubmit", (req, res) => {
@@ -256,9 +256,14 @@ app.get("/search", async (req, res) => {
   }
 
   if (!query) {
-    // If there's no query, redirect back to the search page
-    if (!query) {
-      return res.redirect("/searchPage");
+    return res.redirect("/searchPage");
+  }
+
+  // If user is authenticated and has no mbti filter selected, use their personality as filter
+  if (!mbti && req.session.authenticated) {
+    const user = await userCollection.findOne({ email: req.session.email });
+    if (user && user.personality) {
+      mbti = user.personality;
     }
   }
 
