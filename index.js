@@ -10,6 +10,7 @@ const app = express();
 const expireTime = 60 * 60 * 1000;
 const saltRounds = 12;
 const port = process.env.PORT || 4000;
+const sort_priority_order = require('./sortListings.js');
 
 app.set("view engine", "ejs");
 
@@ -244,6 +245,7 @@ app.post("/userProfile", async (req, res) => {
 app.get("/search", async (req, res) => {
   let query = (req.query.query || "").trim();
   let mbti = (req.query.mbti || "").trim();
+  let location = (req.query.location || "").trim();
   const page = parseInt(req.query.page) || 1;
   const limit = 10;
   const skip = (page - 1) * limit;
@@ -282,6 +284,15 @@ app.get("/search", async (req, res) => {
   if (mbti) {
     mongoQuery.$and.push({ mbti: mbti }); // use "mbti" instead of "MBTI"
   }
+
+  // Filter by rating (number 0-5) 
+
+  // location (dropdown provinces)
+
+  // job type
+
+  // salary(max, min)
+
 
   const totalListings = await jobCollection.countDocuments(mongoQuery);
   const totalPages = Math.ceil(totalListings / limit);
