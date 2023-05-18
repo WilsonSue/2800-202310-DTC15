@@ -22,7 +22,7 @@ const mongodb_database = process.env.MONGODB_DATABASE;
 const mongodb_session_secret = process.env.MONGODB_SESSION_SECRET;
 const node_session_secret = process.env.NODE_SESSION_SECRET;
 
-var { database } = include("./databaseConnection");
+const { database } = require("./databaseConnection");
 const userCollection = database.db(mongodb_database).collection("users");
 const jobCollection = database.db(mongodb_database).collection("jobs");
 const fakeJobsCollection = database
@@ -48,8 +48,11 @@ app.use(
   })
 );
 
-const resetPasswordRouter = require("./resetPassword.js");
+const resetPasswordRouter = require("./routes/resetPassword.js");
+const savedListingsRouter = require("./routes/savedListings.js");
+
 app.use(resetPasswordRouter);
+app.use(savedListingsRouter);
 
 app.get("/", (req, res) => {
   const authenticated = req.session.authenticated;
@@ -189,6 +192,7 @@ app.post("/loginSubmit", async (req, res) => {
     } else {
       if (await bcrypt.compare(password, result[0].password)) {
         req.session.authenticated = true;
+        req.session.userId = result._id;
         req.session.username = result[0].username;
         req.session.email = result[0].email;
         req.session.cookie.maxAge = expireTime;
@@ -379,19 +383,6 @@ app.get("/searchPage", (req, res) => {
 });
 
 app.post("/search", async (req, res) => {
-  // placeholder
-});
-
-app.get("/savedListings", async (req, res) => {
-  if (!req.session.authenticated) {
-    res.redirect("/login");
-    return;
-  }
-  // const listings = await jobCollection.find({}).toArray();
-  res.render("savedListings");
-});
-
-app.post("/savedListings", async (req, res) => {
   // placeholder
 });
 

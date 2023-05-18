@@ -1,69 +1,50 @@
 <%- include("templates/header") %>
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Job Listings</title>
-  <style>
-    .job-listings {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-    }
-
-    .job-card {
-      width: 30%;
-      background-color: #f8f8f8;
-      border: 1px solid #e6e6e6;
-      border-radius: 4px;
-      padding: 1rem;
-      box-sizing: border-box;
-      margin-bottom: 2rem;
-    }
-
-    .job-card h3 {
-      margin: 0 0 1rem;
-    }
-
-    .job-card p {
-      margin: 0 0 1rem;
-    }
-
-    @media screen and (max-width: 1024px) {
-      .job-card {
-        width: 48%;
-      }
-    }
-
-    @media screen and (max-width: 768px) {
-      .job-card {
-        width: 100%;
-      }
-    }
-  </style>
-</head>
-<div style="text-align: center;">
-<h1>Saved Listings</h1>
-<hr>
-  <div class="job-card">
-    <h3>Software Engineer</h3>
-    <p>Company: Tech Corp</p>
-    <p>Location: New York, NY</p>
-    <p>Posted: 3 days ago</p>
+<div style="text-align: center">
+  <h3>Saved Listings</h3>
+</div>
+<div class="container" id="saved-listing">
+  <% listings.forEach((listing) => { if
+  (user.bookmarks.includes(listing._id.toString())) { %>
+  <div class="card" id="card-<%= listing._id %>">
+    <div class="card-header row">
+      <h5 class="card-title col"><%= listing.JobTitle %></h5>
+      <form method="POST" action="/savedListings" class="col-2">
+        <button
+          type="submit"
+          name="save-btn"
+          value="<%= listing._id %>"
+          class="btn rounded-pill btn-light btn-outline-primary active"
+          onclick="unbookmarkListing('<%= listing._id %>');"
+        >
+          <i class="fa fa-bookmark"></i>
+        </button>
+      </form>
+    </div>
+    <div class="card-body">
+      <div class="card-body">
+        <p class="card-text">
+          <i class="fas fa-building"></i> <%= listing.CompanyName %>
+        </p>
+        <p class="card-text">
+          <i class="fas fa-map-marker-alt"></i> Location: <%= listing.Location
+          %>
+        </p>
+        <p class="card-text">
+          <i class="fas fa-star"></i> Rating: <%= listing.Rating %>
+        </p>
+        <p class="card-text"><%= listing.SalaryEstimate %></p>
+        <p class="card-text"><%= listing.Summary %></p>
+      </div>
+    </div>
   </div>
-  <div class="job-card">
-    <h3>Software Engineer</h3>
-    <p>Company: Tech Corp</p>
-    <p>Location: New York, NY</p>
-    <p>Posted: 3 days ago</p>
-  </div>
-  <div class="job-card">
-    <h3>Software Engineer</h3>
-    <p>Company: Tech Corp</p>
-    <p>Location: New York, NY</p>
-    <p>Posted: 3 days ago</p>
-  </div>
-  </div>
-    <%- include("templates/footer") %>
+  <% } }) %>
+</div>
+<script>
+  function unbookmarkListing(listingId) {
+    $("#card-" + listingId).remove();
+    $.post("/savedListings", { "save-btn": listingId });
+  }
+</script>
+
+<%- include("templates/footer") %>

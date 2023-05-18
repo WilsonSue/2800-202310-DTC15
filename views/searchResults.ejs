@@ -21,15 +21,18 @@
                 margin: 0.5rem 0;
             }
         </style>
+        
     </head>
 
     <body>
 
         <div class="search-results-container">
             <h1>Search Results</h1>
+           
             <p>
                 <%= totalListings %> listings found
             </p>
+       
 
 
             <!-- Here we add the MBTI filter form -->
@@ -141,6 +144,16 @@
             <% if(listings && listings.length> 0) { %>
                 <% listings.forEach(function(job) { %>
                     <div class="job-listing">
+                        <form method="POST" action="/savedListings">
+                          <button
+                            type="submit"
+                            name="save-btn"
+                            value="<%= job._id %>"
+                            class="btn rounded-pill btn-light btn-outline-primary"
+                          >
+                            <i class="fa fa-bookmark"></i>
+                          </button>
+                      </form>
                         <h2>
                             <%= job.JobTitle %>
                         </h2>
@@ -162,8 +175,8 @@
                 <% if (page < totalPages) { %>
                     <a href="/search?query=<%= query %>&page=<%= page + 1 %>">Next</a>
                     <% } %>
+     
 
     </body>
-
     </html>
     <%- include("templates/footer") %>
