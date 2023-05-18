@@ -29,7 +29,7 @@ const fakeJobsCollection = database
   .db(mongodb_database)
   .collection("fake_jobs");
 
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 var mongoStore = MongoStore.create({
@@ -59,15 +59,15 @@ app.get("/", (req, res) => {
 
 app.use(express.static(__dirname + "/public"));
 
-app.get('/update-mbti', (req, res) => {
+app.get("/update-mbti", (req, res) => {
   // Call your MongoDB function
   console.log(jobCollection);
   updateDocumentsWithMbti(jobCollection)
     .then(() => {
-      res.send('Documents updated with MBTI');
+      res.send("Documents updated with MBTI");
     })
     .catch((error) => {
-      res.status(500).send('Error updating documents with MBTI');
+      res.status(500).send("Error updating documents with MBTI");
     });
 });
 
@@ -307,7 +307,6 @@ app.get("/search", async (req, res) => {
     ],
   };
 
-
   // if (skills) {
   //   const regexPattern = skills.split(" ").join("|");
   //   mongoQuery.$and.push({ Skills: { $regex: regexPattern, $options: "i" } });
@@ -351,7 +350,7 @@ app.get("/search", async (req, res) => {
   req.session.lastSearchTerm = query; // Save the last search term into the session
 
   if (mbti) {
-  listings = sort_priority_order(listings, mbti);
+    listings = sort_priority_order(listings, mbti);
   }
 
   res.render("searchResults", {
