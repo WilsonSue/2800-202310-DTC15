@@ -12,6 +12,8 @@ const saltRounds = 12;
 const port = process.env.PORT || 4000;
 const sort_priority_order = require("./sortListings.js");
 const { updateDocumentsWithMbti } = require("./mbtiAssignment.js");
+const resetPasswordRouter = require("./routes/resetPassword.js");
+const savedListingsRouter = require("./routes/savedListings.js");
 
 app.set("view engine", "ejs");
 
@@ -29,15 +31,15 @@ const fakeJobsCollection = database
   .db(mongodb_database)
   .collection("fake_jobs");
 
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-
 var mongoStore = MongoStore.create({
   mongoUrl: `mongodb+srv://${atlas_db_user}:${atlas_db_password}@${mongodb_host}/${mongodb_database}?retryWrites=true&w=majority`,
   crypto: {
     secret: mongodb_session_secret,
   },
 });
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 app.use(
   session({
@@ -47,9 +49,6 @@ app.use(
     resave: true,
   })
 );
-
-const resetPasswordRouter = require("./routes/resetPassword.js");
-const savedListingsRouter = require("./routes/savedListings.js");
 
 app.use(resetPasswordRouter);
 app.use(savedListingsRouter);
