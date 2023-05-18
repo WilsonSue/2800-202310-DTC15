@@ -11,6 +11,7 @@ const expireTime = 60 * 60 * 1000;
 const saltRounds = 12;
 const port = process.env.PORT || 4000;
 const sort_priority_order = require("./sortListings.js");
+const { updateDocumentsWithMbti } = require("./mbtiAssignment.js");
 
 app.set("view engine", "ejs");
 
@@ -57,6 +58,18 @@ app.get("/", (req, res) => {
 });
 
 app.use(express.static(__dirname + "/public"));
+
+app.get('/update-mbti', (req, res) => {
+  // Call your MongoDB function
+  console.log(jobCollection);
+  updateDocumentsWithMbti(jobCollection)
+    .then(() => {
+      res.send('Documents updated with MBTI');
+    })
+    .catch((error) => {
+      res.status(500).send('Error updating documents with MBTI');
+    });
+});
 
 app.get("/signup", (req, res) => {
   res.render("signup");
