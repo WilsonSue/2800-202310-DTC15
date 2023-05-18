@@ -288,7 +288,9 @@ app.get("/search", async (req, res) => {
   // Filter by rating (number 0-5) 
 
   // location (dropdown provinces)
-
+  if (location) {
+    mongoQuery.$and.push({ Location: { $regex: location } });
+  }
   // job type
 
   // salary(max, min)
@@ -310,6 +312,7 @@ app.get("/search", async (req, res) => {
     totalPages,
     query,
     mbti,
+    location,
     totalListings,
   }); // pass the mbti to the view
 });

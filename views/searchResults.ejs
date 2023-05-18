@@ -55,6 +55,24 @@
                     <option value="ESFP" <%=mbti==='ESFP' ? 'selected' : '' %>>ESFP</option>
                 </select>
             </form>
+            
+            <!-- location filter -->
+            <form action="/search" method="get">
+              <input type="hidden" name="query" value="<%= query %>">
+              <select name="location" onchange="this.form.submit()">
+                <option value="">Anywhere</option>
+                <option value="BC" <%=location==='BC' ? 'selected' : '' %>>British Columbia</option>
+                <option value="AB" <%=location==='AB' ? 'selected' : '' %>>Alberta</option>
+                <option value="SK" <%=location==='SK' ? 'selected' : '' %>>Saskatchewan</option>
+                <option value="MB" <%=location==='MB' ? 'selected' : '' %>>Manitoba</option>
+                <option value="ON" <%=location==='ON' ? 'selected' : '' %>>Ontario</option>
+                <option value="QC" <%=location==='QC' ? 'selected' : '' %>>Quebec</option>
+                <option value="NL" <%=location==='NL' ? 'selected' : '' %>>Newfoundland and Labrador</option>
+                <option value="NB" <%=location==='NB' ? 'selected' : '' %>>New Brunswick</option>
+                <option value="PE" <%=location==='PE' ? 'selected' : '' %>>Prince Edward Island</option>
+                <option value="NS" <%=location==='NS' ? 'selected' : '' %>>Nova Scotia</option>
+              </select>
+            </form>
 
             <% if(listings && listings.length> 0) { %>
                 <% listings.forEach(function(job) { %>
