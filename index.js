@@ -26,6 +26,7 @@ const userCollection = database.db(mongodb_database).collection("users");
 const jobCollection = database.db(mongodb_database).collection("jobs");
 
 app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
 var mongoStore = MongoStore.create({
   mongoUrl: `mongodb+srv://${atlas_db_user}:${atlas_db_password}@${mongodb_host}/${mongodb_database}?retryWrites=true&w=majority`,
@@ -212,6 +213,7 @@ app.post("/userProfile", async (req, res) => {
     const newEmail = req.body.email;
     const password = req.body.password;
     const skills = req.body.skills;
+    console.log(skills);
     const personality = req.body.personality;
 
     const updateFields = {
@@ -290,10 +292,10 @@ app.get("/search", async (req, res) => {
   };
 
 
-  if (skills) {
-    const regexPattern = skills.split(" ").join("|");
-    mongoQuery.$and.push({ Skills: { $regex: regexPattern, $options: "i" } });
-  }
+  // if (skills) {
+  //   const regexPattern = skills.split(" ").join("|");
+  //   mongoQuery.$and.push({ Skills: { $regex: regexPattern, $options: "i" } });
+  // }
   // If an MBTI filter is provided, add it to the query
   // if (mbti) {
   //   mongoQuery.$and.push({ mbti: mbti }); // use "mbti" instead of "MBTI"
