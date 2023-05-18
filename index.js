@@ -313,9 +313,9 @@ app.get("/search", async (req, res) => {
   };
 
   if (skills) {
+    mongoQuery.$and.push({$or: []});
     for (const skill of skills) {
-      mongoQuery.$and.push({ JobDescription: { $regex: skill, $options: "i" } });
-      // mongoQuery.$and[0].$or.push({ JobDescription: { $regex: skill, $options: "i" } });
+      mongoQuery.$and[1].$or.push({ JobDescription: { $regex: skill, $options: "i" } });
     }
   }
   // If an MBTI filter is provided, add it to the query
