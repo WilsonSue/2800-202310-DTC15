@@ -101,6 +101,15 @@
               </select>
             </form>
 
+            <!-- job type -->
+            <form action="/search" method="get">
+              <input type="hidden" name="query" value="<%= query %>">
+              <select name="jobType" onchange="this.form.submit()">
+                <option value="">Job Type</option>
+                <option value='part' <%=jobType==='part' ? 'selected' : '' %>>Part-Time</option>
+                <option value='full' <%=jobType==='full' ? 'selected' : '' %>>Full-Time</option>
+              </select>
+            </form>
 
             <% if(listings && listings.length> 0) { %>
                 <% listings.forEach(function(job) { %>

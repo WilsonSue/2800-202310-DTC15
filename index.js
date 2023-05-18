@@ -246,8 +246,10 @@ app.get("/search", async (req, res) => {
   let query = (req.query.query || "").trim();
   let mbti = (req.query.mbti || "").trim();
   let location = (req.query.location || "").trim();
-  let minRating = parseInt(req.query.minRating) || 0;
-  let maxRating = parseInt(req.query.maxRating) || 5;
+  let minRating = parseInt(req.query.minRating);
+  let maxRating = parseInt(req.query.maxRating);
+  let jobType = (req.query.jobType || "").trim();
+  console.log(req.query);
   const page = parseInt(req.query.page) || 1;
   const limit = 10;
   const skip = (page - 1) * limit;
@@ -286,20 +288,19 @@ app.get("/search", async (req, res) => {
   if (mbti) {
     mongoQuery.$and.push({ mbti: mbti }); // use "mbti" instead of "MBTI"
   }
-
   // Filter by rating (number 0-5) 
-
+  if (minRating && maxRating) {
+    mongoQuery.$and.push({ Rating: { $gte: minRating, $lte: maxRating } });
+  }
   // location (dropdown provinces)
   if (location) {
     mongoQuery.$and.push({ Location: { $regex: location } });
   }
   // job type
-
-  // salary(max, min)
-
-  if (minRating && maxRating) {
-    mongoQuery.$and.push({ Rating: { $gte: minRating, $lte: maxRating } });
+  if (jobType) {
+    mongoQuery.$and.push({ JobType: { $regex: jobType, $options: "i" } });
   }
+  // salary(max, min)
 
 
   const totalListings = await jobCollection.countDocuments(mongoQuery);
@@ -321,6 +322,7 @@ app.get("/search", async (req, res) => {
     location,
     minRating,
     maxRating,
+    jobType,
     totalListings,
   }); // pass the mbti to the view
 });
