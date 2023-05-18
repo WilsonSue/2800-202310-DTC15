@@ -269,6 +269,7 @@ app.get("/search", async (req, res) => {
   let jobType = (req.query.jobType || "").trim();
   let minSalary = parseInt(req.query.minSalary);
   let maxSalary = parseInt(req.query.maxSalary);
+  let skills = null;
   console.log(req.query);
   const page = parseInt(req.query.page) || 1;
   const limit = 10;
@@ -290,7 +291,7 @@ app.get("/search", async (req, res) => {
       mbti = user.personality;
     }
     if (user && user.skills) {
-      let skills = user.skills;
+      skills = user.skills;
     }
   }
 
@@ -307,10 +308,12 @@ app.get("/search", async (req, res) => {
     ],
   };
 
-  // if (skills) {
-  //   const regexPattern = skills.split(" ").join("|");
-  //   mongoQuery.$and.push({ Skills: { $regex: regexPattern, $options: "i" } });
-  // }
+  if (skills) {
+    for (const skill of skills) {
+      mongoQuery.$and.push({ JobDescription: { $regex: skill, $options: "i" } });
+      // mongoQuery.$and[0].$or.push({ JobDescription: { $regex: skill, $options: "i" } });
+    }
+  }
   // If an MBTI filter is provided, add it to the query
   // if (mbti) {
   //   mongoQuery.$and.push({ mbti: mbti }); // use "mbti" instead of "MBTI"
