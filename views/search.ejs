@@ -42,8 +42,33 @@
                 <button type="submit">Search</button>
             </form>
         </div>
+<h2>Last Search Term:</h2>
+<p>
+    <%= lastSearchTerm %>
+</p>
 
-    </body>
+<h2>Last Search Results:</h2>
+<% if (lastSearchResults.length> 0) { %>
+    <% lastSearchResults.forEach(listing=> { %>
+        <div>
+            <h3>
+                <%= listing.JobTitle %>
+            </h3>
+            <h4>
+                <%= listing.CompanyName %>
+            </h4>
+            <p>
+                <%= listing.JobDescription %>
+            </p>
+        </div>
+        <% }) %>
+            <% } else { %>
+                <p>No last search results to display.</p>
+                <% } %>
+                    </body>
+
+                    </html>
+                    <%- include("templates/footer") %>
 
     </html>
     <%- include("templates/footer") %>
