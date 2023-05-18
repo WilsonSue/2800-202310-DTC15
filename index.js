@@ -246,6 +246,8 @@ app.get("/search", async (req, res) => {
   let query = (req.query.query || "").trim();
   let mbti = (req.query.mbti || "").trim();
   let location = (req.query.location || "").trim();
+  let minRating = parseInt(req.query.minRating) || 0;
+  let maxRating = parseInt(req.query.maxRating) || 5;
   const page = parseInt(req.query.page) || 1;
   const limit = 10;
   const skip = (page - 1) * limit;
@@ -295,6 +297,10 @@ app.get("/search", async (req, res) => {
 
   // salary(max, min)
 
+  if (minRating && maxRating) {
+    mongoQuery.$and.push({ Rating: { $gte: minRating, $lte: maxRating } });
+  }
+
 
   const totalListings = await jobCollection.countDocuments(mongoQuery);
   const totalPages = Math.ceil(totalListings / limit);
@@ -313,6 +319,8 @@ app.get("/search", async (req, res) => {
     query,
     mbti,
     location,
+    minRating,
+    maxRating,
     totalListings,
   }); // pass the mbti to the view
 });

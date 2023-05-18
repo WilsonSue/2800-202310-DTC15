@@ -74,6 +74,34 @@
               </select>
             </form>
 
+            <!-- min/max rating -->
+            <form action="/search" method="get">
+              <input type="hidden" name="query" value="<%= query %>">
+              <select name="minRating" onchange="this.form.submit()">
+                <option value="">Min Rating</option>
+                <option value='0' <%=minRating===0 ? 'selected' : '' %>>0</option>
+                <option value='1' <%=minRating===1 ? 'selected' : '' %>>1</option>
+                <option value='2' <%=minRating===2 ? 'selected' : '' %>>2</option>
+                <option value='3' <%=minRating===3 ? 'selected' : '' %>>3</option>
+                <option value='4' <%=minRating===4 ? 'selected' : '' %>>4</option>
+                <option value='5' <%=minRating===5 ? 'selected' : '' %>>5</option>
+              </select>
+            </form>
+
+            <form action="/search" method="get">
+              <input type="hidden" name="query" value="<%= query %>">
+              <select name="maxRating" onchange="this.form.submit()">
+                <option value="">Max Rating</option>
+                <option value='0' <%=maxRating===0 ? 'selected' : '' %>>0</option>
+                <option value='1' <%=maxRating===1 ? 'selected' : '' %>>1</option>
+                <option value='2' <%=maxRating===2 ? 'selected' : '' %>>2</option>
+                <option value='3' <%=maxRating===3 ? 'selected' : '' %>>3</option>
+                <option value='4' <%=maxRating===4 ? 'selected' : '' %>>4</option>
+                <option value='5' <%=maxRating===5 ? 'selected' : '' %>>5</option>
+              </select>
+            </form>
+
+
             <% if(listings && listings.length> 0) { %>
                 <% listings.forEach(function(job) { %>
                     <div class="job-listing">
