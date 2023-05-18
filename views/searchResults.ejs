@@ -21,15 +21,18 @@
                 margin: 0.5rem 0;
             }
         </style>
+        
     </head>
 
     <body>
 
         <div class="search-results-container">
             <h1>Search Results</h1>
+           
             <p>
                 <%= totalListings %> listings found
             </p>
+       
 
 
             <!-- Here we add the MBTI filter form -->
@@ -59,6 +62,11 @@
             <% if(listings && listings.length> 0) { %>
                 <% listings.forEach(function(job) { %>
                     <div class="job-listing">
+                          <div class="bookmark-icon">
+                            <!-- <button class="test-btn">click</button> -->
+                            <button class="save-btn" id="<%= job._id %>"><i class="fa fa-bookmark bookmarked"></i></button>
+                        
+                          </div>
                         <h2>
                             <%= job.JobTitle %>
                         </h2>
@@ -80,8 +88,21 @@
                 <% if (page < totalPages) { %>
                     <a href="/search?query=<%= query %>&page=<%= page + 1 %>">Next</a>
                     <% } %>
+     
 
     </body>
+      <script>
+    $(document).ready(function () {
+ 
+      $(".search-results-container").on("click", ".fa-bookmark", function () {
+        console.log("clicked");
+        const jobId = job.find(".save-btn").attr("id"); 
+        console.log(jobId);
+      });
+      
+    });
+
+  </script>
 
     </html>
     <%- include("templates/footer") %>
