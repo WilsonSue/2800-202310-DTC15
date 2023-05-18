@@ -249,6 +249,8 @@ app.get("/search", async (req, res) => {
   let minRating = parseInt(req.query.minRating);
   let maxRating = parseInt(req.query.maxRating);
   let jobType = (req.query.jobType || "").trim();
+  let minSalary = parseInt(req.query.minSalary);
+  let maxSalary = parseInt(req.query.maxSalary);
   console.log(req.query);
   const page = parseInt(req.query.page) || 1;
   const limit = 10;
@@ -301,6 +303,9 @@ app.get("/search", async (req, res) => {
     mongoQuery.$and.push({ JobType: { $regex: jobType, $options: "i" } });
   }
   // salary(max, min)
+  // if (minSalary && maxSalary) {
+  //   mongoQuery.$and.push({ SalaryEstimate: { $gte: minSalary, $lte: maxSalary } });
+  // }
 
 
   const totalListings = await jobCollection.countDocuments(mongoQuery);
@@ -323,6 +328,8 @@ app.get("/search", async (req, res) => {
     minRating,
     maxRating,
     jobType,
+    minSalary,
+    maxSalary,
     totalListings,
   }); // pass the mbti to the view
 });
