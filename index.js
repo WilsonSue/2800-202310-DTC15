@@ -29,6 +29,7 @@ const fakeJobsCollection = database
   .collection("fake_jobs");
 
 app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
 var mongoStore = MongoStore.create({
   mongoUrl: `mongodb+srv://${atlas_db_user}:${atlas_db_password}@${mongodb_host}/${mongodb_database}?retryWrites=true&w=majority`,
@@ -215,6 +216,7 @@ app.post("/userProfile", async (req, res) => {
     const newEmail = req.body.email;
     const password = req.body.password;
     const skills = req.body.skills;
+    console.log(skills);
     const personality = req.body.personality;
 
     const updateFields = {
@@ -252,6 +254,8 @@ app.get("/search", async (req, res) => {
   let minRating = parseInt(req.query.minRating);
   let maxRating = parseInt(req.query.maxRating);
   let jobType = (req.query.jobType || "").trim();
+  let minSalary = parseInt(req.query.minSalary);
+  let maxSalary = parseInt(req.query.maxSalary);
   console.log(req.query);
   const page = parseInt(req.query.page) || 1;
   const limit = 10;
@@ -272,6 +276,9 @@ app.get("/search", async (req, res) => {
     if (user && user.personality) {
       mbti = user.personality;
     }
+    if (user && user.skills) {
+      let skills = user.skills;
+    }
   }
 
   // Build MongoDB query
@@ -287,10 +294,15 @@ app.get("/search", async (req, res) => {
     ],
   };
 
+
+  // if (skills) {
+  //   const regexPattern = skills.split(" ").join("|");
+  //   mongoQuery.$and.push({ Skills: { $regex: regexPattern, $options: "i" } });
+  // }
   // If an MBTI filter is provided, add it to the query
-  if (mbti) {
-    mongoQuery.$and.push({ mbti: mbti }); // use "mbti" instead of "MBTI"
-  }
+  // if (mbti) {
+  //   mongoQuery.$and.push({ mbti: mbti }); // use "mbti" instead of "MBTI"
+  // }
   // Filter by rating (number 0-5)
   if (minRating && maxRating) {
     mongoQuery.$and.push({ Rating: { $gte: minRating, $lte: maxRating } });
@@ -304,12 +316,15 @@ app.get("/search", async (req, res) => {
     mongoQuery.$and.push({ JobType: { $regex: jobType, $options: "i" } });
   }
   // salary(max, min)
+  // if (minSalary && maxSalary) {
+  //   mongoQuery.$and.push({ SalaryEstimate: { $gte: minSalary, $lte: maxSalary } });
+  // }
 
   const totalListings = await jobCollection.countDocuments(mongoQuery);
   const totalPages = Math.ceil(totalListings / limit);
 
   // Perform a case-insensitive search in the 'jobs' collection
-  const listings = await jobCollection
+  var listings = await jobCollection
     .find(mongoQuery)
     .skip(skip)
     .limit(limit)
@@ -322,6 +337,10 @@ app.get("/search", async (req, res) => {
   req.session.lastSearchResults = listings.slice(0, 3); // only save first 3 listings
   req.session.lastSearchTerm = query; // Save the last search term into the session
 
+  if (mbti) {
+  listings = sort_priority_order(listings, mbti);
+  }
+
   res.render("searchResults", {
     listings,
     page,
@@ -332,6 +351,8 @@ app.get("/search", async (req, res) => {
     minRating,
     maxRating,
     jobType,
+    minSalary,
+    maxSalary,
     totalListings,
   }); // pass the mbti to the view
 });

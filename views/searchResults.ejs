@@ -111,6 +111,33 @@
               </select>
             </form>
 
+            <!-- minSalary -->
+            <!-- <form action="/search" method="get">
+              <input type="hidden" name="query" value="<%= query %>">
+              <select name="maxRating" onchange="this.form.submit()">
+                <option value="">Min Salary</option>
+                <option value='40,000' <%=minSalary===0 ? 'selected' : '' %>>40,000</option>
+                <option value='50,000' <%=minSalary===1 ? 'selected' : '' %>>50,000</option>
+                <option value='60,000' <%=minSalary===2 ? 'selected' : '' %>>60,000</option>
+                <option value='70,000' <%=minSalary===3 ? 'selected' : '' %>>70,000</option>
+                <option value='80,000' <%=minSalary===4 ? 'selected' : '' %>>80,000</option>
+                <option value='90,000' <%=minSalary===5 ? 'selected' : '' %>>90,000</option>
+              </select>
+            </form>
+
+            <form action="/search" method="get">
+              <input type="hidden" name="query" value="<%= query %>">
+              <select name="maxRating" onchange="this.form.submit()">
+                <option value="">Max Salary</option>
+                <option value='80,000' <%=minSalary===0 ? 'selected' : '' %>>80,000</option>
+                <option value='90,000' <%=minSalary===1 ? 'selected' : '' %>>90,000</option>
+                <option value='100,000' <%=minSalary===2 ? 'selected' : '' %>>100,000</option>
+                <option value='150,000' <%=minSalary===3 ? 'selected' : '' %>>150,000</option>
+                <option value='200,000' <%=minSalary===4 ? 'selected' : '' %>>200,000</option>
+                <option value='250,000' <%=minSalary===5 ? 'selected' : '' %>>250,000</option>
+              </select>
+            </form> -->
+
             <% if(listings && listings.length> 0) { %>
                 <% listings.forEach(function(job) { %>
                     <div class="job-listing">
