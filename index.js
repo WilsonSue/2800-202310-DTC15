@@ -287,9 +287,9 @@ app.get("/search", async (req, res) => {
   };
 
   // If an MBTI filter is provided, add it to the query
-  if (mbti) {
-    mongoQuery.$and.push({ mbti: mbti }); // use "mbti" instead of "MBTI"
-  }
+  // if (mbti) {
+  //   mongoQuery.$and.push({ mbti: mbti }); // use "mbti" instead of "MBTI"
+  // }
   // Filter by rating (number 0-5)
   if (minRating && maxRating) {
     mongoQuery.$and.push({ Rating: { $gte: minRating, $lte: maxRating } });
@@ -311,7 +311,7 @@ app.get("/search", async (req, res) => {
   const totalPages = Math.ceil(totalListings / limit);
 
   // Perform a case-insensitive search in the 'jobs' collection
-  const listings = await jobCollection
+  var listings = await jobCollection
     .find(mongoQuery)
     .skip(skip)
     .limit(limit)
@@ -319,6 +319,10 @@ app.get("/search", async (req, res) => {
 
   req.session.lastSearchResults = listings.slice(0, 3); // only save first 3 listings
   req.session.lastSearchTerm = query; // Save the last search term into the session
+
+  if (mbti) {
+  listings = sort_priority_order(listings, mbti);
+  }
 
   res.render("searchResults", {
     listings,
