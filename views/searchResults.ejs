@@ -141,9 +141,14 @@
               </select>
             </form> -->
 
+            <div class="container">
             <% if(listings && listings.length> 0) { %>
                 <% listings.forEach(function(job) { %>
-                    <div class="job-listing">
+                    <div class="card" id="card-<%= job._id %>">
+                      <div class="card-header row">
+                          <h5 class="card-title col">
+                            <%= job.JobTitle %>
+                          </h5>
                         <form method="POST" action="/savedListings">
                           <button
                             type="submit"
@@ -153,29 +158,43 @@
                           >
                             <i class="fa fa-bookmark"></i>
                           </button>
-                      </form>
-                        <h2>
-                            <%= job.JobTitle %>
-                        </h2>
-                        <p>
-                            <%= job.JobDescription %>
-                        </p>
-                        <p><strong>Location:</strong>
-                            <%= job.Location %>
-                        </p>
+                        </form>
+                      </div>
+                        <div class="card-body">
+                          <div class="card-body">
+                            <p class="card-text">
+                              <i class="fas fa-building"></i>
+                              <%= job.CompanyName %>
+                            </p>
+                            <p class="card-text">
+                              <i class="fas fa-map-marker-alt"></i> Location: <%= job.Location %>
+                            </p>
+                            <p class="card-text">
+                              <i class="fas fa-star"></i> Rating: <%= job.Rating %>
+                            </p>
+                            <p class="card-text">
+                              <%= job.SalaryEstimate %>
+                            </p>
+                            <p class="card-text">
+                              <%= job.Summary %>
+                            </p>
+                          </div>
+                        </div>
                     </div>
                     <% }); %>
                         <% } else { %>
                             <p>No jobs found for your search.</p>
                             <% } %>
-        </div>
-        <% if (page> 1) { %>
+                    </div>
+            <div>
+            <% if (page> 1) { %>
             <a href="/search?page=<%= page - 1 %>">Previous</a>
             <% } %>
                 <% if (page < totalPages) { %>
                     <a href="/search?query=<%= query %>&page=<%= page + 1 %>">Next</a>
                     <% } %>
-     
+            </div>
+            </div>
 
     </body>
     </html>
