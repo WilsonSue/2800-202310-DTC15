@@ -44,6 +44,7 @@ app.use(
 
 const resetPasswordRouter = require("./routes/resetPassword.js");
 const savedListingsRouter = require("./routes/savedListings.js");
+
 app.use(resetPasswordRouter);
 app.use(savedListingsRouter);
 
@@ -175,6 +176,7 @@ app.post("/loginSubmit", async (req, res) => {
     } else {
       if (await bcrypt.compare(password, result[0].password)) {
         req.session.authenticated = true;
+        req.session.userId = result._id;
         req.session.username = result[0].username;
         req.session.email = result[0].email;
         req.session.cookie.maxAge = expireTime;

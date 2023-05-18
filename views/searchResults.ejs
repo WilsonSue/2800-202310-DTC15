@@ -62,11 +62,16 @@
             <% if(listings && listings.length> 0) { %>
                 <% listings.forEach(function(job) { %>
                     <div class="job-listing">
-                          <div class="bookmark-icon">
-                            <!-- <button class="test-btn">click</button> -->
-                            <button class="save-btn" id="<%= job._id %>"><i class="fa fa-bookmark bookmarked"></i></button>
-                        
-                          </div>
+                        <form method="POST" action="/savedListings">
+                          <button
+                            type="submit"
+                            name="save-btn"
+                            value="<%= job._id %>"
+                            class="btn rounded-pill btn-light btn-outline-success"
+                          >
+                            <i class="fa fa-bookmark bookmarked"></i>
+                          </button>
+                      </form>
                         <h2>
                             <%= job.JobTitle %>
                         </h2>
@@ -91,18 +96,5 @@
      
 
     </body>
-      <script>
-    $(document).ready(function () {
- 
-      $(".search-results-container").on("click", ".fa-bookmark", function () {
-        console.log("clicked");
-        const jobId = job.find(".save-btn").attr("id"); 
-        console.log(jobId);
-      });
-      
-    });
-
-  </script>
-
     </html>
     <%- include("templates/footer") %>
