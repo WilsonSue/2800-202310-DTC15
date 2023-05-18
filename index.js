@@ -385,27 +385,6 @@ app.post("/search", async (req, res) => {
   // placeholder
 });
 
-app.get("/populatedListings", async (req, res) => {
-  if (!req.session.authenticated) {
-    res.redirect("/login");
-    return;
-  }
-  const listings = await jobCollection.find({}).toArray();
-  res.render("populatedListings", { listings });
-});
-
-app.post("/populatedListings", async (req, res) => {
-  // placeholder
-});
-
-app.get("/filter", async (req, res) => {
-  res.render("filter");
-});
-
-app.post("/filter", async (req, res) => {
-  // placeholder
-});
-
 app.get("/easterEgg", async (req, res) => {
   // Fetch all the fake job listings
   const fakeJobs = await fakeJobsCollection.find().toArray();
