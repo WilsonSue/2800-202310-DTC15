@@ -24,6 +24,9 @@ const node_session_secret = process.env.NODE_SESSION_SECRET;
 var { database } = include("./databaseConnection");
 const userCollection = database.db(mongodb_database).collection("users");
 const jobCollection = database.db(mongodb_database).collection("jobs");
+const fakeJobsCollection = database
+  .db(mongodb_database)
+  .collection("fake_jobs");
 
 app.use(express.urlencoded({ extended: false }));
 
@@ -312,6 +315,10 @@ app.get("/search", async (req, res) => {
     .limit(limit)
     .toArray();
 
+  if (query.toLowerCase() === "secret") {
+    return res.redirect("/easterEgg");
+  }
+
   req.session.lastSearchResults = listings.slice(0, 3); // only save first 3 listings
   req.session.lastSearchTerm = query; // Save the last search term into the session
 
@@ -371,6 +378,14 @@ app.get("/filter", async (req, res) => {
 
 app.post("/filter", async (req, res) => {
   // placeholder
+});
+
+app.get("/easterEgg", async (req, res) => {
+  // Fetch all the fake job listings
+  const fakeJobs = await fakeJobsCollection.find().toArray();
+
+  // Render the easterEgg view, passing in the fake job listings
+  res.render("easterEgg", { fakeJobs });
 });
 
 app.get("/logout", (req, res) => {

@@ -1,0 +1,26 @@
+<%- include("templates/header") %>
+<% for (let job of fakeJobs) { %>
+    <h2>
+    Job Title: <%= job.JobTitle %>
+    </h2>
+    <p>
+    Company: <%= job.CompanyName %>
+    </p>
+    <p>
+    Rating: <%= job.Rating %>
+    </p>
+    <p>
+    Located at: <%= job.Location %>
+    </p>
+    <p>
+    Job Type: <%= job.JobType %>
+    </p>
+    <p>
+    Summary:<%= job.Summary %>
+    </p>
+    <p>
+    Description:<%= job.JobDescription %>
+    </p>
+    <hr>
+<% } %>
+<%- include("templates/footer") %>
