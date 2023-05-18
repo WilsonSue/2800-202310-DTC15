@@ -271,6 +271,9 @@ app.get("/search", async (req, res) => {
     if (user && user.personality) {
       mbti = user.personality;
     }
+    if (user && user.skills) {
+      let skills = user.skills;
+    }
   }
 
   // Build MongoDB query
@@ -286,6 +289,11 @@ app.get("/search", async (req, res) => {
     ],
   };
 
+
+  if (skills) {
+    const regexPattern = skills.split(" ").join("|");
+    mongoQuery.$and.push({ Skills: { $regex: regexPattern, $options: "i" } });
+  }
   // If an MBTI filter is provided, add it to the query
   // if (mbti) {
   //   mongoQuery.$and.push({ mbti: mbti }); // use "mbti" instead of "MBTI"
