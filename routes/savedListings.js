@@ -13,7 +13,6 @@ const jobCollection = database
 
 // GET request for savedListings
 router.get("/savedListings", async (req, res) => {
-  console.log(req.session);
   if (!req.session.authenticated) {
     res.redirect("/login");
     return;
@@ -25,9 +24,7 @@ router.get("/savedListings", async (req, res) => {
     const listings = await jobCollection
       .find({ _id: { $in: objectIds } })
       .toArray();
-    // console.log("bookmarkedJobIds:", bookmarkedJobIds);
-    // console.log("listings:", listings);
-    res.render("savedListings", { listings });
+    res.render("savedListings", { user, listings });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Error occurred" });
@@ -49,8 +46,8 @@ router.post("/savedListings", async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
     const jobId = req.body["save-btn"];
-    // console.log("jobid", jobId);
     const index = user.bookmarks.indexOf(jobId);
+
     if (index === -1) {
       // if job ID is not bookmarked, add it
       user.bookmarks.push(jobId);

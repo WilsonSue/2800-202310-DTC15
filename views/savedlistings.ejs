@@ -1,13 +1,25 @@
 <%- include("templates/header") %>
 
 <div style="text-align: center">
-  <h1>Saved Listings</h1>
+  <h3>Saved Listings</h3>
 </div>
 <div class="container" id="saved-listing">
-  <% listings.forEach((listing) => { %>
-  <div class="card">
-    <div class="card-header">
-      <h5 class="card-title"><%= listing.JobTitle %></h5>
+  <% listings.forEach((listing) => { if
+  (user.bookmarks.includes(listing._id.toString())) { %>
+  <div class="card" id="card-<%= listing._id %>">
+    <div class="card-header row">
+      <h5 class="card-title col"><%= listing.JobTitle %></h5>
+      <form method="POST" action="/savedListings" class="col-2">
+        <button
+          type="submit"
+          name="save-btn"
+          value="<%= listing._id %>"
+          class="btn rounded-pill btn-light btn-outline-primary active"
+          onclick="unbookmarkListing('<%= listing._id %>');"
+        >
+          <i class="fa fa-bookmark"></i>
+        </button>
+      </form>
     </div>
     <div class="card-body">
       <div class="card-body">
@@ -18,15 +30,21 @@
           <i class="fas fa-map-marker-alt"></i> Location: <%= listing.Location
           %>
         </p>
-        <!-- <p class="card-text">
+        <p class="card-text">
           <i class="fas fa-star"></i> Rating: <%= listing.Rating %>
-        </p> -->
+        </p>
         <p class="card-text"><%= listing.SalaryEstimate %></p>
         <p class="card-text"><%= listing.Summary %></p>
       </div>
     </div>
-    <% }) %>
   </div>
-
-  <%- include("templates/footer") %>
+  <% } }) %>
 </div>
+<script>
+  function unbookmarkListing(listingId) {
+    console.log("unbookmarking listing " + listingId);
+    $("#card-" + listingId).remove();
+  }
+</script>
+
+<%- include("templates/footer") %>
