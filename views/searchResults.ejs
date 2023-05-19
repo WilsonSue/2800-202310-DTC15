@@ -63,15 +63,11 @@
                 <% listings.forEach(function(job) { %>
                     <div class="job-listing">
                         <form method="POST" action="/savedListings">
-                          <button
-                            type="submit"
-                            name="save-btn"
-                            value="<%= job._id %>"
-                            class="btn rounded-pill btn-light btn-outline-primary"
-                          >
+                        <button type="button" name="save-btn" value="<%= job._id %>"
+                            class="btn rounded-pill btn-light btn-outline-primary <%= user.bookmarks.includes(job._id.toString()) ? 'active' : '' %>"
+                            onclick="toggleBookmark(this, '<%= job._id %>');">
                             <i class="fa fa-bookmark"></i>
-                          </button>
-                      </form>
+                        </button>
                         <h2>
                             <%= job.JobTitle %>
                         </h2>
@@ -81,20 +77,35 @@
                         <p><strong>Location:</strong>
                             <%= job.Location %>
                         </p>
-                    </div>
-                    <% }); %>
-                        <% } else { %>
-                            <p>No jobs found for your search.</p>
-                            <% } %>
-        </div>
+                        </div>
+                        <% }); %>
+                            <% } else { %>
+                                <p>No jobs found for your search.</p>
+                                <% } %>
+                                    </div>
         <% if (page> 1) { %>
             <a href="/search?page=<%= page - 1 %>">Previous</a>
             <% } %>
                 <% if (page < totalPages) { %>
                     <a href="/search?query=<%= query %>&page=<%= page + 1 %>">Next</a>
                     <% } %>
-     
-
+     <script>
+        function toggleBookmark(button, jobId) {
+            // Toggle active class on button
+            button.classList.toggle('active');
+            // Send the post request
+            fetch("/savedListings", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams(`save-btn=${jobId}`),
+            })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+        }
+    </script>
     </body>
     </html>
     <%- include("templates/footer") %>
