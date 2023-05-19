@@ -1,7 +1,5 @@
 <%- include("templates/header") %>
-
   <h5 class="text-center mt-3">4 Results for "secret"</h5>
-
   <% for (let job of fakeJobs) { %>
     <div class="container mt-3">
       <div class="card mb-3 shadow-sm">
@@ -74,7 +72,13 @@
       </div>
     </div>
     <% } %>
+<!-- Audio element -->
+<div style="display: flex; justify-content: center;">
+  <audio id="myAudio" src="maow.mp3" autoplay controls></audio>
+</div>
 
+
+<!-- Confetti element -->
       <script src="https://cdn.jsdelivr.net/npm/confetti-js@0.0.18/dist/index.min.js"></script>
       <script>
         var confettiButtons = document.getElementsByClassName('confetti-button');
@@ -94,6 +98,13 @@
               canvas.remove();
             }, 2000);
           });
+        }
+      </script>
+
+      
+      <script>
+        document.body.onclick = function () {
+          document.getElementById("myAudio").play();
         }
       </script>
 
