@@ -162,6 +162,9 @@
                             <p class="card-text">
                               <%= job.Summary %>
                             </p>
+                            <p class="card-text">
+                              Closest match: <%= job.mbti %>
+                            </p>
                           </div>
                         </div>
                     </div>
@@ -175,7 +178,7 @@
             <a href="/search?page=<%= page - 1 %>">Previous</a>
             <% } %>
                 <% if (page < totalPages) { %>
-                    <a href="/search?query=<%= query %>&page=<%= page + 1 %>">Next</a>
+                    <a href="/search?query=<%= query %>&location=<%= location %>&minRating=<%= minRating %>&maxRating=<%= maxRating %>&jobType=<%= jobType %>&minSalary=<%= minSalary %>&maxSalary=<%= maxSalary %>&page=<%= page + 1 %>">Next</a>
                     <% } %>
             </div>
             </div>
