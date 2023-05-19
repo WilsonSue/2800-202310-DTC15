@@ -278,6 +278,8 @@ app.get("/search", async (req, res) => {
   const page = parseInt(req.query.page) || 1;
   const limit = 10;
   const skip = (page - 1) * limit;
+  const email = req.session.email;
+  const user = await userCollection.findOne({ email: email });
 
   // Ensure query is a string
   if (query && typeof query !== "string") {
@@ -361,9 +363,7 @@ app.get("/search", async (req, res) => {
   if (mbti) {
     listings = sort_priority_order(listings, mbti);
   }
-  const user = await userCollection.findOne({ email: req.session.email });
   res.render("searchResults", {
-    user,
     listings,
     page,
     totalPages,
@@ -376,6 +376,7 @@ app.get("/search", async (req, res) => {
     minSalary,
     maxSalary,
     totalListings,
+    user,
   }); // pass the mbti to the view
 });
 

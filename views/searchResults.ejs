@@ -117,10 +117,11 @@
           <h6 class="col"><%= job.JobTitle %></h6>
           <div class="col-2">
             <form method="POST" action="/savedListings">
-              <button type="submit" name="save-btn" value="<%= job._id %>"
-                class="btn btn-light btn-outline-primary btn-sm <% if (user && user.bookmarks.includes(String(job._id))) { %>active<% } %>">
-                <i class="fa fa-bookmark"></i>
-              </button>
+               <button type="button" name="save-btn" value="<%= job._id %>"
+                            class="btn rounded-pill btn-light btn-outline-primary <%= user.bookmarks.includes(job._id.toString()) ? 'active' : '' %>"
+                            onclick="toggleBookmark(this, '<%= job._id %>');">
+                            <i class="fa fa-bookmark"></i>
+                        </button>
             </form>
 
           </div>
@@ -151,4 +152,23 @@
               <a href="/search?query=<%= query %>&page=<%= page + 1 %>">Next</a>
               <% } %>
 
+     <script>
+        function toggleBookmark(button, jobId) {
+            // Toggle active class on button
+            button.classList.toggle('active');
+            // Send the post request
+            fetch("/savedListings", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams(`save-btn=${jobId}`),
+            })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+        }
+    </script>
+    </body>
+    </html>
     <%- include("templates/footer") %>

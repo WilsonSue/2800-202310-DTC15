@@ -61,10 +61,12 @@ router.post("/savedListings", async (req, res) => {
       user.bookmarks.splice(index, 1);
     }
 
+    // After updating the bookmarks:
     await userCollection.updateOne(
       { email: req.session.email },
       { $set: { bookmarks: user.bookmarks } }
     );
+    res.status(200).json({ message: "Bookmark updated successfully" });
 
     console.log("updated bookmarks:", user.bookmarks);
   } catch (error) {
