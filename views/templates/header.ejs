@@ -150,6 +150,23 @@
         }
       }
       /* Add this script to toggle the mobile menu */
+
+      /* Easter egg modal styles */
+      .modal-body {
+        animation: type 3s steps(23);
+        overflow: hidden;
+        font-family: consolas, "Courier New", monospace;
+        border-right: 4px solid black;
+        width: 100%;
+      }
+      @keyframes type {
+        0% {
+          width: 0ch;
+        }
+        100% {
+          width: 100%;
+        }
+      }
     </style>
   </head>
 
