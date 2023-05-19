@@ -1,8 +1,13 @@
 <%- include("templates/header") %>
+
+<!------------------------Title---------------------------->
 <h5 class="text-center mt-3">4 Results for "secret"</h5>
+
+<!------------------------Job Card-------------------------->
 <% for (let job of fakeJobs) { %>
 <div class="container mt-3">
   <div class="card mb-3 shadow-sm">
+    <!-- card body -->
     <div class="card-body">
       <div class="row">
         <h6 class="col"><%= job.JobTitle %></h6>
@@ -24,6 +29,7 @@
         </p>
       </div>
       <p class="mb-2"><small><%= job.Summary %></small></p>
+      <!-- modal button -->
       <button
         type="button"
         class="btn btn-light btn-outline-primary btn-sm"
@@ -34,7 +40,8 @@
       </button>
     </div>
   </div>
-  <!-- Modal -->
+
+  <!------------------------Modal-------------------------->
   <div
     class="modal fade"
     id="JobDescription-<%= job._id %>"
@@ -48,6 +55,7 @@
     >
       <div class="modal-content">
         <div class="modal-header">
+          <!-- modal title -->
           <h5 class="modal-title"><%= job.JobTitle %></h5>
           <button
             type="button"
@@ -56,10 +64,12 @@
             aria-label="Close"
           ></button>
         </div>
+        <!-- modal content -->
         <div class="modal-body">
           <p><%= job.JobDescription %></p>
         </div>
         <div class="modal-footer">
+          <!-- close button -->
           <button
             type="button"
             class="btn btn-secondary"
