@@ -312,6 +312,9 @@ app.get("/search", async (req, res) => {
     listings = sort_priority_order(listings, mbti);
   }
 
+  minRating = minRating.toString();
+  maxRating = maxRating.toString();
+
   res.render("searchResults", {
     listings,
     page,

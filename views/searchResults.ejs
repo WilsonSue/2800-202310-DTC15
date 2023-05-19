@@ -38,7 +38,7 @@
             <!-- Here we add the MBTI filter form -->
             <form action="/search" method="get">
                 <input type="hidden" name="query" value="<%= query %>">
-                <select name="mbti" onchange="this.form.submit()">
+                <select name="mbti">
                     <option value="">Any personality</option>
                     <option value="INTJ" <%=mbti==='INTJ' ? 'selected' : '' %>>INTJ</option>
                     <option value="INTP" <%=mbti==='INTP' ? 'selected' : '' %>>INTP</option>
@@ -57,12 +57,10 @@
                     <option value="ESTP" <%=mbti==='ESTP' ? 'selected' : '' %>>ESTP</option>
                     <option value="ESFP" <%=mbti==='ESFP' ? 'selected' : '' %>>ESFP</option>
                 </select>
-            </form>
+            
             
             <!-- location filter -->
-            <form action="/search" method="get">
-              <input type="hidden" name="query" value="<%= query %>">
-              <select name="location" onchange="this.form.submit()">
+              <select name="location">
                 <option value="">Anywhere</option>
                 <option value="BC" <%=location==='BC' ? 'selected' : '' %>>British Columbia</option>
                 <option value="AB" <%=location==='AB' ? 'selected' : '' %>>Alberta</option>
@@ -75,44 +73,34 @@
                 <option value="PE" <%=location==='PE' ? 'selected' : '' %>>Prince Edward Island</option>
                 <option value="NS" <%=location==='NS' ? 'selected' : '' %>>Nova Scotia</option>
               </select>
-            </form>
 
             <!-- min/max rating -->
-            <form action="/search" method="get">
-              <input type="hidden" name="query" value="<%= query %>">
-              <select name="minRating" onchange="this.form.submit()">
+              <select name="minRating">
                 <option value="">Min Rating</option>
-                <option value='0' <%=minRating===0 ? 'selected' : '' %>>0</option>
-                <option value='1' <%=minRating===1 ? 'selected' : '' %>>1</option>
-                <option value='2' <%=minRating===2 ? 'selected' : '' %>>2</option>
-                <option value='3' <%=minRating===3 ? 'selected' : '' %>>3</option>
-                <option value='4' <%=minRating===4 ? 'selected' : '' %>>4</option>
-                <option value='5' <%=minRating===5 ? 'selected' : '' %>>5</option>
+                <option value='0' <%=minRating==='0' ? 'selected' : '' %>>0</option>
+                <option value='1' <%=minRating==='1' ? 'selected' : '' %>>1</option>
+                <option value='2' <%=minRating==='2' ? 'selected' : '' %>>2</option>
+                <option value='3' <%=minRating==='3' ? 'selected' : '' %>>3</option>
+                <option value='4' <%=minRating==='4' ? 'selected' : '' %>>4</option>
+                <option value='5' <%=minRating==='5' ? 'selected' : '' %>>5</option>
               </select>
-            </form>
 
-            <form action="/search" method="get">
-              <input type="hidden" name="query" value="<%= query %>">
-              <select name="maxRating" onchange="this.form.submit()">
+              <select name="maxRating">
                 <option value="">Max Rating</option>
-                <option value='0' <%=maxRating===0 ? 'selected' : '' %>>0</option>
-                <option value='1' <%=maxRating===1 ? 'selected' : '' %>>1</option>
-                <option value='2' <%=maxRating===2 ? 'selected' : '' %>>2</option>
-                <option value='3' <%=maxRating===3 ? 'selected' : '' %>>3</option>
-                <option value='4' <%=maxRating===4 ? 'selected' : '' %>>4</option>
-                <option value='5' <%=maxRating===5 ? 'selected' : '' %>>5</option>
+                <option value='0' <%=maxRating==='0' ? 'selected' : '' %>>0</option>
+                <option value='1' <%=maxRating==='1' ? 'selected' : '' %>>1</option>
+                <option value='2' <%=maxRating==='2' ? 'selected' : '' %>>2</option>
+                <option value='3' <%=maxRating==='3' ? 'selected' : '' %>>3</option>
+                <option value='4' <%=maxRating==='4' ? 'selected' : '' %>>4</option>
+                <option value='5' <%=maxRating==='5' ? 'selected' : '' %>>5</option>
               </select>
-            </form>
 
             <!-- job type -->
-            <form action="/search" method="get">
-              <input type="hidden" name="query" value="<%= query %>">
-              <select name="jobType" onchange="this.form.submit()">
+              <select name="jobType">
                 <option value="">Job Type</option>
                 <option value='part' <%=jobType==='part' ? 'selected' : '' %>>Part-Time</option>
                 <option value='full' <%=jobType==='full' ? 'selected' : '' %>>Full-Time</option>
               </select>
-            </form>
 
             <!-- minSalary -->
             <!-- <form action="/search" method="get">
@@ -140,6 +128,8 @@
                 <option value='250,000' <%=minSalary===5 ? 'selected' : '' %>>250,000</option>
               </select>
             </form> -->
+            <button onclick="this.form.submit()">Search</button>
+            </form>
 
             <div class="container">
             <% if(listings && listings.length> 0) { %>
