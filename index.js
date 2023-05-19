@@ -314,7 +314,9 @@ app.get("/search", async (req, res) => {
 
   if (skills) {
     for (const skill of skills) {
-      mongoQuery.$and.push({ JobDescription: { $regex: skill, $options: "i" } });
+      mongoQuery.$and.push({
+        JobDescription: { $regex: skill, $options: "i" },
+      });
       // mongoQuery.$and[0].$or.push({ JobDescription: { $regex: skill, $options: "i" } });
     }
   }
@@ -359,8 +361,9 @@ app.get("/search", async (req, res) => {
   if (mbti) {
     listings = sort_priority_order(listings, mbti);
   }
-
+  const user = await userCollection.findOne({ email: req.session.email });
   res.render("searchResults", {
+    user,
     listings,
     page,
     totalPages,

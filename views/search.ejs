@@ -51,7 +51,7 @@
   <div class="container">
     <% if (lastSearchResults.length> 0) { %>
         <% lastSearchResults.forEach(listing=> { %>
-      <div class="card mb-3" id="card-<%= listing._id %>">
+      <div class="card mb-3 shadow-sm" id="card-<%= listing._id %>">
         <div class="card-body">
           <div class="row">
             <h6 class="col"><%= listing.JobTitle %></h6>
