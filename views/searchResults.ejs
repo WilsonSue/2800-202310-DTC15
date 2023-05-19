@@ -111,14 +111,14 @@
       </form> -->
 <% if (listings && listings.length > 0) { %>
   <% listings.forEach(function(job) { %>
-    <div class="card mb-3 ">
+    <div class="card mb-3 rounded ">
       <div class="card-body">
         <div class="row">
           <h6 class="col"><%= job.JobTitle %></h6>
           <div class="col-2">
             <form method="POST" action="/savedListings">
               <button type="submit" name="save-btn" value="<%= job._id %>"
-                class="btn btn-light btn-outline-primary btn-sm ">
+                class="btn btn-light btn-outline-primary btn-sm <% if (user && user.bookmarks.includes(String(job._id))) { %>active<% } %>">
                 <i class="fa fa-bookmark"></i>
               </button>
             </form>
@@ -136,7 +136,7 @@
           <% } %>
         </div>
           <p class="mb-2"><small><%= job.Summary %></small></p>
-          <a href="<%= job.Link %>" class="btn btn-primary btn-sm">Read more</a>
+          <a href="<%= job.Link %>" class="btn btn-light btn-outline-primary btn-sm">Read more</a>
         </div>
       </div>
    <% }) %>
