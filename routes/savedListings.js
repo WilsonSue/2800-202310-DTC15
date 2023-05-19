@@ -36,8 +36,6 @@ router.get("/savedListings", async (req, res) => {
 
 // POST request for savedListings
 router.post("/savedListings", async (req, res) => {
-  console.log("POST request received at /savedListings");
-  console.log("req.body:", req.body);
   if (!req.session.authenticated) {
     return res
       .status(401)
@@ -48,8 +46,6 @@ router.post("/savedListings", async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
-    console.log("req.session.email:", req.session.email);
-    console.log("user:", user);
     if (!user.bookmarks) {
       user.bookmarks = [];
     }
