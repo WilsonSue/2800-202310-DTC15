@@ -125,7 +125,7 @@ def update_mongo(data):
     """
     client = MongoClient(os.getenv("CONNECTION_STRING"))
     db = client[os.getenv("MONGODB_DATABASE")]
-    collection = db["test"]
+    collection = db["jobs"]
     collection.delete_many({})
     collection.insert_many(data)
     client.close()
@@ -134,7 +134,7 @@ def update_mongo(data):
 def main():
     joblist = []
 
-    for i in range(1, 2):
+    for i in range(0, 400, 10):
         print(f'Getting page,{i}')
         time.sleep(random.uniform(2, 10))
         c = extract_indeed(0)
