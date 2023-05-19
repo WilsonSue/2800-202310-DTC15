@@ -20,7 +20,7 @@
           <span class="badge text-bg-light"><%= job.JobType %></span>
         </p>
         <p class="mb-0 py-0">
-          <span class="badge text-bg-light"><%= job.SalaryEstimate %></span>
+          <span class="badge text-bg-light"><%= job.Shift_Schedule %></span>
         </p>
       </div>
       <p class="mb-2"><small><%= job.Summary %></small></p>
@@ -42,7 +42,10 @@
     aria-labelledby="JobDescriptionLabel"
     aria-hidden="true"
   >
-    <div class="modal-dialog modal-dialog-scrollable">
+    <div
+      class="modal-dialog modal-dialog-scrollable"
+      style="margin: 10vw; height: 80%"
+    >
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title"><%= job.JobTitle %></h5>
