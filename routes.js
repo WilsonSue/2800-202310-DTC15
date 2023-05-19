@@ -3,8 +3,8 @@ const bcrypt = require("bcrypt");
 const Joi = require("joi");
 const expireTime = 60 * 60 * 1000;
 const saltRounds = 12;
-const sort_priority_order = require("./sortListings.js");
-const { updateDocumentsWithMbti } = require("./mbtiAssignment.js");
+const sort_priority_order = require("./MBTI_sort/sortListings.js");
+const { updateDocumentsWithMbti } = require("./MBTI_sort/mbtiAssignment.js");
 
 module.exports = function (app, userCollection, jobCollection, fakeJobsCollection) {
   
