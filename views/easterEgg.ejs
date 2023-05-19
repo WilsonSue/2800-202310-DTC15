@@ -24,11 +24,49 @@
         </p>
       </div>
       <p class="mb-2"><small><%= job.Summary %></small></p>
-      <a href="" class="btn btn-light btn-outline-primary btn-sm" id="myModal"
-        >Read more</a
+      <button
+        type="button"
+        class="btn btn-light btn-outline-primary btn-sm"
+        data-bs-toggle="modal"
+        data-bs-target="#JobDescription-<%= job._id %>"
       >
+        Read more
+      </button>
+    </div>
+  </div>
+  <!-- Modal -->
+  <div
+    class="modal fade"
+    id="JobDescription-<%= job._id %>"
+    tabindex="-1"
+    aria-labelledby="JobDescriptionLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title"><%= job.JobTitle %></h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <p><%= job.JobDescription %></p>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
-
 <% } %> <%- include("templates/footer") %>
