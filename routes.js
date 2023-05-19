@@ -287,12 +287,8 @@ app.get("/search", async (req, res) => {
   if (jobType) {
     mongoQuery.$and.push({ JobType: { $regex: jobType, $options: "i" } });
   }
-  // salary(max, min)
-  // if (minSalary && maxSalary) {
-  //   mongoQuery.$and.push({ SalaryEstimate: { $gte: minSalary, $lte: maxSalary } });
-  // }
 
-  const totalListings = await jobCollection.countDocuments(mongoQuery);
+  let totalListings = await jobCollection.countDocuments(mongoQuery);
   const totalPages = Math.ceil(totalListings / limit);
 
   // Perform a case-insensitive search in the 'jobs' collection
@@ -313,8 +309,30 @@ app.get("/search", async (req, res) => {
     listings = sort_priority_order(listings, mbti);
   }
 
+  function filterBySalary(jobListings, minSalary, maxSalary) {
+  return jobListings.filter(function(jobListing) {
+    if (jobListing.SalaryEstimate != "None Given") {
+    let minsalaryint = parseInt(jobListing.SalaryEstimate.substring(0, 8).replace(/[^0-9]/g, ''));
+    console.log(minsalaryint);
+    let maxsalaryint = parseInt(jobListing.SalaryEstimate.substring(8).replace(/[^0-9]/g, ''));
+    console.log(maxsalaryint);
+    return minsalaryint >= minSalary && maxsalaryint <= maxSalary;}
+    else {return false;}
+  });
+  }
+
+  // salary(max, min)
+  if (minSalary && maxSalary) {
+    listings = filterBySalary(listings, minSalary, maxSalary);
+    totalListings = listings.length;
+  }
+
+  console.log(listings.length);
+
   minRating = minRating.toString();
   maxRating = maxRating.toString();
+  minSalary = minSalary.toString();
+  maxSalary = maxSalary.toString();
 
   res.render("searchResults", {
     listings,

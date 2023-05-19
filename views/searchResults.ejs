@@ -102,32 +102,26 @@
                 <option value='full' <%=jobType==='full' ? 'selected' : '' %>>Full-Time</option>
               </select>
 
-            <!-- minSalary -->
-            <!-- <form action="/search" method="get">
-              <input type="hidden" name="query" value="<%= query %>">
-              <select name="maxRating" onchange="this.form.submit()">
+            <!-- min/max Salary -->
+              <select name="minSalary">
                 <option value="">Min Salary</option>
-                <option value='40,000' <%=minSalary===0 ? 'selected' : '' %>>40,000</option>
-                <option value='50,000' <%=minSalary===1 ? 'selected' : '' %>>50,000</option>
-                <option value='60,000' <%=minSalary===2 ? 'selected' : '' %>>60,000</option>
-                <option value='70,000' <%=minSalary===3 ? 'selected' : '' %>>70,000</option>
-                <option value='80,000' <%=minSalary===4 ? 'selected' : '' %>>80,000</option>
-                <option value='90,000' <%=minSalary===5 ? 'selected' : '' %>>90,000</option>
+                <option value='40000' <%=minSalary==='40000' ? 'selected' : '' %>>40,000</option>
+                <option value='50000' <%=minSalary==='50000' ? 'selected' : '' %>>50,000</option>
+                <option value='60000' <%=minSalary==='60000' ? 'selected' : '' %>>60,000</option>
+                <option value='70000' <%=minSalary==='70000' ? 'selected' : '' %>>70,000</option>
+                <option value='80000' <%=minSalary==='80000' ? 'selected' : '' %>>80,000</option>
+                <option value='90000' <%=minSalary==='90000' ? 'selected' : '' %>>90,000</option>
               </select>
-            </form>
 
-            <form action="/search" method="get">
-              <input type="hidden" name="query" value="<%= query %>">
-              <select name="maxRating" onchange="this.form.submit()">
+              <select name="maxSalary">
                 <option value="">Max Salary</option>
-                <option value='80,000' <%=minSalary===0 ? 'selected' : '' %>>80,000</option>
-                <option value='90,000' <%=minSalary===1 ? 'selected' : '' %>>90,000</option>
-                <option value='100,000' <%=minSalary===2 ? 'selected' : '' %>>100,000</option>
-                <option value='150,000' <%=minSalary===3 ? 'selected' : '' %>>150,000</option>
-                <option value='200,000' <%=minSalary===4 ? 'selected' : '' %>>200,000</option>
-                <option value='250,000' <%=minSalary===5 ? 'selected' : '' %>>250,000</option>
+                <option value='80000' <%=maxSalary==='80000' ? 'selected' : '' %>>80,000</option>
+                <option value='90000' <%=maxSalary==='90000' ? 'selected' : '' %>>90,000</option>
+                <option value='100000' <%=maxSalary==='100000' ? 'selected' : '' %>>100,000</option>
+                <option value='150000' <%=maxSalary==='150000' ? 'selected' : '' %>>150,000</option>
+                <option value='200000' <%=maxSalary==='200000' ? 'selected' : '' %>>200,000</option>
+                <option value='250000' <%=maxSalary==='250000' ? 'selected' : '' %>>250,000</option>
               </select>
-            </form> -->
             <button onclick="this.form.submit()">Search</button>
             </form>
 
