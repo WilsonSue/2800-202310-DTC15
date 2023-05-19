@@ -5,7 +5,6 @@ const expireTime = 60 * 60 * 1000;
 const saltRounds = 12;
 const sort_priority_order = require("./MBTI_sort/sortListings.js");
 const { updateDocumentsWithMbti } = require("./MBTI_sort/mbtiAssignment.js");
-const filterBySalary = require("./filterSalary.js");
 
 module.exports = function (app, userCollection, jobCollection, fakeJobsCollection) {
   
@@ -298,9 +297,13 @@ app.get("/search", async (req, res) => {
     .limit(limit)
     .toArray();
 
-  if (query.toLowerCase() === "secret") {
-    return res.redirect("/easterEgg");
-  }
+  
+    if (req.session.authenticated) {
+      const user = await userCollection.findOne({ email: req.session.email });
+      if (user.firstName === "Arthur" && user.lastName === "Pendragon" && user.username === "Monty" && user.skills.includes("Python")) {
+      return res.redirect("/easterEgg");
+      }
+    }
 
   req.session.lastSearchResults = listings.slice(0, 3); // only save first 3 listings
   req.session.lastSearchTerm = query; // Save the last search term into the session
