@@ -220,18 +220,38 @@ body {
 -----------------------------------------------------------------*/
 .search-container {
   margin: 5%;
+  color: var(--darker-grey);
 }
 
-.search-container > form {
-  margin-bottom: 1rem;
-}
-
-.search-heading {
+.search-heading,
+.search-heading-sub {
   color: var(--darkest-blue);
+  text-align: center;
 }
 
-.search-container button {
+#search-bar input {
+  border: none;
+  border: solid 2px var(--lightest-blue);
+  border-top-left-radius: 50px;
+  border-bottom-left-radius: 50px;
+}
+
+#basic-addon1,
+#search-submit-btn {
   background-color: var(--lightest-blue);
-  border-color: var(--lightest-blue);
+  border: none;
   cursor: pointer;
+  color: var(--darker-blue);
+}
+
+/* ----------------------------------------------------------------
+	Job Cards
+-----------------------------------------------------------------*/
+.card-body {
+  border-radius: 35px;
+  border: solid 2px var(--lightest-blue);
+}
+
+.card.mb-3 {
+  border: none;
 }

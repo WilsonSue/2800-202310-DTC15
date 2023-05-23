@@ -1,18 +1,32 @@
 <%- include("templates/header") %>
 <div class="search-container">
-  <h4 class="search-heading" style="text-align: center">Search Jobs</h4>
-  <form action="/search" method="GET">
-    <input name="query" type="text" placeholder="Search jobs..." />
-    <button type="submit">Search</button>
+  <h4 class="search-heading">Search Jobs</h4>
+  <form
+    id="search-bar"
+    class="container-fluid mb-3"
+    action="/search"
+    method="GET"
+  >
+    <div class="input-group">
+      <input
+        name="query"
+        type="text"
+        class="form-control rounded-start"
+        placeholder="Search jobs..."
+      />
+      <span class="input-group-text" id="basic-addon1"
+        ><button id="search-submit-btn" type="submit">Search</button></span
+      >
+    </div>
   </form>
-  <h5>Last Search Term:</h5>
+  <h6 class="search-heading-sub">Last Search Term</h6>
   <span class="badge text-bg-light"><%= lastSearchTerm %></span>
 
-  <h5>Last Search Results:</h5>
+  <h6 class="search-heading-sub">Last Search Results</h6>
   <% if (lastSearchResults.length > 0) { %> <% for (var i = 0; i <
   lastSearchResults.length; i++) { %> <% var listing = lastSearchResults[i]; %>
-  <div class="card mb-3 shadow-sm" id="card-<%= listing._id %>">
-    <div class="card-body">
+  <div class="card mb-3" id="card-<%= listing._id %>">
+    <div class="card-body shadow-sm">
       <div class="row">
         <h6 class="col"><%= listing.JobTitle %></h6>
       </div>
@@ -38,7 +52,7 @@
       <p class="mb-2"><small><%= listing.Summary %></small></p>
       <a
         href="<%= listing.Link %>"
-        class="btn btn-light btn-outline-primary btn-sm"
+        class="btn btn-light btn-outline-primary rounded-pill btn-sm"
         >Read more</a
       >
     </div>
