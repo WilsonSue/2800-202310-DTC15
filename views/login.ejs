@@ -1,17 +1,15 @@
 <%- include("templates/header") %>
 <div class="text-center">
-  <h1>Login</h1>
-  <br />
   <% if (errorMessage) { %>
-  <p class="error-message"><%= errorMessage %></p>
+  <div class="alert-container">
+    <div class="alert alert-danger" role="alert"><%= errorMessage %></div>
+  </div>
   <% } %>
 
   <!-- Login form -->
-  <div class="container d-flex justify-content-center">
+  <!-- <div class="container d-flex justify-content-center">
     <form action="/loginSubmit" method="POST" style="width: 100%">
-      <!-- Email input -->
       <div class="form-outline mb-4">
-        <!-- <label class="form-label" for="loginName">Email Address</label> -->
         <input
           type="email"
           name="email"
@@ -20,10 +18,7 @@
           placeholder="Email Address"
         />
       </div>
-
-      <!-- Password input -->
       <div class="form-outline mb-4">
-        <!-- <label class="form-label" for="loginPassword">Password</label> -->
         <input
           type="password"
           name="password"
@@ -32,25 +27,79 @@
           placeholder="Password"
         />
       </div>
-
-      <!-- 2 column grid layout -->
       <div class="row mb-4">
         <div class="col d-flex justify-content-center">
-          <!-- Simple link -->
           <a href="/resetPassword">Forgot password?</a>
         </div>
       </div>
-
-      <!-- Submit button -->
       <button type="submit" class="btn btn-primary btn-block mb-4">
         Log In
       </button>
-
-      <!-- Register buttons -->
       <div class="text-center">
         <p>Don't have an account? <a href="/signup">Sign up</a></p>
       </div>
     </form>
+  </div>
+</div> -->
+
+  <div class="container-fluid h-custom">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <!-- logo -->
+      <div class="col-md-9 col-lg-6 col-xl-5">
+        <img
+          src="/image/LogoPrototypeTechommend2.png"
+          class="img-fluid"
+          alt="logo"
+        />
+      </div>
+      <!-- log in form -->
+      <form action="/loginSubmit" method="POST">
+        <!-- email -->
+        <div class="form-floating mb-3">
+          <input
+            type="text"
+            name="email"
+            class="form-control"
+            id="floatingInput"
+            placeholder="name@example.com"
+          />
+          <label for="floatingInput">Email address</label>
+        </div>
+        <!-- password -->
+        <div class="form-floating mb-1">
+          <input
+            type="text"
+            name="password"
+            class="form-control"
+            id="floatingPassword"
+            placeholder="Password"
+          />
+          <label for="floatingPassword">Password</label>
+        </div>
+        <!-- reset password link -->
+
+        <div
+          class="text-end mb-3"
+          style="color: var(--darker-blue); font-weight: 500; width: 85%"
+        >
+          <a href="/resetPassword">Forgot password?</a>
+        </div>
+        <!-- submit button -->
+        <button
+          type="submit"
+          class="btn btn-lg btn-primary btn-block rounded-pill px-4 py-2 mb-3 mx-auto"
+          id="log-in-submit-btn"
+        >
+          LOG IN
+        </button>
+        <!-- login form link -->
+        <div class="text-center">
+          <p style="color: var(--darker-blue); font-weight: 500">
+            Don't have an account? <a href="/signup">Sign up</a>
+          </p>
+        </div>
+      </form>
+    </div>
   </div>
 </div>
 <%- include("templates/footer") %>
