@@ -1,0 +1,156 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+/* Basic styling for the body and font */
+body {
+  font-family: Arial, sans-serif;
+}
+
+/* Styling for the nav bar */
+.navbar {
+  background-color: rgb(240, 229, 105);
+  display: flex;
+  padding: 1rem;
+  align-items: center;
+  /* Add this style to hide the overflow-x on mobile devices */
+  overflow-x: hidden;
+}
+
+.navbar-center {
+  font-family: constantia;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Add this style */
+}
+
+/* Logo styles */
+.logo {
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.logo img {
+  height: 60px;
+  margin: 0 auto;
+}
+
+/* Dropdown menu styles */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  background-color: rgb(240, 229, 105);
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  background-color: rgb(242, 228, 114);
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown:hover .dropbtn {
+  color: rgb(205, 169, 41);
+}
+
+/* Hamburger menu styles */
+.hamburger {
+  display: none;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+a {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.mobile-menu a:hover {
+  text-decoration: none;
+  color: rgb(205, 169, 41);
+}
+
+/* Media query for mobile view */
+@media screen and (max-width: 768px) {
+  .navbar {
+    flex-wrap: wrap;
+  }
+
+  .navbar-left,
+  .navbar-right {
+    display: none;
+  }
+
+  .hamburger {
+    display: block;
+  }
+
+  .navbar-center {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .logo img {
+    height: 50px;
+  }
+
+  .mobile-menu {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    background-color: rgb(240, 229, 105);
+  }
+
+  .mobile-menu a,
+  .mobile-menu a:hover {
+    color: rgb(205, 169, 41);
+    text-align: center;
+    text-decoration: none;
+  }
+}
+
+/* Add this script to toggle the mobile menu */
+
+/* Easter egg modal styles */
+.modal-body {
+  animation: type 1s steps(23);
+  overflow: hidden;
+  font-family: consolas, "Courier New", monospace;
+  border-right: 4px solid white;
+  width: 100%;
+}
+@keyframes type {
+  0% {
+    width: 0ch;
+    background-color: grey;
+    color: black;
+  }
+  100% {
+    width: 100%;
+    background-color: white;
+    color: black;
+  }
+}
