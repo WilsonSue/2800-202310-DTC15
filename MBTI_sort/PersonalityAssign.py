@@ -3,14 +3,14 @@ import sys
 
 
 def assign_mbti(job_description):
-    extroversion = ["communication", "leadership", "teamwork", "sales", "marketing", "public speaking", "team", "collaboration", "outgoing", "socializing"]
-    introversion = ["research", "writing", "analytical", "creative", "strategic", "independently", "reflection", "reserved", "thoughtful"]
-    sensing = ["detail", "practical", "technical", "observational", "efficient", "observant", "realistic", "hands-on", "concrete"]
-    intuitive = ["creative", "strategic", "innovative", "insightful", "visionary", "imaginative", "abstract", "conceptual"]
-    thinking = ["critical", "solve", "decisive", "strategic", "technical", "problem-solving", "logical", "analytical", "objective", "rational", "impartial"]
-    feeling = ["empathetic", "communication", "resolution", "leadership", "creative", "compassionate", "emotional", "subjective", "harmonious"]
-    judging = ["planning", "organization", "time management", "decisive", "detail", "accountable", "detail-oriented", "structured", "scheduled", "systematic", "orderly"]
-    perceiving = ["adaptable", "adaptability", "creative", "problem solving", "solve", "flexible", "exploration", "open-minded", "spontaneous", "curious"]
+    extroversion = ["communication", "leadership", "teamwork", "sales", "marketing", "public", "team", "collaboration", "outgoing", "socializing", "networking", "charisma", "relationship", "influence", "energizing", "engaging", "persuasive", "social", "enthusiastic", "negotiation"]
+    introversion = ["research", "writing", "analytical", "creative", "strategic", "independently", "reflection", "reserved", "thoughtful", "contemplative", "introspective", "observant", "intellectual", "solitary", "reflective", "insightful", "deliberate", "independently", "reserved", "thought-provoking"]
+    sensing = ["detail", "practical", "technical", "observational", "efficient", "observant", "realistic", "hands-on", "concrete", "pragmatic", "conscientious", "procedural", "systematic", "methodical", "real-world", "specific", "pragmatic", "conscientious", "realistic", "prudent"]
+    intuitive = ["creative", "strategic", "innovative", "insightful", "visionary", "imaginative", "abstract", "conceptual", "futuristic", "vision", "concepts", "pattern", "insights", "intuitive", "big-picture", "ideas", "discern", "perceive", "inspire", "forsee"]
+    thinking = ["critical", "solve", "decisive", "strategic", "technical", "problem-solving", "logical", "analytical", "objective", "rational", "impartial", "strategies", "data", "systematic", "intellectual", "conceptual", "evaluation", "decision", "reasoning", "analysis"]
+    feeling = ["empathetic", "communication", "resolution", "leadership", "creative", "compassionate", "emotional", "subjective", "harmonious", "relationship", "value", "considerate", "cohesion", "ethical", "supportive", "collaboration", "collaborate", "sympathetic", "nurture", "interpersonal"]
+    judging = ["planning", "organization", "management", "decisive", "detail", "accountable", "detail-oriented", "structured", "scheduled", "systematic", "orderly", "goal", "goals", "results", "efficient", "methodical", "time-management", "proactive", "accountable", "productive"]
+    perceiving = ["adaptable", "adaptability", "creative", "problem solving", "solve", "flexible", "exploration", "open-minded", "spontaneous", "curious", "divergent", "agile", "resourceful", "fluid", "discover", "curiosity", "versatile", "unconventional", "inquisitive", "innovative"]
     job_description = job_description.replace(":", "")
     job_description = job_description.replace(",", "")
     job_description = job_description.replace(".", "")
