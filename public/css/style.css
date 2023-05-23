@@ -214,3 +214,24 @@ body {
   width: 85%;
   text-align: center;
 }
+
+/* ----------------------------------------------------------------
+	Search page
+-----------------------------------------------------------------*/
+.search-container {
+  margin: 5%;
+}
+
+.search-container > form {
+  margin-bottom: 1rem;
+}
+
+.search-heading {
+  color: var(--darkest-blue);
+}
+
+.search-container button {
+  background-color: var(--lightest-blue);
+  border-color: var(--lightest-blue);
+  cursor: pointer;
+}
