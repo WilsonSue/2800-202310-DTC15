@@ -1,3 +1,25 @@
+/* ----------------------------------------------------------------
+	CSS Hex + Font family
+-----------------------------------------------------------------*/
+:root {
+  --darkest-grey: #040f13;
+  --darker-grey: #071e26;
+  --green-grey: #0f3c4c;
+  --darkest-blue: #2535ab;
+  --darker-blue: #6172c9;
+  --grey-blue: #848fd4;
+  --blue: #3c6ce3;
+  --lighter-blue: #a9c2f7;
+  --lightest-blue: #dae4fb;
+  --tan: #dc947c;
+  --lighter-tan: #f3b69c;
+  --orange: #ea5406;
+  --font-1: "Montserrat", sans-serif;
+}
+
+/* ----------------------------------------------------------------
+	General 
+-----------------------------------------------------------------*/
 html,
 body {
   margin: 0;
@@ -5,29 +27,117 @@ body {
   overflow-x: hidden;
 }
 
-/* Basic styling for the body and font */
 body {
   font-family: Arial, sans-serif;
 }
 
-/* Styling for the nav bar */
-.navbar {
-  background-color: rgb(103, 169, 231);
-  display: flex;
-  padding: 1rem;
-  align-items: center;
-  /* Add this style to hide the overflow-x on mobile devices */
-  overflow-x: hidden;
+/* ----------------------------------------------------------------
+	Nav bar
+-----------------------------------------------------------------*/
+.navbar-toggler {
+  width: 20px;
+  height: 20px;
+  position: relative;
+  transition: 0.5s ease-in-out;
 }
 
-.navbar-center {
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  justify-content: center; /* Add this style */
+.navbar-toggler,
+.navbar-toggler:focus,
+.navbar-toggler:active,
+.navbar-toggler-icon:focus {
+  outline: none;
+  box-shadow: none;
+  border: 0;
 }
 
-/* Logo styles */
+.navbar-toggler span {
+  margin: 0;
+  padding: 0;
+}
+
+.toggler-icon {
+  display: block;
+  position: absolute;
+  height: 3px;
+  width: 100%;
+  background: var(--darkest-blue);
+  border-radius: 1px;
+  opacity: 1;
+  left: 0;
+  transform: rotate(0deg);
+  transition: 0.25s ease-in-out;
+}
+
+.middle-bar {
+  margin-top: 0px;
+}
+
+/* when hamburger icon is clicked */
+.navbar-toggler .top-bar {
+  margin-top: 0px;
+  transform: rotate(135deg);
+}
+
+.navbar-toggler .middle-bar {
+  opacity: 0;
+  filter: alpha(opacity=0);
+}
+
+.navbar-toggler .bottom-bar {
+  margin-top: 0px;
+  transform: rotate(-135deg);
+}
+
+/* when navbar is collapsed */
+.navbar-toggler.collapsed .top-bar {
+  margin-top: -20px;
+  transform: rotate(0deg);
+}
+
+.navbar-toggler.collapsed .middle-bar {
+  opacity: 1;
+  filter: alpha(opacity=100);
+}
+
+.navbar-toggler.collapsed .bottom-bar {
+  margin-top: 20px;
+  transform: rotate(0deg);
+}
+
+/* color of the hamburger icon */
+.navbar-toggler.collapsed .toggler-icon {
+  background: linear-gradient(
+    263deg,
+    var(--orange) 0%,
+    var(--darkest-blue) 100%
+  );
+}
+
+/* when nav link is hovered */
+#navbarNav > ul > li:hover {
+  background-color: var(--lightest-blue);
+}
+
+@media (max-width: 768px) {
+  .navbar-collapse {
+    text-align: center;
+  }
+
+  .navbar-nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .navbar-nav .nav-item {
+    margin: 3px 0;
+    width: 100%;
+  }
+}
+
+/* ----------------------------------------------------------------
+	Logo
+-----------------------------------------------------------------*/
 .logo {
   display: flex;
   align-items: center;
@@ -39,114 +149,28 @@ body {
   margin: 0 auto;
 }
 
-/* Dropdown menu styles */
-.dropdown {
-  position: relative;
-  display: inline-block;
+/* ----------------------------------------------------------------
+	Login / Sign up button
+-----------------------------------------------------------------*/
+#login-btn,
+#signup-btn {
+  background-color: var(--lightest-blue);
+  width: 250px;
+  border-color: var(--lightest-blue);
 }
 
-.dropdown-content {
-  display: none;
-  position: absolute;
-  right: 0;
-  background-color: rgb(105, 168, 240);
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-  z-index: 1;
-}
-
-.dropdown-content a {
-  color: black;
-  padding: 12px 16px;
+#login-btn a,
+#signup-btn a {
+  color: var(--darker-blue);
+  font-size: 1.3rem;
+  font-family: var(--font-1);
+  font-weight: bold;
   text-decoration: none;
-  display: block;
 }
 
-.dropdown-content a:hover {
-  background-color: rgb(103, 169, 231);
-}
-
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-
-.dropdown:hover .dropbtn {
-  color: rgb(255, 255, 255);
-}
-
-/* Hamburger menu styles */
-.hamburger {
-  display: none;
-  font-size: 30px;
-  cursor: pointer;
-}
-
-a {
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.mobile-menu a:hover {
-  text-decoration: none;
-  color: rgb(255, 255, 255);
-}
-
-/* Media query for mobile view */
-@media screen and (max-width: 768px) {
-  .navbar {
-    flex-wrap: wrap;
-  }
-  .navbar-left,
-  .navbar-right {
-    display: none;
-  }
-
-  .hamburger {
-    display: block;
-  }
-
-  .navbar-center {
-    width: 100%;
-    justify-content: space-between;
-  }
-
-  .logo img {
-    height: 50px;
-  }
-
-  .mobile-menu {
-    display: none;
-    flex-direction: column;
-    width: 100%;
-    background-color: rgb(105, 168, 240);
-  }
-
-  .mobile-menu a,
-  .mobile-menu a:hover {
-    color: white;
-    text-align: center;
-    text-decoration: none;
-  }
-}
-/* Add this script to toggle the mobile menu */
-
-/* Easter egg modal styles */
-.modal-body {
-  animation: type 1s steps(23);
-  overflow: hidden;
-  font-family: consolas, "Courier New", monospace;
-  border-right: 4px solid white;
-  width: 100%;
-}
-@keyframes type {
-  0% {
-    width: 0ch;
-    background-color: grey;
-    color: black;
-  }
-  100% {
-    width: 100%;
-    background-color: white;
-    color: black;
-  }
+#login-btn:hover,
+#signup-btn:hover {
+  border: solid 1px;
+  border-color: var(--orange);
+  box-shadow: 0 0 3px var(--orange), 0 0 15px var(--lighter-tan);
 }

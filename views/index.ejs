@@ -1,12 +1,27 @@
 <%- include("templates/header") %>
-    <div class="text-center">
-        <% if (!authenticated) { %>
-            <h1>Home Page</h1>
-            <button><a href='/login' style="text-decoration:none">Login</a></button>
-            <button><a href='/signup' style="text-decoration:none">Signup</a></button>
-            <% } else { %>
-                Hello, <%= username %>!<br>
-                    <button><a href='/logout' style="text-decoration:none">Logout</a></button>
-                    <% } %>
-    </div>
-    <%- include("templates/footer") %>
+<div class="container">
+  <img src="image/Portfolio.svg" alt="home page illustration" />
+</div>
+<div class="text-center">
+  <% if (!authenticated) { %>
+
+  <button
+    type="button"
+    class="btn btn-lg btn-primary btn-block rounded-pill px-4 py-2 mb-3 mx-auto"
+    id="login-btn"
+  >
+    <a href="/login">LOG IN</a>
+  </button>
+  <button
+    type="button"
+    class="btn btn btn-primary btn-block btn-raised rounded-pill px-4 py-2 mx-auto"
+    id="signup-btn"
+  >
+    <a href="/signup">SIGN UP</a>
+  </button>
+
+  <% } else { %> Hello, <%= username %>!<br />
+  <button><a href="/logout">LOG OUT</a></button>
+  <% } %>
+</div>
+<%- include("templates/footer") %>
