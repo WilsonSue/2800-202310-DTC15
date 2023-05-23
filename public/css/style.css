@@ -15,20 +15,14 @@
   --lighter-tan: #f3b69c;
   --orange: #ea5406;
   --font-1: "Montserrat", sans-serif;
+  --font-2: "Arial", sans-serif;
 }
 
 /* ----------------------------------------------------------------
 	General 
 -----------------------------------------------------------------*/
-html,
 body {
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
-}
-
-body {
-  font-family: Arial, sans-serif;
+  font-family: var(--font-2);
 }
 
 /* ----------------------------------------------------------------
@@ -160,7 +154,8 @@ body {
 }
 
 #login-btn a,
-#signup-btn a {
+#signup-btn a,
+#sign-up-submit-btn {
   color: var(--darker-blue);
   font-size: 1.3rem;
   font-family: var(--font-1);
@@ -169,8 +164,36 @@ body {
 }
 
 #login-btn:hover,
-#signup-btn:hover {
+#signup-btn:hover,
+#sign-up-submit-btn:hover {
   border: solid 1px;
   border-color: var(--orange);
   box-shadow: 0 0 3px var(--orange), 0 0 15px var(--lighter-tan);
+}
+
+/* ----------------------------------------------------------------
+	Sign up form
+-----------------------------------------------------------------*/
+
+#sign-up-submit-btn {
+  background-color: var(--lightest-blue);
+  border-color: var(--lightest-blue);
+  width: 85%;
+}
+
+.form-floating {
+  width: 85%;
+  margin: 0 auto;
+}
+.form-floating > .form-control,
+.form-floating > .form-control-plaintext {
+  border-radius: 50px;
+  border: solid 2px var(--lightest-blue);
+}
+
+.form-floating label {
+  color: var(--darker-blue);
+  font-family: var(font-1);
+  font-weight: 500;
+  padding-left: 8%;
 }
