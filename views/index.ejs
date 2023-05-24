@@ -1,10 +1,15 @@
 <%- include("templates/header") %>
-<div class="container p-3 mt-5 mb-5">
-  <img src="image/Portfolio.svg" alt="home page illustration" />
-</div>
+
 <div class="text-center">
   <% if (!authenticated) { %>
-
+  <div class="container p-3 mt-5 mb-2">
+    <h4 class="index-font">
+      Welcome to <span class="font-gradient">Techommend</span>
+    </h4>
+  </div>
+  <div class="container p-4 mt-2 mb-5">
+    <img src="image/Portfolio.svg" alt="home page illustration" />
+  </div>
   <button
     type="button"
     class="btn btn-lg btn-primary btn-block rounded-pill px-4 py-2 mb-4 mx-auto"
@@ -20,8 +25,27 @@
     <a href="/signup">SIGN UP</a>
   </button>
 
-  <% } else { %> Hello, <%= username %>!<br />
-  <button><a href="/logout">LOG OUT</a></button>
+  <% } else { %>
+  <div class="container p-3 mt-5 mb-5">
+    <h4 class="index-font">
+      Hello, <span class="font-gradient"><%= username %>!</span>
+    </h4>
+  </div>
+  <div class="container p-4 mt-3 mb-3">
+    <img src="image/Portfolio.svg" alt="home page illustration" />
+  </div>
+  <button
+    id="search-submit-btn"
+    class="btn btn-lg btn-primary btn-block rounded-pill px-4 py-2 mb-3 mx-auto"
+  >
+    <a href="/search">SEARCH</a>
+  </button>
+  <button
+    id="logout-submit-btn"
+    class="btn btn-lg btn-primary btn-block rounded-pill px-4 py-2 mb-3 mx-auto"
+  >
+    <a href="/logout">LOG OUT</a>
+  </button>
   <% } %>
 </div>
 <%- include("templates/footer") %>
