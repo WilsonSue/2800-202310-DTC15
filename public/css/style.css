@@ -255,3 +255,34 @@ body {
 .card.mb-3 {
   border: none;
 }
+
+/* ----------------------------------------------------------------
+	Search Results Page
+-----------------------------------------------------------------*/
+.search-results-container {
+  margin: 5%;
+}
+
+#bookmark-submit-btn {
+  padding: 6px 6px;
+}
+
+select {
+  border: 1px solid #ccc;
+  border-radius: 35px;
+  padding: 2px;
+}
+
+.form-select-sm {
+  display: inline-block;
+  width: fit-content;
+}
+
+#filter-submit-btn {
+  padding: 3px 8px 3px 8px;
+  cursor: pointer;
+  border: grey 1px solid;
+  margin: none;
+  font-size: 14px;
+  color: #000000;
+}
