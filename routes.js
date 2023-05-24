@@ -35,11 +35,9 @@ module.exports = function (
   });
 
   app.post("/submitUser", async (req, res) => {
-    var firstName = req.body.firstName;
-    var lastName = req.body.lastName;
-    var username = req.body.username;
-    var password = req.body.password;
-    var email = req.body.email;
+    var username = (req.body.username).trim();
+    var password = (req.body.password).trim();
+    var email = (req.body.email).trim();
     const schema = Joi.object({
       username: Joi.string().alphanum().max(20).required(),
       password: Joi.string().min(6).max(16).required(),
@@ -65,8 +63,6 @@ module.exports = function (
     }
     var hashedPassword = await bcrypt.hash(password, saltRounds);
     await userCollection.insertOne({
-      firstName: firstName,
-      lastName: lastName,
       username: username,
       password: hashedPassword,
       email: email,
@@ -105,8 +101,8 @@ module.exports = function (
   });
 
   app.post("/loginSubmit", async (req, res) => {
-    var password = req.body.password;
-    var email = req.body.email;
+    var password = (req.body.password).trim();
+    var email = (req.body.email).trim();
     const schema = Joi.string().email().required();
     const validationResult = schema.validate(email);
     let errorMessage = null;
@@ -206,6 +202,7 @@ module.exports = function (
     let minSalary = parseInt(req.query.minSalary);
     let maxSalary = parseInt(req.query.maxSalary);
     let skills = null;
+    let disabled = "";
     const page = parseInt(req.query.page) || 1;
     const limit = 10;
     const skip = (page - 1) * limit;
@@ -296,6 +293,7 @@ module.exports = function (
 
     if (mbti) {
       listings = sort_priority_order(listings, mbti);
+      disabled = "disabled";
     }
 
     function filterBySalary(jobListings, minSalary, maxSalary) {
@@ -340,6 +338,7 @@ module.exports = function (
       totalPages,
       query,
       mbti,
+      disabled,
       location,
       minRating,
       maxRating,
