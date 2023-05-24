@@ -263,10 +263,6 @@ body {
   margin: 5%;
 }
 
-#bookmark-submit-btn {
-  padding: 6px 6px;
-}
-
 select {
   border: 1px solid #ccc;
   border-radius: 35px;

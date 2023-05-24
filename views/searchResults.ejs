@@ -103,7 +103,7 @@
               <form method="POST" action="/savedListings">
                 <button type="button" name="save-btn" value="<%= job._id %>"
                   id="bookmark-submit-btn"
-                  class="btn rounded-3 btn-light btn-outline-primary <%= user.bookmarks.includes(job._id.toString()) ? 'active' : '' %>"
+                  class="btn btn-sm rounded-pill btn-light btn-outline-primary <%= user.bookmarks.includes(job._id.toString()) ? 'active' : '' %>"
                   onclick="toggleBookmark(this, '<%= job._id %>');">
                   <i class="fa fa-bookmark"></i>
                 </button>
