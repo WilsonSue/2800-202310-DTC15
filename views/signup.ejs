@@ -1,64 +1,42 @@
 <%- include("templates/header") %>
-<div class="container-fluid h-custom">
-  <div class="row d-flex justify-content-center align-items-center h-100">
-    <!-- logo -->
-    <div class="col-md-9 col-lg-6 col-xl-5 mb-4 mt-3">
-      <img src="/image/TechommendLogo.png" class="img-fluid" alt="logo" />
-    </div>
-    <!-- sign up form -->
-    <div class="col-md-9 col-lg-6 col-xl-5">
-      <form action="/submitUser" method="POST">
-        <!-- username -->
-        <div class="form-floating mb-3">
-          <input
-            type="text"
-            name="username"
-            class="form-control"
-            id="floatingUsername"
-            placeholder="Username"
-          />
-          <label for="floatingPassword">Username</label>
-        </div>
-        <!-- email -->
-        <div class="form-floating mb-3">
-          <input
-            type="text"
-            name="email"
-            class="form-control"
-            id="floatingInput"
-            placeholder="name@example.com"
-          />
-          <label for="floatingInput">Email address</label>
-        </div>
-        <!-- password -->
-        <div class="form-floating mb-3">
-          <input
-            type="password"
-            name="password"
-            class="form-control"
-            id="floatingPassword"
-            placeholder="Password"
-          />
-          <label for="floatingPassword">Password</label>
-        </div>
-        <!-- submit button -->
-        <div class="d-grid">
-          <button
-            type="submit"
-            class="btn btn-lg btn-primary rounded-pill px-4 py-2 mb-3"
-            id="sign-up-submit-btn"
-          >
-            SIGN UP
-          </button>
-        </div>
-        <!-- login form link -->
-        <div class="text-center">
-          <p style="color: var(--darker-blue); font-weight: 500">
-            Already have an account? <a href="/login">Log in</a>
-          </p>
-        </div>
-      </form>
+  <div class="container-fluid h-custom">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <!-- logo -->
+      <div class="col-md-9 col-lg-6 col-xl-5 mb-4 mt-3">
+        <img src="/image/TechommendLogo.png" class="img-fluid" alt="logo" />
+      </div>
+      <!-- sign up form -->
+      <div class="col-md-9 col-lg-6 col-xl-5">
+        <form action="/submitUser" method="POST">
+          <!-- username -->
+          <div class="form-floating mb-3">
+            <input type="text" name="username" class="form-control" id="floatingUsername" placeholder="Username" />
+            <label for="floatingPassword">Username</label>
+          </div>
+          <!-- email -->
+          <div class="form-floating mb-3">
+            <input type="text" name="email" class="form-control" id="floatingInput" placeholder="name@example.com" />
+            <label for="floatingInput">Email address</label>
+          </div>
+          <!-- password -->
+          <div class="form-floating mb-3">
+            <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password" />
+            <label for="floatingPassword">Password</label>
+          </div>
+          <!-- submit button -->
+          <div class="d-grid">
+            <button type="submit" class="btn btn-lg btn-primary rounded-pill px-4 py-2 mb-3" id="sign-up-submit-btn">
+              SIGN UP
+            </button>
+          </div>
+          <!-- login form link -->
+          <div class="text-center">
+            <p style="color: var(--darker-blue); font-weight: 500">
+              Already have an account? <a href="/login">Log in</a>
+            </p>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
-</div>
-<%- include("templates/footer") %>
+  <%- include("templates/footer") %>
