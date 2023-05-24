@@ -88,11 +88,11 @@ def assign_mbti(job_description):
     if judging_count > perceiving_count:
         if judging_count + perceiving_count != 0:
             judging_percent = judging_count / (judging_count + perceiving_count)
-        mbti += 'J '
+        mbti += 'J'
     else:
         if judging_count + perceiving_count != 0:
             perceiving_percent = perceiving_count / (judging_count + perceiving_count)
-        mbti += 'P '
+        mbti += 'P'
 
     for percent in [introversion_percent, extroversion_percent, sensing_percent, intuitive_percent, thinking_percent, feeling_percent, judging_percent, perceiving_percent]:
         if percent is not None:
