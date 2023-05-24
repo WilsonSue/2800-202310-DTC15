@@ -1,4 +1,4 @@
-<%- include("templates/header") %>
+<%- include("templates/header") %> <%- include("templates/nav") %>
 
 <div class="container" id="profile-container">
     <h4 class="search-heading">User Profile</h4>
@@ -82,7 +82,7 @@
         <!-- ... -->
         <div class="form-group">
             <label for="personality">Personality Type</label>
-            <select id="personality" name="personality" size="1" required>
+            <select id="personality-select" name="personality" size="1" required class="mb-3">
                 <option value="" disabled <% if (!user.personality) { %>selected<% } %> >Select your personality type</option>
                 <% const personalities=['INTJ', 'INTP', 'ENTJ', 'ENTP', 'INFJ', 'INFP', 'ENFJ', 'ENFP', 'ISTJ', 'ISFJ',
                     'ESTJ', 'ESFJ', 'ISTP', 'ISFP', 'ESTP', 'ESFP']; %>
