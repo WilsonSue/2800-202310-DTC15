@@ -76,6 +76,7 @@ module.exports = function (
     req.session.authenticated = true;
     req.session.username = username;
     req.session.email = email; // Add this line to store the email in the session
+    req.session.cookie.maxAge = expireTime;
     console.log("Inserted user");
     res.redirect("/search"); // Change this line to redirect to userProfile instead of /members
   });
