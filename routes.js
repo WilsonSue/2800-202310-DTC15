@@ -42,7 +42,7 @@ module.exports = function (
     var email = req.body.email;
     const schema = Joi.object({
       username: Joi.string().alphanum().max(20).required(),
-      password: Joi.string().max(20).required(),
+      password: Joi.string().min(6).max(16).required(),
       email: Joi.string().email().required(),
     });
     if (!email) {
