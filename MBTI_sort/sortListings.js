@@ -1,3 +1,11 @@
+function sortJobListingsByPercentage(jobListings) {
+  jobListings.sort(function(a, b) {
+    return b.percent - a.percent;
+  });
+
+  return jobListings;
+}
+
 function sort_priority_order(jobs_with_mbti, personality) {
   const sorted_list = [];
   const mbti_types = {
@@ -42,6 +50,10 @@ function sort_priority_order(jobs_with_mbti, personality) {
 
   for (const job of jobs_with_mbti) {
     mbti_types[job.mbti].push(job);
+  }
+
+  for (const mbti of Object.keys(mbti_types)) {
+    mbti_types[mbti] = sortJobListingsByPercentage(mbti_types[mbti]);
   }
 
   for (const mbti of priority_order[personality]) {
