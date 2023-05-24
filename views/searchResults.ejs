@@ -122,10 +122,19 @@
                 <%= job.JobType %>
               </span></p>
             <% } %>
-            <% if (job.SalaryEstimate !=="None Given" ) { %>
-              <p class="mb-0 py-0"><span class="badge text-bg-light">
-                <%= job.SalaryEstimate %>
-              </span></p>
+                <% if (job.SalaryEstimate !=="None Given" ) { %>
+                    <p class="mb-0 py-0 "><span class="badge text-bg-light">
+                            <%= job.SalaryEstimate %>
+                        </span></p>
+                    <% } %>
+      <% if (mbti) { %>
+        <p class="mb-0 py-0 "><span class="badge text-bg-light">
+            Closest match: <%= job.mbti %>
+          </span></p>
+        <p class="mb-0 py-0 "><span class="badge text-bg-light">
+            This job is a <%= job.percent %>% match to your personality type.
+        </span></p>
+      <% } %>
             <% } %>
             <p class="mb-0 py-0"><span class="badge text-bg-light">Closest match: <%= job.mbti %></span></p>
           </div>

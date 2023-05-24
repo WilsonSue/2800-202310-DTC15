@@ -1,6 +1,6 @@
 const { spawn } = require('child_process');
 
-const pythonScriptPath = './PersonalityAssign.py'; // Update this if necessary
+const pythonScriptPath = './MBTI_sort/PersonalityAssign.py'; // Update this if necessary
 
 async function runPythonScript(jobDescription) {
   return new Promise((resolve, reject) => {
@@ -29,12 +29,17 @@ async function runPythonScript(jobDescription) {
 async function updateMBTI(collection, jobDescription, document) {
   try {
     const scriptResults = await runPythonScript(jobDescription);
-    const mbti = scriptResults; // Get the MBTI value from Python script output
+    const mbti = scriptResults.substring(0, 4); // Get the MBTI value from Python script output
+    const percent = parseFloat(scriptResults.substring(4));
+
     // Update the document with the new field
     console.log('Updating document with MBTI:', mbti);
     await collection.updateOne(
       { _id: document._id },
-      { $set: { mbti: mbti } }
+      { $set: { 
+        mbti: mbti,
+        percent: percent 
+      } }
     );
     console.log('Document updated successfully');
   } catch (err) {
