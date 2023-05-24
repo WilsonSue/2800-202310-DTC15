@@ -103,31 +103,6 @@ module.exports = function (
     res.render("login", { errorMessage: null });
   });
 
-  app.post("/login", async (req, res) => {
-    let errorMessage = null;
-
-    try {
-      const result = await usersModel.findOne({
-        username: req.body.username,
-      });
-
-      if (bcrypt.compareSync(req.body.password, result.password)) {
-        req.session.GLOBAL_AUTHENTICATED = true;
-        req.session.loggedUsername = req.body.username;
-        req.session.loggedPassword = req.body.password;
-        res.redirect("/");
-        return;
-      } else {
-        errorMessage = "Invalid password.";
-      }
-    } catch (error) {
-      console.log(error);
-      errorMessage = "An error occurred.";
-    }
-
-    res.render("loginSubmit", { errorMessage: errorMessage });
-  });
-
   app.post("/loginSubmit", async (req, res) => {
     var password = req.body.password;
     var email = req.body.email;
