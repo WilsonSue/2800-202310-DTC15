@@ -53,6 +53,24 @@ function sort_priority_order(jobs_with_mbti, personality) {
   }
 
   for (const mbti of Object.keys(mbti_types)) {
+    var index = Object.keys(mbti_types).indexOf(mbti)
+    for (const job of mbti_types[mbti]) {
+      if (index >= 1 && index <= 3) {
+        job.percent -= 5
+      }
+      if (index >= 4 && index <= 7) {
+        job.percent -= 10
+      }
+      if (index >= 8 && index <= 11) {
+        job.percent -= 15
+      }
+      if (index >= 12 && index <= 15) {
+        job.percent -= 20
+      }
+    }
+  }
+
+  for (const mbti of Object.keys(mbti_types)) {
     mbti_types[mbti] = sortJobListingsByPercentage(mbti_types[mbti]);
   }
 
