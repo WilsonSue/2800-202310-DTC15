@@ -6,8 +6,8 @@
 <div class="container" id="saved-listing">
   <% listings.forEach((listing) => { if
   (user.bookmarks.includes(listing._id.toString())) { %>
-  <div class="card mb-3 shadow-sm" id="card-<%= listing._id %>">
-    <div class="card-body">
+  <div class="card mb-3" id="card-<%= listing._id %>">
+    <div class="card-body shadow-sm">
       <div class="row">
         <h6 class="col"><%= listing.JobTitle %></h6>
         <div class="col-2">
