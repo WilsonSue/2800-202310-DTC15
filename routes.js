@@ -294,9 +294,6 @@ module.exports = function (
       return res.redirect("/easterEgg");
     }
 
-    req.session.lastSearchResults = listings.slice(0, 3); // only save first 3 listings
-    req.session.lastSearchTerm = query; // Save the last search term into the session
-
     if (mbti) {
       listings = sort_priority_order(listings, mbti);
     }
@@ -324,6 +321,9 @@ module.exports = function (
       listings = filterBySalary(listings, minSalary, maxSalary);
       totalListings = listings.length;
     }
+
+    req.session.lastSearchResults = listings.slice(0, 3); // only save first 3 listings
+    req.session.lastSearchTerm = query; // Save the last search term into the session
 
     listings = listings.slice(skip, skip + limit);
     const totalPages = Math.ceil(totalListings / limit);
