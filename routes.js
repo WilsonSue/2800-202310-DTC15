@@ -230,7 +230,6 @@ module.exports = function (
     let minSalary = parseInt(req.query.minSalary);
     let maxSalary = parseInt(req.query.maxSalary);
     let skills = null;
-    console.log(req.query);
     const page = parseInt(req.query.page) || 1;
     const limit = 10;
     const skip = (page - 1) * limit;
@@ -296,13 +295,11 @@ module.exports = function (
     }
 
     let totalListings = await jobCollection.countDocuments(mongoQuery);
-    const totalPages = Math.ceil(totalListings / limit);
+    
 
     // Perform a case-insensitive search in the 'jobs' collection
     var listings = await jobCollection
       .find(mongoQuery)
-      .skip(skip)
-      .limit(limit)
       .toArray();
 
     if (req.session.authenticated) {
@@ -352,7 +349,9 @@ module.exports = function (
       totalListings = listings.length;
     }
 
-    console.log(listings.length);
+    listings = listings.slice(skip, skip + limit);
+    const totalPages = Math.ceil(totalListings / limit);
+    console.log(totalListings);
 
     minRating = minRating.toString();
     maxRating = maxRating.toString();
