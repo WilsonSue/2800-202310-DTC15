@@ -7,7 +7,7 @@
   <form action="/search" method="get" class="mb-3" >
     <input type="hidden" name="query" value="<%= query %>">
       <!-- mbti filter -->
-      <select name="mbti" class="form-select-sm " size="1" >
+      <select name="mbti" class="form-select-sm " size="1" <%= disabled %>>
         <option value="">Any personality</option>
         <option value="INTJ" <%=mbti==='INTJ' ? 'selected' : '' %>>INTJ</option>
         <option value="INTP" <%=mbti==='INTP' ? 'selected' : '' %>>INTP</option>
