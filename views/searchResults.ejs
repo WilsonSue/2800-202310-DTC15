@@ -126,9 +126,14 @@
                             <%= job.SalaryEstimate %>
                         </span></p>
                     <% } %>
-      <p class="mb-0 py-0 "><span class="badge text-bg-light">
-          Closest match: <%= job.mbti %>
+      <% if (mbti) { %>
+        <p class="mb-0 py-0 "><span class="badge text-bg-light">
+            Closest match: <%= job.mbti %>
+          </span></p>
+        <p class="mb-0 py-0 "><span class="badge text-bg-light">
+            This job is a <%= job.percent %>% match to your personality type.
         </span></p>
+      <% } %>
     </div>
     <p class="mb-2"><small>
             <%= job.Summary %>
