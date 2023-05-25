@@ -35,9 +35,9 @@ module.exports = function (
   });
 
   app.post("/submitUser", async (req, res) => {
-    var username = (req.body.username).trim();
-    var password = (req.body.password).trim();
-    var email = (req.body.email).trim();
+    var username = req.body.username.trim();
+    var password = req.body.password.trim();
+    var email = req.body.email.trim();
     const schema = Joi.object({
       username: Joi.string().alphanum().max(20).required(),
       password: Joi.string().min(6).max(16).required(),
@@ -101,8 +101,8 @@ module.exports = function (
   });
 
   app.post("/loginSubmit", async (req, res) => {
-    var password = (req.body.password).trim();
-    var email = (req.body.email).trim();
+    var password = req.body.password.trim();
+    var email = req.body.email.trim();
     const schema = Joi.string().email().required();
     const validationResult = schema.validate(email);
     let errorMessage = null;
@@ -212,6 +212,9 @@ module.exports = function (
     const skip = (page - 1) * limit;
     const email = req.session.email;
     const user = await userCollection.findOne({ email: email });
+    if (!user.bookmarks) {
+      user.bookmarks = [];
+    }
 
     // Ensure query is a string
     if (query && typeof query !== "string") {
@@ -272,12 +275,9 @@ module.exports = function (
     }
 
     let totalListings = await jobCollection.countDocuments(mongoQuery);
-    
 
     // Perform a case-insensitive search in the 'jobs' collection
-    var listings = await jobCollection
-      .find(mongoQuery)
-      .toArray();
+    var listings = await jobCollection.find(mongoQuery).toArray();
 
     if (req.session.authenticated) {
       const user = await userCollection.findOne({ email: req.session.email });

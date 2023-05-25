@@ -75,22 +75,22 @@
         <!-- min/max Salary -->
         <select name="minSalary" class="form-select-sm " size="1">
           <option value="">Min Salary</option>
-          <option value='40000' <%=minSalary==='40000' ? 'selected' : '' %>>40,000</option>
-          <option value='50000' <%=minSalary==='50000' ? 'selected' : '' %>>50,000</option>
-          <option value='60000' <%=minSalary==='60000' ? 'selected' : '' %>>60,000</option>
-          <option value='70000' <%=minSalary==='70000' ? 'selected' : '' %>>70,000</option>
-          <option value='80000' <%=minSalary==='80000' ? 'selected' : '' %>>80,000</option>
-          <option value='90000' <%=minSalary==='90000' ? 'selected' : '' %>>90,000</option>
+          <option value='40000' <%=minSalary==='40000' ? 'selected' : '' %>>$40,000</option>
+          <option value='50000' <%=minSalary==='50000' ? 'selected' : '' %>>$50,000</option>
+          <option value='60000' <%=minSalary==='60000' ? 'selected' : '' %>>$60,000</option>
+          <option value='70000' <%=minSalary==='70000' ? 'selected' : '' %>>$70,000</option>
+          <option value='80000' <%=minSalary==='80000' ? 'selected' : '' %>>$80,000</option>
+          <option value='90000' <%=minSalary==='90000' ? 'selected' : '' %>>$90,000</option>
         </select>
 
         <select name="maxSalary" class="form-select-sm " size="1">
           <option value="">Max Salary</option>
-          <option value='80000' <%=maxSalary==='80000' ? 'selected' : '' %>>80,000</option>
-          <option value='90000' <%=maxSalary==='90000' ? 'selected' : '' %>>90,000</option>
-          <option value='100000' <%=maxSalary==='100000' ? 'selected' : '' %>>100,000</option>
-          <option value='150000' <%=maxSalary==='150000' ? 'selected' : '' %>>150,000</option>
-          <option value='200000' <%=maxSalary==='200000' ? 'selected' : '' %>>200,000</option>
-          <option value='250000' <%=maxSalary==='250000' ? 'selected' : '' %>>250,000</option>
+          <option value='80000' <%=maxSalary==='80000' ? 'selected' : '' %>>$80,000</option>
+          <option value='90000' <%=maxSalary==='90000' ? 'selected' : '' %>>$90,000</option>
+          <option value='100000' <%=maxSalary==='100000' ? 'selected' : '' %>>$100,000</option>
+          <option value='150000' <%=maxSalary==='150000' ? 'selected' : '' %>>$150,000</option>
+          <option value='200000' <%=maxSalary==='200000' ? 'selected' : '' %>>$200,000</option>
+          <option value='250000' <%=maxSalary==='250000' ? 'selected' : '' %>>$250,000</option>
         </select>
         <button onclick="this.form.submit()" class="btn" id="filter-submit-btn">Search</button>
         <a href="/search?query=<%= query %>&location=&minRating<%= minRating %>&maxRating=&jobType=&minSalary=&maxSalary=&page=<%= 1 %>"
@@ -154,12 +154,11 @@
 
                 <div class="pagination">
                   <% if (page> 1) { %>
-                    <a
-                      href="/search?query=<%= query %>&location=<%= location %>&minRating=<%= minRating %>&maxRating=<%= maxRating %>&jobType=<%= jobType %>&minSalary=<%= minSalary %>&maxSalary=<%= maxSalary %>&page=<%= page - 1 %>">Previous</a>
+                    <a href="/search?query=<%= query %>&location=<%= location %>&minRating=<%= minRating %>&maxRating=<%= maxRating %>&jobType=<%= jobType %>&minSalary=<%= minSalary %>&maxSalary=<%= maxSalary %>&page=<%= page - 1 %>" class="prev-btn btn btn-light">Previous</a>
                     <% } %>
                       <% if (page < totalPages) { %>
                         <a
-                          href="/search?query=<%= query %>&location=<%= location %>&minRating=<%= minRating %>&maxRating=<%= maxRating %>&jobType=<%= jobType %>&minSalary=<%= minSalary %>&maxSalary=<%= maxSalary %>&page=<%= page + 1 %>">Next</a>
+                          href="/search?query=<%= query %>&location=<%= location %>&minRating=<%= minRating %>&maxRating=<%= maxRating %>&jobType=<%= jobType %>&minSalary=<%= minSalary %>&maxSalary=<%= maxSalary %>&page=<%= page + 1 %>" class="next-btn btn btn-light">Next</a>
                         <% } %>
                 </div>
     </div>
