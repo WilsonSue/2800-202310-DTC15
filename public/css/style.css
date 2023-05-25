@@ -322,13 +322,20 @@ select {
   width: fit-content;
 }
 
-#filter-submit-btn {
+#filter-submit-btn,
+#reset-submit-btn {
   padding: 3px 8px 3px 8px;
   cursor: pointer;
-  border: grey 1px solid;
+  border: var(--lightest-blue) 1.5px solid;
   margin: none;
   font-size: 14px;
   color: #000000;
+}
+
+#filter-submit-btn:hover,
+#reset-submit-btn:hover {
+  border: var(--lightest-blue) 1.5px solid;
+  background-color: var(--lightest-blue);
 }
 
 /* ----------------------------------------------------------------
