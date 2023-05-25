@@ -154,11 +154,11 @@
 
                 <div class="pagination">
                   <% if (page> 1) { %>
-                    <a href="/search?query=<%= query %>&location=<%= location %>&minRating=<%= minRating %>&maxRating=<%= maxRating %>&jobType=<%= jobType %>&minSalary=<%= minSalary %>&maxSalary=<%= maxSalary %>&page=<%= page - 1 %>">Previous</a>
+                    <a href="/search?query=<%= query %>&location=<%= location %>&minRating=<%= minRating %>&maxRating=<%= maxRating %>&jobType=<%= jobType %>&minSalary=<%= minSalary %>&maxSalary=<%= maxSalary %>&page=<%= page - 1 %>" class="prev-btn btn btn-light">Previous</a>
                     <% } %>
                       <% if (page < totalPages) { %>
                         <a
-                          href="/search?query=<%= query %>&location=<%= location %>&minRating=<%= minRating %>&maxRating=<%= maxRating %>&jobType=<%= jobType %>&minSalary=<%= minSalary %>&maxSalary=<%= maxSalary %>&page=<%= page + 1 %>">Next</a>
+                          href="/search?query=<%= query %>&location=<%= location %>&minRating=<%= minRating %>&maxRating=<%= maxRating %>&jobType=<%= jobType %>&minSalary=<%= minSalary %>&maxSalary=<%= maxSalary %>&page=<%= page + 1 %>" class="next-btn btn btn-light">Next</a>
                         <% } %>
                 </div>
     </div>
