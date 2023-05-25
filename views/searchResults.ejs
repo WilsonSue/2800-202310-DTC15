@@ -172,38 +172,62 @@
                 </div>
     </div>
 
-    <script>
-      function toggleBookmark(button, jobId) {
-        // Toggle active class on button
-        button.classList.toggle('active');
-        // Send the post request
-        fetch("/savedListings", {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-          },
-          body: new URLSearchParams(`save-btn=${jobId}`),
-        })
-          .catch((error) => {
-            console.error('Error:', error);
-          });
-      }
-
-
-      function toggleSelectSize(selectElement) {
-        selectElement.prop('size', selectElement.prop('size') === 1 ? 5 : 1);
-      }
-
-      $('.form-select-sm').on('click', function () {
-        toggleSelectSize($(this));
+<script>
+  $(document).ready(function() {
+  function toggleBookmark(button, jobId) {
+    // Toggle active class on button
+    button.classList.toggle('active');
+    // Send the post request
+    fetch("/savedListings", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: new URLSearchParams(`save-btn=${jobId}`),
+    })
+      .catch((error) => {
+        console.error('Error:', error);
       });
+  }
 
-      $('.form-select-sm').on('change', function () {
-        toggleSelectSize($(this));
-      });
+  function toggleSelectSize(selectElement) {
+    selectElement.prop('size', selectElement.prop('size') === 1 ? 5 : 1);
+  }
+  $('.form-select-sm').on('click', function () {
+    toggleSelectSize($(this));
+  });
+  $('.form-select-sm').on('change', function () {
+    toggleSelectSize($(this));
+  });
 
+  // disable buttons if all filters (except mbti) are in default setting
+  if (
+    $('select[name="location"]').val() === "" &&
+    $('select[name="minRating"]').val() === "" &&
+    $('select[name="maxRating"]').val() === "" &&
+    $('select[name="jobType"]').val() === "" &&
+    $('select[name="minSalary"]').val() === "" &&
+    $('select[name="maxSalary"]').val() === ""
+  ) {
+    $('#filter-submit-btn').prop('disabled', true);
+  }
 
+  // enable/disable buttons based on filter changes
+  $('select[name="location"], select[name="minRating"], select[name="maxRating"], select[name="jobType"], select[name="minSalary"], select[name="maxSalary"]').on('change', function() {
+    if (
+      $('select[name="location"]').val() === "" &&
+      $('select[name="minRating"]').val() === "" &&
+      $('select[name="maxRating"]').val() === "" &&
+      $('select[name="jobType"]').val() === "" &&
+      $('select[name="minSalary"]').val() === "" &&
+      $('select[name="maxSalary"]').val() === ""
+    ) {
+      $('#filter-submit-btn').prop('disabled', true);
+    } else {
+      $('#filter-submit-btn').prop('disabled', false);
+    }
+  });
+});
+</script>
 
-    </script>
-
-    <%- include("templates/footer") %>
+<%- include("templates/footer") %>
