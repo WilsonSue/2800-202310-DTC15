@@ -1,6 +1,6 @@
 <%- include("templates/header") %> <%- include("templates/nav") %>
     <div class="search-results-container">
-      <h4 class="search-heading">Search Results</h4>
+      <h4 class="heading">Search Results</h4>
       <p>
         <%= totalListings %> listings found
       </p>
@@ -94,7 +94,7 @@
         </select>
         <button onclick="this.form.submit()" class="btn" id="filter-submit-btn">Search</button>
         <a href="/search?query=<%= query %>&location=&minRating<%= minRating %>&maxRating=&jobType=&minSalary=&maxSalary=&page=<%= 1 %>"
-          class="btn">Reset</a>
+          class="btn" id="reset-submit-btn">Reset</a>
       </form>
 
       <% if (listings && listings.length> 0) { %>
@@ -107,11 +107,20 @@
                 </h6>
                 <div class="col-2">
                   <form method="POST" action="/savedListings">
-                    <button type="button" name="save-btn" value="<%= job._id %>" id="bookmark-submit-btn"
-                      class="btn btn-sm rounded-pill btn-light btn-outline-primary <%= user.bookmarks.includes(job._id.toString()) ? 'active' : '' %>"
-                      onclick="toggleBookmark(this, '<%= job._id %>');">
-                      <i class="fa fa-bookmark"></i>
-                    </button>
+                    <% if (user && user.bookmarks && user.bookmarks.includes(job._id.toString())) { %>
+                      <button type="button" name="save-btn" value="<%= job._id %>" id="bookmark-submit-btn"
+                        class="btn btn-sm rounded-pill btn-light btn-outline-primary active"
+                        onclick="toggleBookmark(this, '<%= job._id %>');">
+                        <i class="fa fa-bookmark"></i>
+                      </button>
+                    <% } else { %>
+                      <button type="button" name="save-btn" value="<%= job._id %>" id="bookmark-submit-btn"
+                        class="btn btn-sm rounded-pill btn-light btn-outline-primary"
+                        onclick="toggleBookmark(this, '<%= job._id %>');">
+                        <i class="fa fa-bookmark"></i>
+                      </button>
+                    <% } %>
+
                   </form>
                 </div>
               </div>
