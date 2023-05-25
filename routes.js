@@ -193,6 +193,10 @@ module.exports = function (
   });
 
   app.get("/search", async (req, res) => {
+    if (!req.session.authenticated) {
+      res.redirect("/login");
+      return;
+    }
     let query = (req.query.query || "").trim();
     let mbti = (req.query.mbti || "").trim();
     let location = (req.query.location || "").trim();
