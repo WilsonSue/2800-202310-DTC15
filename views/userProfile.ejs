@@ -91,24 +91,18 @@
               user.skills.includes('Node.js')) { %>checked<% } %>>
               Node.js
           </label>
-          <label>
-            <input type="checkbox" id="select-all-skills" onchange="selectAllSkills(this)">
-            Select All
-          </label>
-          <label>
-            <input type="checkbox" id="deselect-all-skills" onchange="deselectAllSkills(this)">
-            Deselect All
-          </label>
+          <input type="button" id="deselect-all-skills" value="Select All" onclick="selectAllSkills(this)">
+          <input type="button" id="select-all-skills" value="Deselect All" onclick="deselectAllSkills(this)">
         </div>
         <script>
-          function selectAllSkills(checkbox) {
+          function deselectAllSkills(checkbox) {
               var skillCheckboxes = document.getElementsByName("skills[]");
 
               for (var i = 0; i < skillCheckboxes.length; i++) {
                 skillCheckboxes[i].checked = checkbox.checked;
               }
             }
-            function deselectAllSkills(checkbox) {
+            function selectAllSkills(checkbox) {
                 var skillCheckboxes = document.getElementsByName("skills[]");
 
                 for (var i = 0; i < skillCheckboxes.length; i++) {
