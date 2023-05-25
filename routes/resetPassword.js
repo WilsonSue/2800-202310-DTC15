@@ -43,7 +43,6 @@ router.post("/resetPassword", async (req, res) => {
   const user = await userCollection.findOne({ email: recipient });
 
   if (!user) {
-    // email address not found in the database
     const errorMessage =
       "The email address is not registered. Please try again or sign up to create an account.";
     const signupLink = "/signup";
