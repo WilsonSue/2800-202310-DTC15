@@ -85,12 +85,12 @@
 
         <select name="maxSalary" class="form-select-sm " size="1">
           <option value="">Max Salary</option>
-          <option value='80000' <%=maxSalary==='80000' ? 'selected' : '' %>>$80,000</option>
-          <option value='90000' <%=maxSalary==='90000' ? 'selected' : '' %>>$90,000</option>
           <option value='100000' <%=maxSalary==='100000' ? 'selected' : '' %>>$100,000</option>
           <option value='150000' <%=maxSalary==='150000' ? 'selected' : '' %>>$150,000</option>
           <option value='200000' <%=maxSalary==='200000' ? 'selected' : '' %>>$200,000</option>
           <option value='250000' <%=maxSalary==='250000' ? 'selected' : '' %>>$250,000</option>
+          <option value='300000' <%=maxSalary==='300000' ? 'selected' : '' %>>$300,000</option>
+          <option value='350000' <%=maxSalary==='350000' ? 'selected' : '' %>>$350,000</option>
         </select>
         <button onclick="this.form.submit()" class="btn" id="filter-submit-btn">Search</button>
         <a href="/search?query=<%= query %>&location=&minRating<%= minRating %>&maxRating=&jobType=&minSalary=&maxSalary=&page=<%= 1 %>"
