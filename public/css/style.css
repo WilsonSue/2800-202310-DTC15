@@ -220,7 +220,7 @@ body {
   border-color: var(--lightest-blue);
   width: 85%;
   cursor: pointer;
-  margin: 0 auto; /* Add this line to center the button */
+  margin: 0 auto;
 }
 
 .form-floating {
@@ -256,6 +256,14 @@ body {
 }
 
 /* ----------------------------------------------------------------
+	Reset Password Page
+-----------------------------------------------------------------*/
+.reset-form {
+  width: 85%;
+  margin: 0 auto;
+}
+
+/* ----------------------------------------------------------------
 	Search page
 -----------------------------------------------------------------*/
 .search-container {
@@ -285,7 +293,7 @@ body {
 }
 
 /* ----------------------------------------------------------------
-	Job Cards
+	Job Cards (Search Page, Saved Listings Page, Search Results Page)
 -----------------------------------------------------------------*/
 .card-body {
   border-radius: 35px;
