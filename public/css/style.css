@@ -332,6 +332,16 @@ select {
 }
 
 /* ----------------------------------------------------------------
+	Saved Listings Page
+-----------------------------------------------------------------*/
+.btn-ok {
+  background-color: var(--lightest-blue);
+  border-color: var(--lightest-blue);
+  color: var(--darker-blue);
+  cursor: pointer;
+}
+
+/* ----------------------------------------------------------------
 	User Profile Page
 -----------------------------------------------------------------*/
 #profile-container {
