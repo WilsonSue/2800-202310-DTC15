@@ -208,7 +208,7 @@ module.exports = function (
     const skip = (page - 1) * limit;
     const email = req.session.email;
     const user = await userCollection.findOne({ email: email });
-    if (!user.bookmarks) {
+    if (user && user.bookmarks) {
       user.bookmarks = [];
     }
 
