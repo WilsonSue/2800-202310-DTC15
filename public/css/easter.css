@@ -1,3 +1,6 @@
+/* ----------------------------------------------------------------
+  General
+-----------------------------------------------------------------*/
 html,
 body {
   margin: 0;
@@ -5,18 +8,18 @@ body {
   overflow-x: hidden;
 }
 
-/* Basic styling for the body and font */
 body {
   font-family: Arial, sans-serif;
 }
 
-/* Styling for the nav bar */
+/* ----------------------------------------------------------------
+  Nav bar
+-----------------------------------------------------------------*/
 .navbar {
   background-color: rgb(240, 229, 105);
   display: flex;
   padding: 1rem;
   align-items: center;
-  /* Add this style to hide the overflow-x on mobile devices */
   overflow-x: hidden;
 }
 
@@ -26,10 +29,11 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  /* Add this style */
 }
 
-/* Logo styles */
+/* ----------------------------------------------------------------
+  Logo
+-----------------------------------------------------------------*/
 .logo {
   display: flex;
   align-items: center;
@@ -41,7 +45,9 @@ body {
   margin: 0 auto;
 }
 
-/* Dropdown menu styles */
+/* ----------------------------------------------------------------
+ Drop down menu
+-----------------------------------------------------------------*/
 .dropdown {
   position: relative;
   display: inline-block;
@@ -76,7 +82,9 @@ body {
   color: rgb(205, 169, 41);
 }
 
-/* Hamburger menu styles */
+/* ----------------------------------------------------------------
+ Hamburger menu
+-----------------------------------------------------------------*/
 .hamburger {
   display: none;
   font-size: 30px;
@@ -132,9 +140,9 @@ a {
   }
 }
 
-/* Add this script to toggle the mobile menu */
-
-/* Easter egg modal styles */
+/* ----------------------------------------------------------------
+ Modal
+-----------------------------------------------------------------*/
 .modal-body {
   animation: type 1s steps(23);
   overflow: hidden;

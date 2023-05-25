@@ -1,9 +1,13 @@
-const express = require("express");
+// create a new router instance
 const router = express.Router();
+
+// import required modules
+const express = require("express");
 const { database } = require("../databaseConnection");
 require("dotenv").config();
 const { ObjectId } = require("mongodb");
 
+// import required collections
 const userCollection = database
   .db(process.env.MONGODB_DATABASE)
   .collection("users");
@@ -49,25 +53,19 @@ router.post("/savedListings", async (req, res) => {
     if (!user.bookmarks) {
       user.bookmarks = [];
     }
-
     const jobId = req.body["save-btn"];
     const index = user.bookmarks.indexOf(jobId);
-
+    // if job ID is not bookmarked, add it, else remove it
     if (index === -1) {
-      // if job ID is not bookmarked, add it
       user.bookmarks.push(jobId);
     } else {
-      // if job ID is bookmarked, remove it
       user.bookmarks.splice(index, 1);
     }
-
-    // After updating the bookmarks:
     await userCollection.updateOne(
       { email: req.session.email },
       { $set: { bookmarks: user.bookmarks } }
     );
     res.status(200).json({ message: "Bookmark updated successfully" });
-
     console.log("updated bookmarks:", user.bookmarks);
   } catch (error) {
     console.error(error);
@@ -75,4 +73,5 @@ router.post("/savedListings", async (req, res) => {
   }
 });
 
+// export the router
 module.exports = router;
