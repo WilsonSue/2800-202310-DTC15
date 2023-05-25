@@ -25,6 +25,12 @@ body {
   font-family: var(--font-2);
 }
 
+.heading,
+.heading-sub {
+  color: var(--darkest-blue);
+  text-align: center;
+}
+
 /* ----------------------------------------------------------------
 	Nav bar
 -----------------------------------------------------------------*/
@@ -256,25 +262,11 @@ body {
 }
 
 /* ----------------------------------------------------------------
-	Reset Password Page
------------------------------------------------------------------*/
-.reset-form {
-  width: 85%;
-  margin: 0 auto;
-}
-
-/* ----------------------------------------------------------------
 	Search page
 -----------------------------------------------------------------*/
 .search-container {
   margin: 5%;
   color: var(--darker-grey);
-}
-
-.search-heading,
-.search-heading-sub {
-  color: var(--darkest-blue);
-  text-align: center;
 }
 
 #search-bar input {
@@ -386,4 +378,48 @@ select {
   border: solid 1px;
   border-color: var(--orange);
   box-shadow: 0 0 3px var(--orange), 0 0 15px var(--lighter-tan);
+}
+
+/* ----------------------------------------------------------------
+  Reset Password Page
+-----------------------------------------------------------------*/
+#reset-password-submit-btn {
+  background-color: var(--lightest-blue);
+  border-color: var(--lightest-blue);
+  color: var(--darker-blue);
+  font-size: 1.3rem;
+  font-family: var(--font-1);
+  font-weight: bold;
+  text-decoration: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+.container-reset {
+  width: 90%;
+}
+
+.container-reset .form-floating {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.container-reset .form-floating p {
+  color: var(--darker-blue);
+  font-family: var(--font-1);
+  font-weight: 500;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.container-reset .form-floating input[type="email"] {
+  width: 100%;
+  padding-left: 8%;
+}
+
+.container-reset .form-floating label {
+  padding-left: 8%;
 }
