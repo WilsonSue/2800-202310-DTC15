@@ -380,21 +380,3 @@ select {
   border-color: var(--orange);
   box-shadow: 0 0 3px var(--orange), 0 0 15px var(--lighter-tan);
 }
-
-@media (max-width: 768px) {
-  #personality-select:focus {
-    font-size: 0.5rem;
-    width: auto;
-    max-height: min-content;
-  }
-
-  #personality-select option:focus {
-    font-size: 0.5rem;
-    padding: 0;
-  }
-
-  #personality-select {
-    max-height: 200px;
-    overflow-y: auto;
-  }
-}
