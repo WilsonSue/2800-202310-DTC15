@@ -173,8 +173,7 @@
     </div>
 
 <script>
-  $(document).ready(function() {
-  function toggleBookmark(button, jobId) {
+    function toggleBookmark(button, jobId) {
     // Toggle active class on button
     button.classList.toggle('active');
     // Send the post request
@@ -189,7 +188,7 @@
         console.error('Error:', error);
       });
   }
-
+  $(document).ready(function() {
   function toggleSelectSize(selectElement) {
     selectElement.prop('size', selectElement.prop('size') === 1 ? 5 : 1);
   }
