@@ -53,19 +53,19 @@ function sort_priority_order(jobs_with_mbti, personality) {
   }
 
   for (const mbti of Object.keys(mbti_types)) {
-    var index = Object.keys(mbti_types).indexOf(mbti)
+    var index = Object.keys(mbti_types).indexOf(mbti);
     for (const job of mbti_types[mbti]) {
       if (index >= 1 && index <= 3) {
-        job.percent = (job.percent - 5).toFixed(2)
+        job.percent = (job.percent - 5).toFixed(2);
       }
       if (index >= 4 && index <= 7) {
-        job.percent = (job.percent - 10).toFixed(2)
+        job.percent = (job.percent - 10).toFixed(2);
       }
       if (index >= 8 && index <= 11) {
-        job.percent = (job.percent - 15).toFixed(2)
+        job.percent = (job.percent - 15).toFixed(2);
       }
       if (index >= 12 && index <= 15) {
-        job.percent = (job.percent - 20).toFixed(2)
+        job.percent = (job.percent - 20).toFixed(2);
       }
     }
   }
