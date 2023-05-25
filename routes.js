@@ -257,10 +257,6 @@ module.exports = function (
         });
       }
     }
-    // If an MBTI filter is provided, add it to the query
-    // if (mbti) {
-    //   mongoQuery.$and.push({ mbti: mbti }); // use "mbti" instead of "MBTI"
-    // }
     // Filter by rating (number 0-5)
     if (minRating && maxRating) {
       mongoQuery.$and.push({ Rating: { $gte: minRating, $lte: maxRating } });
