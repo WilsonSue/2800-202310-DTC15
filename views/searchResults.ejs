@@ -94,7 +94,7 @@
         </select>
         <button onclick="this.form.submit()" class="btn" id="filter-submit-btn">Search</button>
         <a href="/search?query=<%= query %>&location=&minRating<%= minRating %>&maxRating=&jobType=&minSalary=&maxSalary=&page=<%= 1 %>"
-          class="btn">Reset</a>
+          class="btn" id="reset-submit-btn">Reset</a>
       </form>
 
       <% if (listings && listings.length> 0) { %>
