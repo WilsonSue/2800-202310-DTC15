@@ -113,5 +113,36 @@
         </button>
       </form>
     </div>
+  
+  <script>
+  $(document).ready(function() {
+  //check if any changes are made in the form
+  function hasFormChanged() {
+    var form = $('form[action="/userProfile"]');
+    var originalFormValues = form.data('originalValues');
+    var currentFormValues = form.serialize();
+    return originalFormValues !== currentFormValues;
+  }
 
-    <%- include("templates/footer") %>
+  // enable/disable save profile btn based on changes in the form
+  function toggleSubmitButton() {
+    var submitButton = $('#profile-submit-btn');
+    if (hasFormChanged()) {
+      submitButton.prop('disabled', false);
+    } else {
+      submitButton.prop('disabled', true);
+    }
+  }
+
+  // save the current data and disable save profile btn after form submission
+  $('form[action="/userProfile"] input, form[action="/userProfile"] select').on('input change', toggleSubmitButton);
+  var form = $('form[action="/userProfile"]');
+  form.data('originalValues', form.serialize());
+  toggleSubmitButton();
+  form.on('submit', function() {
+    $('#profile-submit-btn').prop('disabled', true);
+  });
+});
+</script>
+
+<%- include("templates/footer") %>
