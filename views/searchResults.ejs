@@ -174,9 +174,7 @@
 
 <script>
     function toggleBookmark(button, jobId) {
-    // Toggle active class on button
     button.classList.toggle('active');
-    // Send the post request
     fetch("/savedListings", {
       method: 'POST',
       headers: {
@@ -188,6 +186,7 @@
         console.error('Error:', error);
       });
   }
+
   $(document).ready(function() {
   function toggleSelectSize(selectElement) {
     selectElement.prop('size', selectElement.prop('size') === 1 ? 5 : 1);
@@ -199,7 +198,7 @@
     toggleSelectSize($(this));
   });
 
-  // disable buttons if all filters (except mbti) are in default setting
+  // disable search btn if all filters are in default setting
   if (
     $('select[name="location"]').val() === "" &&
     $('select[name="minRating"]').val() === "" &&
@@ -211,7 +210,7 @@
     $('#filter-submit-btn').prop('disabled', true);
   }
 
-  // enable/disable buttons based on filter changes
+  // enable or disable search btn based on changes in filter
   $('select[name="location"], select[name="minRating"], select[name="maxRating"], select[name="jobType"], select[name="minSalary"], select[name="maxSalary"]').on('change', function() {
     if (
       $('select[name="location"]').val() === "" &&

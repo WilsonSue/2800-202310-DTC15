@@ -1,5 +1,4 @@
 <%- include("templates/header") %> <%- include("templates/nav") %>
-
 <div style="text-align: center">
   <h4 class="heading">Saved Listings</h4>
 </div>
@@ -45,9 +44,7 @@
         </p>
         <% } %>
       </div>
-
       <p class="mb-2"><small> <%= listing.Summary %> </small></p>
-
       <a
         href="<%= listing.Link %>"
         class="btn btn-light btn-outline-primary btn-sm rounded-pill"
@@ -57,7 +54,6 @@
   </div>
   <% } }) %>
 </div>
-
 <div
   class="modal fade"
   id="confirm-delete"
@@ -91,7 +87,6 @@
     </div>
   </div>
 </div>
-
 <script>
   function unbookmarkListing(listingId) {
     $("#card-" + listingId).remove();
@@ -115,5 +110,4 @@
     $("#confirm-delete").modal("hide");
   });
 </script>
-
 <%- include("templates/footer") %>

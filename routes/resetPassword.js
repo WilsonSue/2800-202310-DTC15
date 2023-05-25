@@ -1,5 +1,8 @@
-const express = require("express");
+// create a new router instance
 const router = express.Router();
+
+// import required modules
+const express = require("express");
 const nodemailer = require("nodemailer");
 const fs = require("fs");
 const path = require("path");
@@ -11,6 +14,7 @@ const cache = new NodeCache({ checkperiod: 1200 });
 const { database } = require("../databaseConnection");
 require("dotenv").config();
 
+// import required collections
 const userCollection = database
   .db(process.env.MONGODB_DATABASE)
   .collection("users");
@@ -26,22 +30,18 @@ router.get("/resetPassword/:token", (req, res) => {
   const recipient = cache.get(token);
   console.log("Token:", token);
   console.log("Recipient:", recipient);
-
   if (!recipient) {
-    // invalid or expired token
     const errorMessage = "Invalid or expired password reset link.";
     res.render("resetPassword", { errorMessage });
     return;
   }
-
-  // render the password reset form
   res.render("resetPassword", { token });
 });
 
+// handle the reset password request form submission
 router.post("/resetPassword", async (req, res) => {
   const { recipient } = req.body;
   const user = await userCollection.findOne({ email: recipient });
-
   if (!user) {
     const errorMessage =
       "The email address is not registered. Please try again or sign up to create an account.";
@@ -49,7 +49,6 @@ router.post("/resetPassword", async (req, res) => {
     res.render("resetPassword", { errorMessage, signupLink });
     return;
   }
-
   try {
     //const currentUrl = "https://encouraging-lime-wrap.cyclic.app/resetPassword";
     const currentUrl = req.protocol + "://" + req.get("host") + req.originalUrl;
@@ -66,12 +65,11 @@ router.post("/resetPassword", async (req, res) => {
   }
 });
 
-// handle the password reset form submission
+// handle the new password form submission
 router.post("/resetPassword/:token", async (req, res) => {
   const { token } = req.params;
   const recipient = cache.get(token);
   if (!recipient) {
-    // Invalid or expired token
     const errorMessage = "Invalid or expired password reset link.";
     res.render("resetPassword", { errorMessage });
     return;
@@ -79,7 +77,6 @@ router.post("/resetPassword/:token", async (req, res) => {
   const { newPassword } = req.body;
   try {
     const hashedPassword = await bcrypt.hash(newPassword, 12);
-    // update the user password in the database
     await userCollection.updateOne(
       { email: recipient },
       { $set: { password: hashedPassword } }
@@ -93,6 +90,7 @@ router.post("/resetPassword/:token", async (req, res) => {
   }
 });
 
+// send the password reset email
 async function sendEmail(recipient, currentUrl, uniqueString) {
   let transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
@@ -103,7 +101,6 @@ async function sendEmail(recipient, currentUrl, uniqueString) {
       pass: process.env.EMAIL_PASSWORD,
     },
   });
-  // render the email template with the unique link
   const filePath = path.join(
     __dirname,
     "..",
@@ -115,7 +112,6 @@ async function sendEmail(recipient, currentUrl, uniqueString) {
   const renderedEmail = ejs.render(emailTemplate, {
     resetLink: `${currentUrl}/${uniqueString}`,
   });
-
   let info = await transporter.sendMail({
     from: `"Techommend" <${process.env.EMAIL_ADDRESS}>`,
     to: recipient,
@@ -124,4 +120,5 @@ async function sendEmail(recipient, currentUrl, uniqueString) {
   });
 }
 
+// export the router
 module.exports = router;
