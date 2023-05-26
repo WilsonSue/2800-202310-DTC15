@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
-router.get("/userProfile", async (req, res) => {
+module.exports = function (app, userCollection, bcrypt, saltRounds) {
+  app.get("/userProfile", async (req, res) => {
     if (req.session.authenticated) {
       const email = req.session.email;
       const user = await userCollection.findOne({ email: email });
@@ -17,7 +18,7 @@ router.get("/userProfile", async (req, res) => {
     }
   });
 
-  router.post("/userProfile", async (req, res) => {
+  app.post("/userProfile", async (req, res) => {
     if (req.session.authenticated) {
       const email = req.session.email;
       const firstName = req.body.firstName;
@@ -56,3 +57,4 @@ router.get("/userProfile", async (req, res) => {
       return;
     }
   });
+}
