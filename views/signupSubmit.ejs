@@ -1,6 +1,17 @@
-<%- include("templates/header") %> <% if (missingInput) { %>
-<div class="text-center">
-  <%= errorMessages[missingInput] %><br />
-  <a href="/signup">Try again</a>
-</div>
-<% } %> <%- include("templates/footer") %>
+<!-- Including a pre-defined header template -->
+<%- include("templates/header") %>
+
+  <!-- If there is a missing input from the user, this block of code will run -->
+  <% if (missingInput) { %>
+    <div class="text-center">
+      <!-- Display an error message from the errorMessages object. 
+         The specific message is determined by the value of missingInput -->
+      <%= errorMessages[missingInput] %><br />
+
+        <!-- Provide a link for the user to try signing up again -->
+        <a href="/signup">Try again</a>
+    </div>
+    <% } %>
+
+      <!-- Including a pre-defined footer template -->
+      <%- include("templates/footer") %>

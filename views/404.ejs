@@ -1,5 +1,18 @@
-<%- include("templates/header") %> <%- include("templates/nav") %>
-<div class="container mt-5">
-  <img src="image/404.svg" alt="404 illustration" />
-</div>
-<%- include("templates/footer") %>
+<!-- Includes the header template located at 'templates/header' -->
+<%- include("templates/header") %>
+
+  <!-- Includes the navigation template located at 'templates/nav' -->
+  <%- include("templates/nav") %>
+
+    <!-- Wraps the main content of the page inside a container class for styling -->
+    <div class="container mt-5">
+
+      <!-- Displays an image illustrating a 404 error. 
+  The 'alt' attribute provides alternative information for an image if a user for some reason cannot view it 
+  (because of slow connection, an error in the src attribute, or if the user uses a screen reader).-->
+      <img src="image/404.svg" alt="404 illustration" />
+
+    </div>
+
+    <!-- Includes the footer template located at 'templates/footer' -->
+    <%- include("templates/footer") %>

@@ -1,3 +1,11 @@
-<%- include("templates/header") %> <% if (errorMessage) { %>
-<div class="alert alert-danger"><%= errorMessage %></div>
-<% } %> <%- include("templates/footer") %>
+<!-- Includes the header template located at 'templates/header' -->
+<%- include("templates/header") %>
+
+    <!-- Includes the navigation template located at 'templates/nav' -->
+    <%- include("templates/nav") %>
+
+    <!-- Adds bootstrap red color and css to error message -->
+    <div class="alert alert-danger"><%= errorMessage %></div>
+
+    <!-- Includes the footer template located at 'templates/footer' -->
+    <%- include("templates/footer") %>

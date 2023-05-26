@@ -1,19 +1,31 @@
+<!-- The outermost container for the navigation bar -->
 <div class="container">
+  <!-- The navigation bar itself -->
   <nav class="navbar navbar-expand-lg navbar-light">
+    <!-- Container to ensure the content of the navbar is horizontally padded -->
     <div class="container-fluid">
+      <!-- The brand/logo for the website, which links to the homepage ("/") -->
       <a class="navbar-brand logo mx-auto" href="/">
+        <!-- The image for the brand/logo -->
         <img src="/image/TechommendLogo.png" alt="TechommendLogo" />
       </a>
+      <!-- The hamburger icon that shows up on small screens (lg and below) -->
+      <!-- The button controls the showing and hiding of the navbar items -->
       <button class="navbar-toggler collapsed d-flex d-lg-none flex-column justify-content-around" type="button"
         data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
         aria-label="Toggle navigation">
+        <!-- The three horizontal lines of the hamburger icon -->
         <span class="toggler-icon top-bar"></span>
         <span class="toggler-icon middle-bar"></span>
         <span class="toggler-icon bottom-bar"></span>
       </button>
+      <!-- The container for the navbar items. This collapses and expands -->
       <div class="collapse navbar-collapse align-items-center justify-content-end" id="navbarNav">
+        <!-- The list of navbar items -->
         <ul class="navbar-nav">
+          <!-- Each individual navbar item -->
           <li class="nav-item">
+            <!-- The link for the navbar item -->
             <a class="nav-link" href="/search">Search</a>
           </li>
           <li class="nav-item">

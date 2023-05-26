@@ -1,3 +1,4 @@
+// Import required modules and files
 require("./utils.js");
 const bcrypt = require("bcrypt");
 const Joi = require("joi");
@@ -6,12 +7,14 @@ const saltRounds = 12;
 const sort_priority_order = require("./MBTI_sort/sortListings.js");
 const { updateDocumentsWithMbti } = require("./MBTI_sort/mbtiAssignment.js");
 
+// Export a function that takes app, userCollection, jobCollection, and fakeJobsCollection as parameters
 module.exports = function (
   app,
   userCollection,
   jobCollection,
   fakeJobsCollection
 ) {
+  // Define routes and route handlers
   app.get("/", (req, res) => {
     const authenticated = req.session.authenticated;
     const username = req.session.username;
@@ -19,7 +22,7 @@ module.exports = function (
   });
 
   app.get("/update-mbti", (req, res) => {
-    // Call your MongoDB function
+    // Call the updateDocumentsWithMbti function with the jobCollection
     console.log(jobCollection);
     updateDocumentsWithMbti(jobCollection)
       .then(() => {

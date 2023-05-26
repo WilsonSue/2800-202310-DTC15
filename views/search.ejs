@@ -1,30 +1,37 @@
-<%- include("templates/header") %> <%- include("templates/nav") %>
+<!-- Includes the header and navigation templates -->
+<%- include("templates/header") %> 
+<%- include("templates/nav") %>
+
+<!-- The main container for the search form and results -->
 <div class="search-container">
+  <!-- Header -->
   <h4 class="heading">Search Jobs</h4>
-  <form
-    id="search-bar"
-    class="container-fluid mb-3"
-    action="/search"
-    method="GET"
-  >
+  
+  <!-- The search form, which submits a GET request to the "/search" endpoint -->
+  <form id="search-bar" class="container-fluid mb-3" action="/search" method="GET">
     <div class="input-group">
-      <input
-        name="query"
-        type="text"
-        class="form-control rounded-start"
-        placeholder="Search jobs..."
-      />
-      <span class="input-group-text" id="basic-addon1"
-        ><button id="search-submit-btn" type="submit">Search</button></span
-      >
+      <!-- The text input for the search term -->
+      <input name="query" type="text" class="form-control rounded-start" placeholder="Search jobs..." />
+      
+      <!-- The submit button for the form -->
+      <span class="input-group-text" id="basic-addon1">
+        <button id="search-submit-btn" type="submit">Search</button>
+      </span>
     </div>
   </form>
+
+  <!-- Displays the last search term used -->
   <h6 class="heading-sub">Last Search Term</h6>
   <span class="badge text-bg-light"> <%= lastSearchTerm %> </span>
 
+  <!-- Header for the last search results -->
   <h6 class="heading-sub">Last Search Results</h6>
-  <% if (lastSearchResults.length> 0) { %> <% for (var i=0; i <
-  lastSearchResults.length; i++) { %> <% var listing=lastSearchResults[i]; %>
+
+  <!-- If there are last search results, loop through them and display each as a card -->
+  <% if (lastSearchResults.length > 0) { %> 
+    <% for (var i=0; i < lastSearchResults.length; i++) { %> 
+      <% var listing = lastSearchResults[i]; %>
+    <!-- Card for each search result, displaying the job title, company name, location, job type (if given), salary estimate (if given), job summary, and a read more link -->
   <div class="card mb-3" id="card-<%= listing._id %>">
     <div class="card-body shadow-sm">
       <div class="row">
@@ -59,8 +66,10 @@
       >
     </div>
   </div>
+  <!-- If there are no last search results, display a message saying so -->
   <% } %> <% } else { %>
   <p>No last search results to display.</p>
   <% } %>
 </div>
+<!-- Includes the footer template -->
 <%- include("templates/footer") %>

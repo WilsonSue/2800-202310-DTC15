@@ -1,57 +1,55 @@
+<!-- Including a pre-defined header template -->
 <%- include("templates/header") %>
-<div class="container-fluid h-custom">
-  <div class="row d-flex justify-content-center align-items-center h-100">
-    <div class="col-md-9 col-lg-6 col-xl-5 mb-4 mt-3">
-      <img src="/image/TechommendLogo.png" class="img-fluid" alt="logo" />
-    </div>
-    <div class="col-md-9 col-lg-6 col-xl-5">
-      <form action="/submitUser" method="POST">
-        <div class="form-floating mb-3">
-          <input
-            type="text"
-            name="username"
-            class="form-control"
-            id="floatingUsername"
-            placeholder="Username"
-          />
-          <label for="floatingPassword">Username</label>
-        </div>
-        <div class="form-floating mb-3">
-          <input
-            type="text"
-            name="email"
-            class="form-control"
-            id="floatingInput"
-            placeholder="name@example.com"
-          />
-          <label for="floatingInput">Email address</label>
-        </div>
-        <div class="form-floating mb-3">
-          <input
-            type="password"
-            name="password"
-            class="form-control"
-            id="floatingPassword"
-            placeholder="Password"
-          />
-          <label for="floatingPassword">Password</label>
-        </div>
-        <div class="d-grid">
-          <button
-            type="submit"
-            class="btn btn-lg btn-primary rounded-pill px-4 py-2 mb-3"
-            id="sign-up-submit-btn"
-          >
-            SIGN UP
-          </button>
-        </div>
-        <div class="text-center">
-          <p style="color: var(--darker-blue); font-weight: 500">
-            Already have an account? <a href="/login">Log in</a>
-          </p>
-        </div>
-      </form>
+
+  <!-- Begin a container for the form -->
+  <div class="container-fluid h-custom">
+    <!-- A row that contains the logo and the form -->
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <!-- A column for the logo -->
+      <div class="col-md-9 col-lg-6 col-xl-5 mb-4 mt-3">
+        <!-- Displaying a logo image -->
+        <img src="/image/TechommendLogo.png" class="img-fluid" alt="logo" />
+      </div>
+
+      <!-- A column for the form -->
+      <div class="col-md-9 col-lg-6 col-xl-5">
+        <!-- The form, which sends a POST request to the "/submitUser" endpoint when submitted -->
+        <form action="/submitUser" method="POST">
+          <!-- A field for the username -->
+          <div class="form-floating mb-3">
+            <input type="text" name="username" class="form-control" id="floatingUsername" placeholder="Username" />
+            <label for="floatingPassword">Username</label>
+          </div>
+
+          <!-- A field for the email -->
+          <div class="form-floating mb-3">
+            <input type="text" name="email" class="form-control" id="floatingInput" placeholder="name@example.com" />
+            <label for="floatingInput">Email address</label>
+          </div>
+
+          <!-- A field for the password -->
+          <div class="form-floating mb-3">
+            <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password" />
+            <label for="floatingPassword">Password</label>
+          </div>
+
+          <!-- The submit button -->
+          <div class="d-grid">
+            <button type="submit" class="btn btn-lg btn-primary rounded-pill px-4 py-2 mb-3" id="sign-up-submit-btn">
+              SIGN UP
+            </button>
+          </div>
+
+          <!-- A link to the login page for users who already have an account -->
+          <div class="text-center">
+            <p style="color: var(--darker-blue); font-weight: 500">
+              Already have an account? <a href="/login">Log in</a>
+            </p>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
-</div>
-<%- include("templates/footer") %>
+
+  <!-- Including a pre-defined footer template -->
+  <%- include("templates/footer") %>

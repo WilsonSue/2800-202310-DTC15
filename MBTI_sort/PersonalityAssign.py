@@ -1,8 +1,8 @@
 # import csv
 import sys
 
-
 def assign_mbti(job_description):
+    # assigns mbti based on these words
     extroversion = ["communication", "leadership", "teamwork", "sales", "marketing", "public", "team", "collaboration", "outgoing", "socializing", "networking", "charisma", "relationship", "influence", "energizing", "engaging", "persuasive", "social", "enthusiastic", "negotiation"]
     introversion = ["research", "writing", "analytical", "creative", "strategic", "independently", "reflection", "reserved", "thoughtful", "contemplative", "introspective", "observant", "intellectual", "solitary", "reflective", "insightful", "deliberate", "independently", "reserved", "thought-provoking"]
     sensing = ["detail", "practical", "technical", "observational", "efficient", "observant", "realistic", "hands-on", "concrete", "pragmatic", "conscientious", "procedural", "systematic", "methodical", "real-world", "specific", "pragmatic", "conscientious", "realistic", "prudent"]

@@ -1,56 +1,69 @@
+<!-- Includes the header template located at 'templates/header' -->
 <%- include("templates/header") %>
-<div class="text-center">
-  <% if (errorMessage) { %>
-  <div class="alert-container">
-    <div class="alert alert-danger" role="alert"><%= errorMessage %></div>
-  </div>
-  <% } %>
-  <div class="container-fluid h-custom">
-    <div class="row d-flex justify-content-center align-items-center h-100">
-      <div class="col-md-9 col-lg-6 col-xl-5 mb-4 mt-3">
-        <img src="/image/TechommendLogo.png" class="img-fluid" alt="logo" />
+
+  <!-- Center-aligned content -->
+  <div class="text-center">
+
+    <!-- If there's an error message to display -->
+    <% if (errorMessage) { %>
+      <!-- An alert container for displaying the error message -->
+      <div class="alert-container">
+        <div class="alert alert-danger" role="alert">
+          <%= errorMessage %>
+        </div>
       </div>
-      <form action="/loginSubmit" method="POST">
-        <div class="form-floating mb-3">
-          <input
-            type="email"
-            name="email"
-            class="form-control"
-            id="floatingInput"
-            placeholder="name@example.com"
-          />
-          <label for="floatingInput">Email address</label>
+      <% } %>
+
+        <!-- A full-width container -->
+        <div class="container-fluid h-custom">
+
+          <!-- A row that is centered both horizontally and vertically, with a height of 100% of its parent -->
+          <div class="row d-flex justify-content-center align-items-center h-100">
+
+            <!-- An image element containing the Techommend logo -->
+            <div class="col-md-9 col-lg-6 col-xl-5 mb-4 mt-3">
+              <img src="/image/TechommendLogo.png" class="img-fluid" alt="logo" />
+            </div>
+
+            <!-- A form that will POST its data to the '/loginSubmit' route -->
+            <form action="/loginSubmit" method="POST">
+
+              <!-- A floating label input field for email -->
+              <div class="form-floating mb-3">
+                <input type="email" name="email" class="form-control" id="floatingInput"
+                  placeholder="name@example.com" />
+                <label for="floatingInput">Email address</label>
+              </div>
+
+              <!-- A floating label input field for password -->
+              <div class="form-floating mb-1">
+                <input type="password" name="password" class="form-control" id="floatingPassword"
+                  placeholder="Password" />
+                <label for="floatingPassword">Password</label>
+              </div>
+
+              <!-- A link to reset the password -->
+              <div class="text-end mb-3" style="color: var(--darker-blue); font-weight: 500; width: 85%">
+                <a href="/resetPassword">Forgot password?</a>
+              </div>
+
+              <!-- The login submit button -->
+              <button type="submit" class="btn btn-lg btn-primary btn-block rounded-pill px-4 py-2 mb-3 mx-auto"
+                id="log-in-submit-btn">
+                LOG IN
+              </button>
+
+              <!-- A prompt to sign up if the user doesn't have an account -->
+              <div class="text-center">
+                <p style="color: var(--darker-blue); font-weight: 500">
+                  Don't have an account? <a href="/signup">Sign up</a>
+                </p>
+              </div>
+
+            </form>
+          </div>
         </div>
-        <div class="form-floating mb-1">
-          <input
-            type="password"
-            name="password"
-            class="form-control"
-            id="floatingPassword"
-            placeholder="Password"
-          />
-          <label for="floatingPassword">Password</label>
-        </div>
-        <div
-          class="text-end mb-3"
-          style="color: var(--darker-blue); font-weight: 500; width: 85%"
-        >
-          <a href="/resetPassword">Forgot password?</a>
-        </div>
-        <button
-          type="submit"
-          class="btn btn-lg btn-primary btn-block rounded-pill px-4 py-2 mb-3 mx-auto"
-          id="log-in-submit-btn"
-        >
-          LOG IN
-        </button>
-        <div class="text-center">
-          <p style="color: var(--darker-blue); font-weight: 500">
-            Don't have an account? <a href="/signup">Sign up</a>
-          </p>
-        </div>
-      </form>
-    </div>
   </div>
-</div>
-<%- include("templates/footer") %>
+
+  <!-- Includes the footer template located at 'templates/footer' -->
+  <%- include("templates/footer") %>

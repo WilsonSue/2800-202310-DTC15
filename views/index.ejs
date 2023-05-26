@@ -1,23 +1,36 @@
+<!-- Includes the header template located at 'templates/header' -->
 <%- include("templates/header") %>
 
+  <!-- Content is center-aligned with 'text-center' class -->
   <div class="text-center">
+
+    <!-- If the user is not authenticated -->
     <% if (!authenticated) { %>
+      <!-- A welcome message inside a styled container -->
       <div class="container p-3 mt-5 mb-2">
         <h4 class="index-font">
           Welcome to <span class="font-gradient">Techommend</span>
         </h4>
       </div>
+
+      <!-- An image display inside a styled container -->
       <div class="container p-4 mt-2 mb-5">
         <img src="image/Portfolio.svg" alt="home page illustration" />
       </div>
+
+      <!-- Button for logging in -->
       <button type="button" class="btn btn-lg btn-primary btn-block rounded-pill px-4 py-2 mb-4 mx-auto" id="login-btn">
         <a href="/login">LOG IN</a>
       </button>
+
+      <!-- Button for signing up -->
       <button type="button" class="btn btn btn-primary btn-block rounded-pill px-4 py-2 mx-auto" id="signup-btn">
         <a href="/signup">SIGN UP</a>
       </button>
 
-      <% } else { %>
+      <% } else { %> <!-- If the user is authenticated -->
+
+        <!-- A personalized greeting message -->
         <div class="container p-3 mt-5 mb-5">
           <h4 class="index-font">
             Hello, <span class="font-gradient">
@@ -25,15 +38,25 @@
             </span>
           </h4>
         </div>
+
+        <!-- The same image as in the not authenticated state -->
         <div class="container p-4 mt-3 mb-3">
           <img src="image/Portfolio.svg" alt="home page illustration" />
         </div>
+
+        <!-- Button for searching -->
         <button id="search-submit-btn" class="btn btn-lg btn-primary btn-block rounded-pill px-4 py-2 mb-3 mx-auto">
           <a href="/search">SEARCH</a>
         </button>
+
+        <!-- Button for logging out -->
         <button id="logout-submit-btn" class="btn btn-lg btn-primary btn-block rounded-pill px-4 py-2 mb-3 mx-auto">
           <a href="/logout">LOG OUT</a>
         </button>
-        <% } %>
-  </div>
+
+        <% } %> <!-- End of EJS if/else block -->
+
+  </div> <!-- End of text-center div -->
+
+  <!-- Includes the footer template located at 'templates/footer' -->
   <%- include("templates/footer") %>
