@@ -136,7 +136,7 @@ To set up the development environment for the project, follow these steps:
 
 ## How to use Techommend (Features)
 
-### As a user, I want to be able to search for jobs based on my skills and personality.
+**As a user, I want to be able to search for jobs based on my skills and personality.**
 
 1. First login with your user credentials.
 2. Click on the search button on the navigation bar.
@@ -144,7 +144,7 @@ To set up the development environment for the project, follow these steps:
 4. Click search.
 5. You will be redirected to the search results page which is populated with job listings based on your search query. Great job! :smile:
 
-### As a user, I want to be able to save jobs that I am interested in.
+**As a user, I want to be able to save jobs that I am interested in.**
 
 1. First login with your user credentials.
 2. Do the steps previously done in searching for a job.
@@ -153,7 +153,7 @@ To set up the development environment for the project, follow these steps:
 5. You will be redirected to the saved listings page which is populated with the jobs you've saved. Great job! :smile:
 6. (Optionally) to remove a saved listing, click on the save button again.
 
-### As a user, I want to login and save my skills, personality, and other information.
+**As a user, I want to login and save my skills, personality, and other information.**
 
 1. First login with your user credentials.
 2. Click the hamburger menu at the top right corner of the navigation bar.
@@ -166,7 +166,8 @@ To set up the development environment for the project, follow these steps:
 
 This project acknowledges the use of the following resources:
 
-### Credits
+**Credits**
+
 We would like to give credit to the following tutorials and resources that were helpful in the development of our app:
 
 - Tutorial: "[Indeed Jobs Web Scraping Save to CSV](https://www.youtube.com/watch?v=PPcgtx0sI2E&list=PL2ctgOywL8Kij9IQcpsobkJY9sPRIrliR&index=9&ab_channel=JohnWatsonRooney)" by John Watson Rooney
@@ -175,7 +176,7 @@ We would like to give credit to the following tutorials and resources that were 
 - Website: [postimages.org](https://postimages.org/) for hosting the Techommend logo
 
 
-### References
+**References**
 
 Sources from ChatGPT:
 Title: "MBTI personality types and their relationship to demographic variables and job satisfaction in Korean organizations"
@@ -189,7 +190,7 @@ Title: "Personality traits, motivation, and language proficiency in a second lan
 Title: "The relationship between personality traits and academic dishonesty in a Turkish EFL context"
 Title: "Exploring the relationship between personality, learning style preferences, and academic performance"
 
-### Tools
+**Tools**
 - Illustrations: [Storyset](https://storyset.com/)
 - Icons: [Font Awesome](https://fontawesome.com/)
 
