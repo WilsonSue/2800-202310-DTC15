@@ -33,7 +33,6 @@ Backend:
 │   package-lock.json
 │   package.json
 │   README.md
-│   routes.js
 │   utils.js
 │
 ├───MBTI_sort

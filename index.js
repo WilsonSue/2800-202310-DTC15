@@ -48,8 +48,6 @@ app.use(savedListingsRouter);
 app.use(express.static(__dirname + "/public"));
 app.use(express.static(__dirname + "/views"));
 
-// require("./routes")(app, userCollection, jobCollection, fakeJobsCollection);
-
 require("./routes/home.js")(app);
 
 require("./routes/update_mbti.js")(app, jobCollection, updateDocumentsWithMbti);
