@@ -1,8 +1,9 @@
+// import required modules
+const express = require("express");
+
 // create a new router instance
 const router = express.Router();
 
-// import required modules
-const express = require("express");
 const { database } = require("../databaseConnection");
 require("dotenv").config();
 const { ObjectId } = require("mongodb");

@@ -1,8 +1,9 @@
+// import required modules
+const express = require("express");
+
 // create a new router instance
 const router = express.Router();
 
-// import required modules
-const express = require("express");
 const nodemailer = require("nodemailer");
 const fs = require("fs");
 const path = require("path");
