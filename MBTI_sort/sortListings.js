@@ -1,3 +1,11 @@
+function sortJobListingsByPercentage(jobListings) {
+  jobListings.sort(function(a, b) {
+    return b.percent - a.percent;
+  });
+
+  return jobListings;
+}
+
 function sort_priority_order(jobs_with_mbti, personality) {
   const sorted_list = [];
   const mbti_types = {
@@ -44,10 +52,34 @@ function sort_priority_order(jobs_with_mbti, personality) {
     mbti_types[job.mbti].push(job);
   }
 
+  for (const mbti of Object.keys(mbti_types)) {
+    var index = Object.keys(mbti_types).indexOf(mbti);
+    for (const job of mbti_types[mbti]) {
+      if (index >= 1 && index <= 3) {
+        job.percent = (job.percent - 5).toFixed(2);
+      }
+      if (index >= 4 && index <= 7) {
+        job.percent = (job.percent - 10).toFixed(2);
+      }
+      if (index >= 8 && index <= 11) {
+        job.percent = (job.percent - 20).toFixed(2);
+      }
+      if (index >= 12 && index <= 15) {
+        job.percent = (job.percent - 30).toFixed(2);
+      }
+    }
+  }
+
+  for (const mbti of Object.keys(mbti_types)) {
+    mbti_types[mbti] = sortJobListingsByPercentage(mbti_types[mbti]);
+  }
+
   for (const mbti of priority_order[personality]) {
     sorted_list.push(...mbti_types[mbti]);
   }
-
+  for (const job of sorted_list) {
+    console.log(job.JobTitle, job.mbti, job.percent);
+  }
   return sorted_list;
 }
 

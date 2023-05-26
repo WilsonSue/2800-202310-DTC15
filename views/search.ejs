@@ -1,97 +1,66 @@
-<%- include("templates/header") %>
-    <!DOCTYPE html>
-    <html lang="en">
+<%- include("templates/header") %> <%- include("templates/nav") %>
+<div class="search-container">
+  <h4 class="heading">Search Jobs</h4>
+  <form
+    id="search-bar"
+    class="container-fluid mb-3"
+    action="/search"
+    method="GET"
+  >
+    <div class="input-group">
+      <input
+        name="query"
+        type="text"
+        class="form-control rounded-start"
+        placeholder="Search jobs..."
+      />
+      <span class="input-group-text" id="basic-addon1"
+        ><button id="search-submit-btn" type="submit">Search</button></span
+      >
+    </div>
+  </form>
+  <h6 class="heading-sub">Last Search Term</h6>
+  <span class="badge text-bg-light"> <%= lastSearchTerm %> </span>
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Home Page - Job Search</title>
-        <style>
-            .search-container {
-                text-align: center;
-                color: white;
-            }
-
-            .search-container h1 {
-                font-size: 2.5rem;
-                margin-bottom: 1rem;
-            }
-
-            .search-container input[type="text"] {
-                width: 60%;
-                padding: 0.5rem;
-            }
-
-            .search-container button {
-                padding: 0.5rem 1rem;
-                background-color: white;
-                color: rgb(103, 169, 231);
-                border: none;
-                cursor: pointer;
-                margin-left: 0.5rem;
-            }
-        </style>
-    </head>
-
-    <body>
-
-  <div class="search-container">
-      <h1>Search Jobs</h1>
-      <form action="/search" method="GET">
-          <input name="query" type="text" placeholder="Search jobs...">
-          <button type="submit">Search</button>
-      </form>
-  </div>
-<h2>Last Search Term:</h2>
-<p>
-    <%= lastSearchTerm %>
-</p>
-
-  <h2>Last Search Results:</h2>
-  <div class="container">
-    <% if (lastSearchResults.length> 0) { %>
-        <% lastSearchResults.forEach(listing=> { %>
-      <div class="card mb-3 shadow-sm" id="card-<%= listing._id %>">
-        <div class="card-body">
-          <div class="row">
-            <h6 class="col"><%= listing.JobTitle %></h6>
-          </div>
-          <p class="mb-0">
-            <i class="fas fa-building fa-sm"></i>
-            <small><%= listing.CompanyName %></small>
-          </p>
-          <p class="mb-0">
-            <i class="fa fa-map-marker-alt fa-sm"></i>
-            <small><%= listing.Location %></small>
-          </p>
-          <div class="row d-flex flex-row">
-            <% if (listing.JobType !== "None Given") { %>
-            <p class="mb-0 py-0">
-              <span class="badge text-bg-light"><%= listing.JobType %></span>
-            </p>
-            <% } %> <% if (listing.SalaryEstimate !== "None Given") { %>
-            <p class="mb-0 py-0">
-              <span class="badge text-bg-light"><%= listing.SalaryEstimate %></span>
-            </p>
-            <% } %>
-          </div>
-          <p class="mb-2"><small><%= listing.Summary %></small></p>
-          <a
-            href="<%= listing.Link %>"
-            class="btn btn-light btn-outline-primary btn-sm"
-            >Read more</a
-          >
-        </div>
+  <h6 class="heading-sub">Last Search Results</h6>
+  <% if (lastSearchResults.length> 0) { %> <% for (var i=0; i <
+  lastSearchResults.length; i++) { %> <% var listing=lastSearchResults[i]; %>
+  <div class="card mb-3" id="card-<%= listing._id %>">
+    <div class="card-body shadow-sm">
+      <div class="row">
+        <h6 class="col"><%= listing.JobTitle %></h6>
       </div>
-          <% }) %>
-              <% } else { %>
-                  <p>No last search results to display.</p>
-                  <% } %>
+      <p class="mb-0">
+        <i class="fas fa-building fa-sm"></i>
+        <small> <%= listing.CompanyName %> </small>
+      </p>
+      <p class="mb-0">
+        <i class="fa fa-map-marker-alt fa-sm"></i>
+        <small> <%= listing.Location %> </small>
+      </p>
+      <div class="row d-flex flex-row">
+        <% if (listing.JobType !=="None Given" ) { %>
+        <p class="mb-0 py-0">
+          <span class="badge text-bg-light"> <%= listing.JobType %> </span>
+        </p>
+        <% } %> <% if (listing.SalaryEstimate !=="None Given" ) { %>
+        <p class="mb-0 py-0">
+          <span class="badge text-bg-light">
+            <%= listing.SalaryEstimate %>
+          </span>
+        </p>
+        <% } %>
+      </div>
+      <p class="mb-2"><small> <%= listing.Summary %> </small></p>
+      <a
+        href="<%= listing.Link %>"
+        class="btn btn-light btn-outline-primary rounded-pill btn-sm"
+        >Read more</a
+      >
+    </div>
   </div>
-                    </body>
-
-                    </html>
-                    <%- include("templates/footer") %>
-
-    </html>
-    <%- include("templates/footer") %>
+  <% } %> <% } else { %>
+  <p>No last search results to display.</p>
+  <% } %>
+</div>
+<%- include("templates/footer") %>

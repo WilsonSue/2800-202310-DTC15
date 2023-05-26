@@ -35,14 +35,12 @@ module.exports = function (
   });
 
   app.post("/submitUser", async (req, res) => {
-    var firstName = req.body.firstName;
-    var lastName = req.body.lastName;
-    var username = req.body.username;
-    var password = req.body.password;
-    var email = req.body.email;
+    var username = req.body.username.trim();
+    var password = req.body.password.trim();
+    var email = req.body.email.trim();
     const schema = Joi.object({
       username: Joi.string().alphanum().max(20).required(),
-      password: Joi.string().max(20).required(),
+      password: Joi.string().min(6).max(16).required(),
       email: Joi.string().email().required(),
     });
     if (!email) {
@@ -65,8 +63,6 @@ module.exports = function (
     }
     var hashedPassword = await bcrypt.hash(password, saltRounds);
     await userCollection.insertOne({
-      firstName: firstName,
-      lastName: lastName,
       username: username,
       password: hashedPassword,
       email: email,
@@ -76,6 +72,7 @@ module.exports = function (
     req.session.authenticated = true;
     req.session.username = username;
     req.session.email = email; // Add this line to store the email in the session
+    req.session.cookie.maxAge = expireTime;
     console.log("Inserted user");
     res.redirect("/search"); // Change this line to redirect to userProfile instead of /members
   });
@@ -103,34 +100,9 @@ module.exports = function (
     res.render("login", { errorMessage: null });
   });
 
-  app.post("/login", async (req, res) => {
-    let errorMessage = null;
-
-    try {
-      const result = await usersModel.findOne({
-        username: req.body.username,
-      });
-
-      if (bcrypt.compareSync(req.body.password, result.password)) {
-        req.session.GLOBAL_AUTHENTICATED = true;
-        req.session.loggedUsername = req.body.username;
-        req.session.loggedPassword = req.body.password;
-        res.redirect("/");
-        return;
-      } else {
-        errorMessage = "Invalid password.";
-      }
-    } catch (error) {
-      console.log(error);
-      errorMessage = "An error occurred.";
-    }
-
-    res.render("loginSubmit", { errorMessage: errorMessage });
-  });
-
   app.post("/loginSubmit", async (req, res) => {
-    var password = req.body.password;
-    var email = req.body.email;
+    var password = req.body.password.trim();
+    var email = req.body.email.trim();
     const schema = Joi.string().email().required();
     const validationResult = schema.validate(email);
     let errorMessage = null;
@@ -221,6 +193,10 @@ module.exports = function (
   });
 
   app.get("/search", async (req, res) => {
+    if (!req.session.authenticated) {
+      res.redirect("/login");
+      return;
+    }
     let query = (req.query.query || "").trim();
     let mbti = (req.query.mbti || "").trim();
     let location = (req.query.location || "").trim();
@@ -230,12 +206,15 @@ module.exports = function (
     let minSalary = parseInt(req.query.minSalary);
     let maxSalary = parseInt(req.query.maxSalary);
     let skills = null;
-    console.log(req.query);
+    let disabled = "";
     const page = parseInt(req.query.page) || 1;
     const limit = 10;
     const skip = (page - 1) * limit;
     const email = req.session.email;
     const user = await userCollection.findOne({ email: email });
+    if (user && user.bookmarks) {
+      user.bookmarks = [];
+    }
 
     // Ensure query is a string
     if (query && typeof query !== "string") {
@@ -278,10 +257,6 @@ module.exports = function (
         });
       }
     }
-    // If an MBTI filter is provided, add it to the query
-    // if (mbti) {
-    //   mongoQuery.$and.push({ mbti: mbti }); // use "mbti" instead of "MBTI"
-    // }
     // Filter by rating (number 0-5)
     if (minRating && maxRating) {
       mongoQuery.$and.push({ Rating: { $gte: minRating, $lte: maxRating } });
@@ -296,14 +271,9 @@ module.exports = function (
     }
 
     let totalListings = await jobCollection.countDocuments(mongoQuery);
-    const totalPages = Math.ceil(totalListings / limit);
 
     // Perform a case-insensitive search in the 'jobs' collection
-    var listings = await jobCollection
-      .find(mongoQuery)
-      .skip(skip)
-      .limit(limit)
-      .toArray();
+    var listings = await jobCollection.find(mongoQuery).toArray();
 
     if (req.session.authenticated) {
       const user = await userCollection.findOne({ email: req.session.email });
@@ -321,11 +291,9 @@ module.exports = function (
       return res.redirect("/easterEgg");
     }
 
-    req.session.lastSearchResults = listings.slice(0, 3); // only save first 3 listings
-    req.session.lastSearchTerm = query; // Save the last search term into the session
-
     if (mbti) {
       listings = sort_priority_order(listings, mbti);
+      disabled = "disabled";
     }
 
     function filterBySalary(jobListings, minSalary, maxSalary) {
@@ -352,7 +320,12 @@ module.exports = function (
       totalListings = listings.length;
     }
 
-    console.log(listings.length);
+    req.session.lastSearchResults = listings.slice(0, 3); // only save first 3 listings
+    req.session.lastSearchTerm = query; // Save the last search term into the session
+
+    listings = listings.slice(skip, skip + limit);
+    const totalPages = Math.ceil(totalListings / limit);
+    console.log(totalListings);
 
     minRating = minRating.toString();
     maxRating = maxRating.toString();
@@ -365,6 +338,7 @@ module.exports = function (
       totalPages,
       query,
       mbti,
+      disabled,
       location,
       minRating,
       maxRating,

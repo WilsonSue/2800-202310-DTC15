@@ -1,173 +1,236 @@
-<%- include("templates/header") %>
-        <div class="search-results-container">
-            <h1>Search Results</h1>
-            <p>
-                <%= totalListings %> listings found
-            </p>
-            <!-- Here we add the MBTI filter form -->
-            <form action="/search" method="get">
-                <input type="hidden" name="query" value="<%= query %>">
-                <select name="mbti">
-                    <option value="">Any personality</option>
-                    <option value="INTJ" <%=mbti==='INTJ' ? 'selected' : '' %>>INTJ</option>
-                    <option value="INTP" <%=mbti==='INTP' ? 'selected' : '' %>>INTP</option>
-                    <option value="ENTJ" <%=mbti==='ENTJ' ? 'selected' : '' %>>ENTJ</option>
-                    <option value="ENTP" <%=mbti==='ENTP' ? 'selected' : '' %>>ENTP</option>
-                    <option value="INFJ" <%=mbti==='INFJ' ? 'selected' : '' %>>INFJ</option>
-                    <option value="INFP" <%=mbti==='INFP' ? 'selected' : '' %>>INFP</option>
-                    <option value="ENFJ" <%=mbti==='ENFJ' ? 'selected' : '' %>>ENFJ</option>
-                    <option value="ENFP" <%=mbti==='ENFP' ? 'selected' : '' %>>ENFP</option>
-                    <option value="ISTJ" <%=mbti==='ISTJ' ? 'selected' : '' %>>ISTJ</option>
-                    <option value="ISFJ" <%=mbti==='ISFJ' ? 'selected' : '' %>>ISFJ</option>
-                    <option value="ESTJ" <%=mbti==='ESTJ' ? 'selected' : '' %>>ESTJ</option>
-                    <option value="ESFJ" <%=mbti==='ESFJ' ? 'selected' : '' %>>ESFJ</option>
-                    <option value="ISTP" <%=mbti==='ISTP' ? 'selected' : '' %>>ISTP</option>
-                    <option value="ISFP" <%=mbti==='ISFP' ? 'selected' : '' %>>ISFP</option>
-                    <option value="ESTP" <%=mbti==='ESTP' ? 'selected' : '' %>>ESTP</option>
-                    <option value="ESFP" <%=mbti==='ESFP' ? 'selected' : '' %>>ESFP</option>
-                </select>
-            
-            
-            <!-- location filter -->
-              <select name="location">
-                <option value="">Anywhere</option>
-                <option value="BC" <%=location==='BC' ? 'selected' : '' %>>British Columbia</option>
-                <option value="AB" <%=location==='AB' ? 'selected' : '' %>>Alberta</option>
-                <option value="SK" <%=location==='SK' ? 'selected' : '' %>>Saskatchewan</option>
-                <option value="MB" <%=location==='MB' ? 'selected' : '' %>>Manitoba</option>
-                <option value="ON" <%=location==='ON' ? 'selected' : '' %>>Ontario</option>
-                <option value="QC" <%=location==='QC' ? 'selected' : '' %>>Quebec</option>
-                <option value="NL" <%=location==='NL' ? 'selected' : '' %>>Newfoundland and Labrador</option>
-                <option value="NB" <%=location==='NB' ? 'selected' : '' %>>New Brunswick</option>
-                <option value="PE" <%=location==='PE' ? 'selected' : '' %>>Prince Edward Island</option>
-                <option value="NS" <%=location==='NS' ? 'selected' : '' %>>Nova Scotia</option>
-              </select>
-
-            <!-- min/max rating -->
-              <select name="minRating">
-                <option value="">Min Rating</option>
-                <option value='0' <%=minRating==='0' ? 'selected' : '' %>>0</option>
-                <option value='1' <%=minRating==='1' ? 'selected' : '' %>>1</option>
-                <option value='2' <%=minRating==='2' ? 'selected' : '' %>>2</option>
-                <option value='3' <%=minRating==='3' ? 'selected' : '' %>>3</option>
-                <option value='4' <%=minRating==='4' ? 'selected' : '' %>>4</option>
-                <option value='5' <%=minRating==='5' ? 'selected' : '' %>>5</option>
-              </select>
-
-              <select name="maxRating">
-                <option value="">Max Rating</option>
-                <option value='0' <%=maxRating==='0' ? 'selected' : '' %>>0</option>
-                <option value='1' <%=maxRating==='1' ? 'selected' : '' %>>1</option>
-                <option value='2' <%=maxRating==='2' ? 'selected' : '' %>>2</option>
-                <option value='3' <%=maxRating==='3' ? 'selected' : '' %>>3</option>
-                <option value='4' <%=maxRating==='4' ? 'selected' : '' %>>4</option>
-                <option value='5' <%=maxRating==='5' ? 'selected' : '' %>>5</option>
-              </select>
-
-            <!-- job type -->
-              <select name="jobType">
-                <option value="">Job Type</option>
-                <option value='part' <%=jobType==='part' ? 'selected' : '' %>>Part-Time</option>
-                <option value='full' <%=jobType==='full' ? 'selected' : '' %>>Full-Time</option>
-              </select>
-
-            <!-- min/max Salary -->
-              <select name="minSalary">
-                <option value="">Min Salary</option>
-                <option value='40000' <%=minSalary==='40000' ? 'selected' : '' %>>40,000</option>
-                <option value='50000' <%=minSalary==='50000' ? 'selected' : '' %>>50,000</option>
-                <option value='60000' <%=minSalary==='60000' ? 'selected' : '' %>>60,000</option>
-                <option value='70000' <%=minSalary==='70000' ? 'selected' : '' %>>70,000</option>
-                <option value='80000' <%=minSalary==='80000' ? 'selected' : '' %>>80,000</option>
-                <option value='90000' <%=minSalary==='90000' ? 'selected' : '' %>>90,000</option>
-              </select>
-
-              <select name="maxSalary">
-                <option value="">Max Salary</option>
-                <option value='80000' <%=maxSalary==='80000' ? 'selected' : '' %>>80,000</option>
-                <option value='90000' <%=maxSalary==='90000' ? 'selected' : '' %>>90,000</option>
-                <option value='100000' <%=maxSalary==='100000' ? 'selected' : '' %>>100,000</option>
-                <option value='150000' <%=maxSalary==='150000' ? 'selected' : '' %>>150,000</option>
-                <option value='200000' <%=maxSalary==='200000' ? 'selected' : '' %>>200,000</option>
-                <option value='250000' <%=maxSalary==='250000' ? 'selected' : '' %>>250,000</option>
-              </select>
-            <button onclick="this.form.submit()">Search</button>
-            </form>
-<% if (listings && listings.length > 0) { %>
-  <% listings.forEach(function(job) { %>
-    <div class="card mb-3 shadow-sm ">
-      <div class="card-body">
-        <div class="row">
-          <h6 class="col"><%= job.JobTitle %></h6>
-          <div class="col-2">
-            <form method="POST" action="/savedListings">
-               <button type="button" name="save-btn" value="<%= job._id %>"
-                            class="btn rounded-pill btn-light btn-outline-primary <%= user.bookmarks.includes(job._id.toString()) ? 'active' : '' %>"
-                            onclick="toggleBookmark(this, '<%= job._id %>');">
-                            <i class="fa fa-bookmark"></i>
-                        </button>
-            </form>
-        </div>
-      </div>
-    <p class="mb-0"><i class="fas fa-building fa-sm"></i> <small>
-            <%= job.CompanyName %>
-        </small></p>
-    <p class="mb-0"><i class="fa fa-map-marker-alt fa-sm"></i> <small>
-            <%= job.Location %>
-        </small></p>
-    <div class="row">
-        <% if (job.JobType !=="None Given" ) { %>
-            <p class="mb-0 py-0"><span class="badge text-bg-light">
-                    <%= job.JobType %>
-                </span></p>
-            <% } %>
-                <% if (job.SalaryEstimate !=="None Given" ) { %>
-                    <p class="mb-0 py-0 "><span class="badge text-bg-light">
-                            <%= job.SalaryEstimate %>
-                        </span></p>
-                    <% } %>
-      <p class="mb-0 py-0 "><span class="badge text-bg-light">
-          Closest match: <%= job.mbti %>
-        </span></p>
-    </div>
-    <p class="mb-2"><small>
-            <%= job.Summary %>
-        </small></p>
-    <a href="<%= job.Link %>" class="btn btn-light btn-outline-primary btn-sm">Read more</a>
-    </div>
-    </div>
-   <% }) %>
-    <% } else { %>
-        <p>No jobs found for your search.</p>
+<%- include("templates/header") %> <%- include("templates/nav") %>
+    <div class="search-results-container">
+      <h4 class="heading">Search Results</h4>
+      <p>
+        <%= totalListings %> listings found
+      </p>
+      <% if (mbti) { %>
+        <p>
+          *Percentages are based on how well the job listing matches its closest MBTI. These are then deducted based on how far down the priority order the MBTI is. For example, if the job listing is an ESTJ, and the user is an ENFP, the percentage will be 70% (100% - 30%).
+        </p>
         <% } %>
-                    </div>
-            <div>
-            <% if (page> 1) { %>
-            <a href="/search?page=<%= page - 1 %>">Previous</a>
-            <% } %>
-                <% if (page < totalPages) { %>
-                    <a href="/search?query=<%= query %>&location=<%= location %>&minRating=<%= minRating %>&maxRating=<%= maxRating %>&jobType=<%= jobType %>&minSalary=<%= minSalary %>&maxSalary=<%= maxSalary %>&page=<%= page + 1 %>">Next</a>
-                    <% } %>
-            </div>
-            </div>
 
-     <script>
-        function toggleBookmark(button, jobId) {
-            // Toggle active class on button
-            button.classList.toggle('active');
-            // Send the post request
-            fetch("/savedListings", {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: new URLSearchParams(`save-btn=${jobId}`),
-            })
-                .catch((error) => {
-                    console.error('Error:', error);
-                });
-        }
-    </script>
-    </body>
-    </html>
-    <%- include("templates/footer") %>
+      <!-- Here we add the MBTI filter form -->
+      <form action="/search" method="get" class="mb-3">
+        <input type="hidden" name="query" value="<%= query %>">
+        <!-- mbti filter -->
+        <select name="mbti" class="form-select-sm " size="1" <%=disabled %>>
+          <option value="">Any personality</option>
+          <option value="ESTJ" <%=mbti==='ESTJ' ? 'selected' : '' %>>ESTJ</option>
+          <option value="ESTP" <%=mbti==='ESTP' ? 'selected' : '' %>>ESTP</option>
+          <option value="ESFJ" <%=mbti==='ESFJ' ? 'selected' : '' %>>ESFJ</option>
+          <option value="ESFP" <%=mbti==='ESFP' ? 'selected' : '' %>>ESFP</option>
+          <option value="ENTJ" <%=mbti==='ENTJ' ? 'selected' : '' %>>ENTJ</option>
+          <option value="ENTP" <%=mbti==='ENTP' ? 'selected' : '' %>>ENTP</option>
+          <option value="ENFJ" <%=mbti==='ENFJ' ? 'selected' : '' %>>ENFJ</option>
+          <option value="ENFP" <%=mbti==='ENFP' ? 'selected' : '' %>>ENFP</option>
+          <option value="ISTJ" <%=mbti==='ISTJ' ? 'selected' : '' %>>ISTJ</option>
+          <option value="ISTP" <%=mbti==='ISTP' ? 'selected' : '' %>>ISTP</option>
+          <option value="ISFJ" <%=mbti==='ISFJ' ? 'selected' : '' %>>ISFJ</option>
+          <option value="ISFP" <%=mbti==='ISFP' ? 'selected' : '' %>>ISFP</option>
+          <option value="INTJ" <%=mbti==='INTJ' ? 'selected' : '' %>>INTJ</option>
+          <option value="INTP" <%=mbti==='INTP' ? 'selected' : '' %>>INTP</option>
+          <option value="INFJ" <%=mbti==='INFJ' ? 'selected' : '' %>>INFJ</option>
+          <option value="INFP" <%=mbti==='INFP' ? 'selected' : '' %>>INFP</option>
+        </select>
+
+        <!-- location filter -->
+        <select name="location" class="form-select-sm " size="1">
+          <option value="">Anywhere</option>
+          <option value="AB" <%=location==='AB' ? 'selected' : '' %>>Alberta</option>
+          <option value="BC" <%=location==='BC' ? 'selected' : '' %>>British Columbia</option>
+          <option value="MB" <%=location==='MB' ? 'selected' : '' %>>Manitoba</option>
+          <option value="NB" <%=location==='NB' ? 'selected' : '' %>>New Brunswick</option>
+          <option value="NL" <%=location==='NL' ? 'selected' : '' %>>Newfoundland and Labrador</option>
+          <option value="NS" <%=location==='NS' ? 'selected' : '' %>>Nova Scotia</option>
+          <option value="ON" <%=location==='ON' ? 'selected' : '' %>>Ontario</option>
+          <option value="PE" <%=location==='PE' ? 'selected' : '' %>>Prince Edward Island</option>
+          <option value="QC" <%=location==='QC' ? 'selected' : '' %>>Quebec</option>
+          <option value="SK" <%=location==='SK' ? 'selected' : '' %>>Saskatchewan</option>
+        </select>
+
+        <!-- min/max rating -->
+        <select name="minRating" class="form-select-sm " size="1">
+          <option value="">Min Rating</option>
+          <option value='0' <%=minRating==='0' ? 'selected' : '' %>>0</option>
+          <option value='1' <%=minRating==='1' ? 'selected' : '' %>>1</option>
+          <option value='2' <%=minRating==='2' ? 'selected' : '' %>>2</option>
+          <option value='3' <%=minRating==='3' ? 'selected' : '' %>>3</option>
+          <option value='4' <%=minRating==='4' ? 'selected' : '' %>>4</option>
+          <option value='5' <%=minRating==='5' ? 'selected' : '' %>>5</option>
+        </select>
+
+        <select name="maxRating" class="form-select-sm " size="1">
+          <option value="">Max Rating</option>
+          <option value='0' <%=maxRating==='0' ? 'selected' : '' %>>0</option>
+          <option value='1' <%=maxRating==='1' ? 'selected' : '' %>>1</option>
+          <option value='2' <%=maxRating==='2' ? 'selected' : '' %>>2</option>
+          <option value='3' <%=maxRating==='3' ? 'selected' : '' %>>3</option>
+          <option value='4' <%=maxRating==='4' ? 'selected' : '' %>>4</option>
+          <option value='5' <%=maxRating==='5' ? 'selected' : '' %>>5</option>
+        </select>
+
+        <!-- job type -->
+        <select name="jobType" class="form-select-sm " size="1">
+          <option value="">Job Type</option>
+          <option value='part' <%=jobType==='part' ? 'selected' : '' %>>Part-Time</option>
+          <option value='full' <%=jobType==='full' ? 'selected' : '' %>>Full-Time</option>
+        </select>
+
+        <!-- min/max Salary -->
+        <select name="minSalary" class="form-select-sm " size="1">
+          <option value="">Min Salary</option>
+          <option value='40000' <%=minSalary==='40000' ? 'selected' : '' %>>$40,000</option>
+          <option value='50000' <%=minSalary==='50000' ? 'selected' : '' %>>$50,000</option>
+          <option value='60000' <%=minSalary==='60000' ? 'selected' : '' %>>$60,000</option>
+          <option value='70000' <%=minSalary==='70000' ? 'selected' : '' %>>$70,000</option>
+          <option value='80000' <%=minSalary==='80000' ? 'selected' : '' %>>$80,000</option>
+          <option value='90000' <%=minSalary==='90000' ? 'selected' : '' %>>$90,000</option>
+        </select>
+
+        <select name="maxSalary" class="form-select-sm " size="1">
+          <option value="">Max Salary</option>
+          <option value='100000' <%=maxSalary==='100000' ? 'selected' : '' %>>$100,000</option>
+          <option value='150000' <%=maxSalary==='150000' ? 'selected' : '' %>>$150,000</option>
+          <option value='200000' <%=maxSalary==='200000' ? 'selected' : '' %>>$200,000</option>
+          <option value='250000' <%=maxSalary==='250000' ? 'selected' : '' %>>$250,000</option>
+          <option value='300000' <%=maxSalary==='300000' ? 'selected' : '' %>>$300,000</option>
+          <option value='350000' <%=maxSalary==='350000' ? 'selected' : '' %>>$350,000</option>
+        </select>
+        <button onclick="this.form.submit()" class="btn" id="filter-submit-btn">Search</button>
+        <a href="/search?query=<%= query %>&location=&minRating<%= minRating %>&maxRating=&jobType=&minSalary=&maxSalary=&page=<%= 1 %>"
+          class="btn" id="reset-submit-btn">Reset</a>
+      </form>
+
+      <% if (listings && listings.length> 0) { %>
+        <% listings.forEach(function(job) { %>
+          <div class="card mb-3">
+            <div class="card-body shadow-sm">
+              <div class="row">
+                <h6 class="col">
+                  <%= job.JobTitle %>
+                </h6>
+                <div class="col-2">
+                  <form method="POST" action="/savedListings">
+                    <% if (user && user.bookmarks && user.bookmarks.includes(job._id.toString())) { %>
+                      <button type="button" name="save-btn" value="<%= job._id %>" id="bookmark-submit-btn"
+                        class="btn btn-sm rounded-pill btn-light btn-outline-primary active"
+                        onclick="toggleBookmark(this, '<%= job._id %>');">
+                        <i class="fa fa-bookmark"></i>
+                      </button>
+                    <% } else { %>
+                      <button type="button" name="save-btn" value="<%= job._id %>" id="bookmark-submit-btn"
+                        class="btn btn-sm rounded-pill btn-light btn-outline-primary"
+                        onclick="toggleBookmark(this, '<%= job._id %>');">
+                        <i class="fa fa-bookmark"></i>
+                      </button>
+                    <% } %>
+
+                  </form>
+                </div>
+              </div>
+              <p class="mb-0"><i class="fas fa-building fa-sm"></i> <small>
+                  <%= job.CompanyName %>
+                </small></p>
+              <p class="mb-0"><i class="fa fa-map-marker-alt fa-sm"></i> <small>
+                  <%= job.Location %>
+                </small></p>
+              <div class="row job-details-section">
+                <% if (job.JobType !=="None Given" ) { %>
+                  <p class="mb-0 py-0"><span class="badge text-bg-light">
+                      <%= job.JobType %>
+                    </span></p>
+                  <% } %>
+                    <% if (job.SalaryEstimate !=="None Given" ) { %>
+                      <p class="mb-0 py-0 "><span class="badge text-bg-light">
+                          <%= job.SalaryEstimate %>
+                        </span></p>
+                      <% } %>
+                        <% if (mbti) { %>
+                          <p class="mb-0 py-0 "><span class="badge text-bg-light">
+                              Closest match: <%= job.mbti %>
+                            </span></p>
+                          <p class="mb-0 py-0 "><span class="badge text-bg-light">
+                              This job is a <%= job.percent %>% match to your personality type.
+                            </span></p>
+                          <% } %>
+              </div>
+              <p class="mb-2"><small>
+                  <%= job.Summary %>
+                </small></p>
+              <a href="<%= job.Link %>" class="btn btn-light btn-outline-primary rounded-pill btn-sm">Read more</a>
+            </div>
+          </div>
+          <% }) %>
+            <% } else { %>
+              <p>No jobs found for your search.</p>
+              <% } %>
+
+                <div class="pagination">
+                  <% if (page> 1) { %>
+                    <a href="/search?query=<%= query %>&location=<%= location %>&minRating=<%= minRating %>&maxRating=<%= maxRating %>&jobType=<%= jobType %>&minSalary=<%= minSalary %>&maxSalary=<%= maxSalary %>&page=<%= page - 1 %>" class="prev-btn btn btn-light">Previous</a>
+                    <% } %>
+                      <% if (page < totalPages) { %>
+                        <a
+                          href="/search?query=<%= query %>&location=<%= location %>&minRating=<%= minRating %>&maxRating=<%= maxRating %>&jobType=<%= jobType %>&minSalary=<%= minSalary %>&maxSalary=<%= maxSalary %>&page=<%= page + 1 %>" class="next-btn btn btn-light">Next</a>
+                        <% } %>
+                </div>
+    </div>
+
+<script>
+    function toggleBookmark(button, jobId) {
+    button.classList.toggle('active');
+    fetch("/savedListings", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: new URLSearchParams(`save-btn=${jobId}`),
+    })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  }
+
+  $(document).ready(function() {
+  function toggleSelectSize(selectElement) {
+    selectElement.prop('size', selectElement.prop('size') === 1 ? 5 : 1);
+  }
+  $('.form-select-sm').on('click', function () {
+    toggleSelectSize($(this));
+  });
+  $('.form-select-sm').on('change', function () {
+    toggleSelectSize($(this));
+  });
+
+  // disable search btn if all filters are in default setting
+  if (
+    $('select[name="location"]').val() === "" &&
+    $('select[name="minRating"]').val() === "" &&
+    $('select[name="maxRating"]').val() === "" &&
+    $('select[name="jobType"]').val() === "" &&
+    $('select[name="minSalary"]').val() === "" &&
+    $('select[name="maxSalary"]').val() === ""
+  ) {
+    $('#filter-submit-btn').prop('disabled', true);
+  }
+
+  // enable or disable search btn based on changes in filter
+  $('select[name="location"], select[name="minRating"], select[name="maxRating"], select[name="jobType"], select[name="minSalary"], select[name="maxSalary"]').on('change', function() {
+    if (
+      $('select[name="location"]').val() === "" &&
+      $('select[name="minRating"]').val() === "" &&
+      $('select[name="maxRating"]').val() === "" &&
+      $('select[name="jobType"]').val() === "" &&
+      $('select[name="minSalary"]').val() === "" &&
+      $('select[name="maxSalary"]').val() === ""
+    ) {
+      $('#filter-submit-btn').prop('disabled', true);
+    } else {
+      $('#filter-submit-btn').prop('disabled', false);
+    }
+  });
+});
+</script>
+
+<%- include("templates/footer") %>

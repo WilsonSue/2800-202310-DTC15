@@ -1,23 +1,22 @@
-<%- include("templates/header") %>
-
+<%- include("templates/header") %> <%- include("templates/nav") %>
 <div style="text-align: center">
-  <h3>Saved Listings</h3>
+  <h4 class="heading">Saved Listings</h4>
 </div>
 <div class="container" id="saved-listing">
-  <% listings.forEach((listing) => { if
+  <% listings.forEach((listing)=> { if
   (user.bookmarks.includes(listing._id.toString())) { %>
-  <div class="card mb-3 shadow-sm" id="card-<%= listing._id %>">
-    <div class="card-body">
+  <div class="card mb-3 px-2" id="card-<%= listing._id %>">
+    <div class="card-body shadow-sm">
       <div class="row">
         <h6 class="col"><%= listing.JobTitle %></h6>
         <div class="col-2">
           <form method="POST" action="/savedListings">
             <button
-              type="submit"
+              type="button"
               name="save-btn"
               value="<%= listing._id %>"
-              class="btn btn-light btn-outline-primary btn-sm active"
-              onclick="unbookmarkListing('<%= listing._id %>');"
+              class="btn btn-light btn-outline-primary rounded-pill btn-sm active"
+              onclick="showDeleteConfirmation('<%= listing._id %>');"
             >
               <i class="fa fa-bookmark"></i>
             </button>
@@ -26,42 +25,89 @@
       </div>
       <p class="mb-0">
         <i class="fas fa-building fa-sm"></i>
-        <small><%= listing.CompanyName %></small>
+        <small> <%= listing.CompanyName %> </small>
       </p>
       <p class="mb-0">
         <i class="fa fa-map-marker-alt fa-sm"></i>
-        <small><%= listing.Location %></small>
+        <small> <%= listing.Location %> </small>
       </p>
       <div class="row d-flex flex-row">
-        <% if (listing.JobType !== "None Given") { %>
+        <% if (listing.JobType !=="None Given" ) { %>
         <p class="mb-0 py-0">
-          <span class="badge text-bg-light"><%= listing.JobType %></span>
+          <span class="badge text-bg-light"> <%= listing.JobType %> </span>
         </p>
-        <% } %> <% if (listing.SalaryEstimate !== "None Given") { %>
+        <% } %> <% if (listing.SalaryEstimate !=="None Given" ) { %>
         <p class="mb-0 py-0">
-          <span class="badge text-bg-light"><%= listing.SalaryEstimate %></span>
+          <span class="badge text-bg-light">
+            <%= listing.SalaryEstimate %>
+          </span>
         </p>
         <% } %>
       </div>
-
-      <p class="mb-2"><small><%= listing.Summary %></small></p>
-
+      <p class="mb-2"><small> <%= listing.Summary %> </small></p>
       <a
         href="<%= listing.Link %>"
-        class="btn btn-light btn-outline-primary btn-sm"
+        class="btn btn-light btn-outline-primary btn-sm rounded-pill"
         >Read more</a
       >
     </div>
   </div>
-
   <% } }) %>
 </div>
-
+<div
+  class="modal fade"
+  id="confirm-delete"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="confirm-delete-label"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered rounded-4" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirm-delete-label">Confirm Delete</h5>
+        <button
+          type="button"
+          class="close btn btn-light"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to delete "<span class="title"></span>"?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn rounded-pill" data-dismiss="modal">
+          Cancel
+        </button>
+        <button type="button" class="btn rounded-pill btn-ok">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
 <script>
   function unbookmarkListing(listingId) {
     $("#card-" + listingId).remove();
     $.post("/savedListings", { "save-btn": listingId });
   }
-</script>
 
+  function showDeleteConfirmation(listingId) {
+    var listingTitle = $("#card-" + listingId + " h6").text();
+    $(".title", "#confirm-delete").text(listingTitle);
+    $(".btn-ok", "#confirm-delete").data("recordId", listingId);
+    $("#confirm-delete").modal("show");
+  }
+
+  $(".btn-ok").click(function () {
+    var listingId = $(this).data("recordId");
+    unbookmarkListing(listingId);
+    $("#confirm-delete").modal("hide");
+  });
+
+  $('[data-dismiss="modal"]').click(function () {
+    $("#confirm-delete").modal("hide");
+  });
+</script>
 <%- include("templates/footer") %>
