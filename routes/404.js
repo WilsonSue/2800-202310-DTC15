@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
-router.get("*", (req, res) => {
+module.exports = function (app) {
+  app.get("*", (req, res) => {
     res.status(404);
     res.render("404");
   });
+}
