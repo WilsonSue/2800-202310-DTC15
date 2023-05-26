@@ -6,7 +6,7 @@
 
 ## Project Description
 
-Our Team, NeedJobPls, is developing Techommend, to provide personalized job recommendations for CS students based on their skills and MBTI personality.
+Our Team of 3, Wilson, Elijah, and Joanne make up NeedJobPls, who is developing Techommend, to provide personalized job recommendations for CS students based on their skills and MBTI personality. We're passionate students who want to help other students find their dream jobs. We're also passionate about cats, so we've added an easter egg for you to find. :smile_cat:
 
 ---
 
