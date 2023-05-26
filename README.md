@@ -99,32 +99,33 @@ Backend:
 
 ## Setup and Installation
 
-### Dependencies
-The following dependencies are required to run this project:
-- Node.js 
-- MongoDB 
+To set up the development environment for the project, follow these steps:
 
-Additionally, the project relies on the following npm packages:
-- bcrypt@5.1.0
-- connect-mongo@5.0.0
-- dotenv@16.0.3
-- ejs@3.1.9
-- express-session@1.17.3
-- express@4.18.2
-- fs@0.0.1- security
-- joi@17.9.2
-- mongodb@5.4.0
-- node-cache@5.1.2
-- nodemailer@6.9.2
-- path@0.12.7
-- python-shell@5.0.0
-- uuid@9.0.0
+**Install the following requirements**:
+- Visual Studio Code: [Download from the official website.](https://code.visualstudio.com/download)
+- Node.js: [Download from the official website.](https://nodejs.org/en/download)
+
+**Clone the GitHub repository**
+- Request to be added as a collaborator on the GitHub repo.
+- Once you receive the invitation email from GitHub, accept it to collaborate.
+- Clone the repository to your local machine.
+
+**Configure Environment Variables**
+- Obtain the required environment variables from the project team.
+- Create a .env file in the project's root folder.
+- Add the environment variables to the .env file.
+
+**Install Node Modules**
+- Open a new terminal in Visual Studio Code.
+- Run  `npm install` to install the necessary packages.
+
+**Start the app locally**
+- Run `npm install --global nodemon` to automatically restart the app whenever changes are made to the source code.
+- Run `nodemon index.js` to start working on Techommend.
+
+        
 
 
-### placeholder
-
-1.
-2.
 
 ---
 
