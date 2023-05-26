@@ -172,7 +172,7 @@ This project acknowledges the use of the following resources:
 ## Contact Information
 For any inquiries or support regarding this project, please reach out to:
 - Wilson: xxxxxxx@gmail.com
-- Elijah: xxxxx@gmail.com
+- Elijah: sceptile5504@gmail.com / efabon2@my.bcit.ca
 - Joanne: cyh66368@gmail.com
 
 ---
