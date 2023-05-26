@@ -4,18 +4,23 @@ const pythonScriptPath = './MBTI_sort/PersonalityAssign.py'; // Update this if n
 
 async function runPythonScript(jobDescription) {
   return new Promise((resolve, reject) => {
+    // Spawn a child process running the Python script
     const pythonProcess = spawn('python3', [pythonScriptPath, jobDescription], { stdio: 'pipe' });
 
+    // Collect data from script output
     let output = '';
 
+    // Collect data from script output
     pythonProcess.stdout.on('data', (data) => {
       output += data.toString();
     });
 
+    // Reject promise if script writes to stderr
     pythonProcess.stderr.on('data', (data) => {
       reject(data.toString());
     });
 
+    // Resolve promise when script exits
     pythonProcess.on('close', (code) => {
       if (code === 0) {
         resolve(output.trim());
@@ -30,7 +35,7 @@ async function updateMBTI(collection, jobDescription, document) {
   try {
     const scriptResults = await runPythonScript(jobDescription);
     const mbti = scriptResults.substring(0, 4); // Get the MBTI value from Python script output
-    const percent = parseFloat(scriptResults.substring(4));
+    const percent = parseFloat(scriptResults.substring(4));// Get the percent value from Python script output
 
     // Update the document with the new field
     console.log('Updating document with MBTI:', mbti);

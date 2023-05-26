@@ -1,8 +1,8 @@
-# import csv
 import sys
 
 
 def assign_mbti(job_description):
+    # keywords for each mbti preference
     extroversion = ["communication", "leadership", "teamwork", "sales", "marketing", "public", "team", "collaboration", "outgoing", "socializing", "networking", "charisma", "relationship", "influence", "energizing", "engaging", "persuasive", "social", "enthusiastic", "negotiation"]
     introversion = ["research", "writing", "analytical", "creative", "strategic", "independently", "reflection", "reserved", "thoughtful", "contemplative", "introspective", "observant", "intellectual", "solitary", "reflective", "insightful", "deliberate", "independently", "reserved", "thought-provoking"]
     sensing = ["detail", "practical", "technical", "observational", "efficient", "observant", "realistic", "hands-on", "concrete", "pragmatic", "conscientious", "procedural", "systematic", "methodical", "real-world", "specific", "pragmatic", "conscientious", "realistic", "prudent"]
@@ -11,10 +11,14 @@ def assign_mbti(job_description):
     feeling = ["empathetic", "communication", "resolution", "leadership", "creative", "compassionate", "emotional", "subjective", "harmonious", "relationship", "value", "considerate", "cohesion", "ethical", "supportive", "collaboration", "collaborate", "sympathetic", "nurture", "interpersonal"]
     judging = ["planning", "organization", "management", "decisive", "detail", "accountable", "detail-oriented", "structured", "scheduled", "systematic", "orderly", "goal", "goals", "results", "efficient", "methodical", "time-management", "proactive", "accountable", "productive"]
     perceiving = ["adaptable", "adaptability", "creative", "problem solving", "solve", "flexible", "exploration", "open-minded", "spontaneous", "curious", "divergent", "agile", "resourceful", "fluid", "discover", "curiosity", "versatile", "unconventional", "inquisitive", "innovative"]
+
+    # Remove punctuation and make all words lowercase
     job_description = job_description.replace(":", "")
     job_description = job_description.replace(",", "")
     job_description = job_description.replace(".", "")
     job_description = job_description.lower().split()
+
+    # initialize variables
     mbti = None
     introversion_percent = None
     extroversion_percent = None
@@ -94,11 +98,13 @@ def assign_mbti(job_description):
             perceiving_percent = perceiving_count / (judging_count + perceiving_count)
         mbti += 'P'
 
+    # Calculate the final percentage
     for percent in [introversion_percent, extroversion_percent, sensing_percent, intuitive_percent, thinking_percent, feeling_percent, judging_percent, perceiving_percent]:
         if percent is not None:
             final_percent += percent
     final_percent /= 4
     mbti += str(round((final_percent * 100), 2))
+    
     return mbti
 
 # Get the job description from the command-line argument
