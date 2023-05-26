@@ -102,24 +102,29 @@ Backend:
 To set up the development environment for the project, follow these steps:
 
 **Install the following requirements**:
+
 - Visual Studio Code: [Download from the official website.](https://code.visualstudio.com/download)
 - Node.js: [Download from the official website.](https://nodejs.org/en/download)
 
 **Clone the GitHub repository**
+
 - Request to be added as a collaborator on the GitHub repo.
 - Once you receive the invitation email from GitHub, accept it to collaborate.
 - Clone the repository to your local machine.
 
 **Configure Environment Variables**
+
 - Obtain the required environment variables from the project team.
 - Create a .env file in the project's root folder.
 - Add the environment variables to the .env file.
 
 **Install Node Modules**
+
 - Open a new terminal in Visual Studio Code.
 - Run  `npm install` to install the necessary packages.
 
 **Start the app locally**
+
 - Run `npm install --global nodemon` to automatically restart the app whenever changes are made to the source code.
 - Run `nodemon index.js` to start working on Techommend.
 
@@ -131,7 +136,7 @@ To set up the development environment for the project, follow these steps:
 
 ## How to use Techommend (Features)
 
-### feature 2
+### feature 1
 
 1.
 2.
@@ -143,7 +148,7 @@ To set up the development environment for the project, follow these steps:
 2.
 3.
 
-### feature 2
+### feature 3
 
 1.
 2.
@@ -152,11 +157,24 @@ To set up the development environment for the project, follow these steps:
 ---
 
 ## Credits, References, and More
+
 This project acknowledges the use of the following resources:
 
 ### Credits
 
 ### References
+
+Sources from ChatGPT:
+Title: "MBTI personality types and their relationship to demographic variables and job satisfaction in Korean organizations"
+Title: "The relationship between personality traits, flow experience, and creativity in a game-based learning environment"
+Title: "The impact of personality type on group decision-making processes: The moderating role of information sharing"
+Title: "Personality, motivation, and achievement: A model and review of the literature"
+Title: "Personality traits and academic performance: A meta-analysis"
+Title: "The influence of personality traits on information-seeking behavior in online social networks"
+Title: "Examining the relationship between personality traits and information-seeking behavior on the Web"
+Title: "Personality traits, motivation, and language proficiency in a second language"
+Title: "The relationship between personality traits and academic dishonesty in a Turkish EFL context"
+Title: "Exploring the relationship between personality, learning style preferences, and academic performance"
 
 ---
 
@@ -170,7 +188,9 @@ This project acknowledges the use of the following resources:
 ---
 
 ## Contact Information
+
 For any inquiries or support regarding this project, please reach out to:
+
 - Wilson: xxxxxxx@gmail.com
 - Elijah: sceptile5504@gmail.com / efabon2@my.bcit.ca
 - Joanne: cyh66368@gmail.com
