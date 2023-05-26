@@ -1,11 +1,11 @@
 // Import required modules and files
-require("./utils.js");
+require("./utils/utils.js");
 const express = require("express");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
 const { MongoClient, ObjectId } = require("mongodb");
 const app = express();
-const config = require("./config.js");
+const config = require("./config/config.js");
 const bcrypt = require("bcrypt");
 const Joi = require("joi");
 const expireTime = 60 * 60 * 1000;
@@ -19,7 +19,7 @@ const sort_priority_order = require("./MBTI_sort/sortListings.js");
 app.set("view engine", "ejs");
 
 // Connect to the MongoDB database
-const { database } = require("./databaseConnection");
+const { database } = require("./database/databaseConnection.js");
 const userCollection = database.db(config.mongodb_database).collection("users");
 const jobCollection = database.db(config.mongodb_database).collection("jobs");
 const fakeJobsCollection = database
@@ -54,7 +54,6 @@ app.use(savedListingsRouter);
 app.use(express.static(__dirname + "/public"));
 app.use(express.static(__dirname + "/views"));
 
-// Require and use route handlers
 require("./routes/home.js")(app);
 require("./routes/update_mbti.js")(app, jobCollection, updateDocumentsWithMbti);
 require("./routes/signup.js")(

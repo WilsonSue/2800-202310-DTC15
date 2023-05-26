@@ -1,6 +1,15 @@
 import sys
 
 def assign_mbti(job_description):
+    """
+    Assign the closest matching mbti personality based on keywords in the job description.
+
+    :param job_description: a string
+    :precondition: the job description describes the roles and responsibilities of the job, preferably a substantial
+        amount of text
+    :postcondition: the job is assigned an mbti that best fits its description along with a percent showing how well it fits
+    :return: a string representing the closest matching mbti and a percent showing how closely it matches
+    """
     # keywords for each mbti preference
     extroversion = ["communication", "leadership", "teamwork", "sales", "marketing", "public", "team", "collaboration", "outgoing", "socializing", "networking", "charisma", "relationship", "influence", "energizing", "engaging", "persuasive", "social", "enthusiastic", "negotiation"]
     introversion = ["research", "writing", "analytical", "creative", "strategic", "independently", "reflection", "reserved", "thoughtful", "contemplative", "introspective", "observant", "intellectual", "solitary", "reflective", "insightful", "deliberate", "independently", "reserved", "thought-provoking"]
