@@ -1,7 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const sort_priority_order = require("../MBTI_sort/sortListings.js");
-router.get("/search", async (req, res) => {
+
+module.exports = function (app, userCollection, jobCollection, sort_priority_order) {
+  app.get("/search", async (req, res) => {
     if (!req.session.authenticated) {
       res.redirect("/login");
       return;
@@ -159,8 +160,9 @@ router.get("/search", async (req, res) => {
     }); // pass the mbti to the view
   });
 
-  router.get("/searchPage", (req, res) => {
+  app.get("/searchPage", (req, res) => {
     const lastSearchResults = req.session.lastSearchResults || [];
     const lastSearchTerm = req.session.lastSearchTerm || ""; // Retrieve the last search term from the session
     res.render("search", { lastSearchResults, lastSearchTerm }); // pass the lastSearchResults and lastSearchTerm to the view
   });
+}
