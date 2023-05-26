@@ -1,10 +1,10 @@
-require("./utils.js");
+require("./utils/utils.js");
 const express = require("express");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
 const { MongoClient, ObjectId } = require("mongodb");
 const app = express();
-const config = require("./config.js");
+const config = require("./config/config.js");
 const bcrypt = require("bcrypt");
 const Joi = require("joi");
 const expireTime = 60 * 60 * 1000;
@@ -17,7 +17,7 @@ const sort_priority_order = require("./MBTI_sort/sortListings.js");
 
 app.set("view engine", "ejs");
 
-const { database } = require("./databaseConnection");
+const { database } = require("./database/databaseConnection.js");
 const userCollection = database.db(config.mongodb_database).collection("users");
 const jobCollection = database.db(config.mongodb_database).collection("jobs");
 const fakeJobsCollection = database
