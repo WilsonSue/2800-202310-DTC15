@@ -3,8 +3,7 @@
 
   <!-- Content is center-aligned with 'text-center' class -->
   <div class="text-center">
-    <% if (!authenticated) { %>
-    <!-- If the user is not authenticated -->
+    <% if (!authenticated) { %> <!-- If the user is not authenticated -->
       <!-- A welcome message inside a styled container -->
       <div class="container p-3 mt-5 mb-2">
         <h4 class="index-font">
@@ -17,15 +16,21 @@
         <img src="image/Portfolio.svg" alt="home page illustration" />
       </div>
 
-      <!-- Button for logging in -->
-      <button type="button" class="btn btn-lg btn-primary btn-block rounded-pill px-4 py-2 mb-4 mx-auto" id="login-btn">
-        <a href="/login">LOG IN</a>
-      </button>
-
-      <!-- Button for signing up -->
-      <button type="button" class="btn btn btn-primary btn-block rounded-pill px-4 py-2 mx-auto" id="signup-btn">
-        <a href="/signup">SIGN UP</a>
-      </button>
+      <!-- Buttons for logging in and signing up -->
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <button type="button" class="btn btn-lg btn-primary btn-block rounded-pill px-4 py-2 mb-4" id="login-btn">
+              <a href="/login">LOG IN</a>
+            </button>
+          </div>
+          <div class="col-md-6">
+            <button type="button" class="btn btn btn-primary btn-block rounded-pill px-4 py-2 mb-4" id="signup-btn">
+              <a href="/signup">SIGN UP</a>
+            </button>
+          </div>
+        </div>
+      </div>
 
       <% } else { %> <!-- If the user is authenticated -->
 
@@ -43,15 +48,21 @@
           <img src="image/Portfolio.svg" alt="home page illustration" />
         </div>
 
-        <!-- Button for searching -->
-        <button id="search-submit-btn" class="btn btn-lg btn-primary btn-block rounded-pill px-4 py-2 mb-3 mx-auto">
-          <a href="/search">SEARCH</a>
-        </button>
-
-        <!-- Button for logging out -->
-        <button id="logout-submit-btn" class="btn btn-lg btn-primary btn-block rounded-pill px-4 py-2 mb-3 mx-auto">
-          <a href="/logout">LOG OUT</a>
-        </button>
+        <!-- Buttons for searching and logging out -->
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6">
+              <button id="search-submit-btn" class="btn btn-lg btn-primary btn-block rounded-pill px-4 py-2 mb-3">
+                <a href="/search">SEARCH</a>
+              </button>
+            </div>
+            <div class="col-md-6">
+              <button id="logout-submit-btn" class="btn btn-lg btn-primary btn-block rounded-pill px-4 py-2 mb-3">
+                <a href="/logout">LOG OUT</a>
+              </button>
+            </div>
+          </div>
+        </div>
 
         <% } %> <!-- End of EJS if/else block -->
 
