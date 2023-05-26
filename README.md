@@ -26,14 +26,18 @@ Backend:
 ## File Contents
 
 <pre>
-│   CNAME
-│   config.js
-│   databaseConnection.js
 │   index.js
-│   package-lock.json
 │   package.json
 │   README.md
-│   utils.js
+|
+├───config
+|       config.js
+|
+├───database
+|       databaseConnection.js
+|
+├───utils
+|       utils.js
 │
 ├───MBTI_sort
 │       PersonalityAssign.py
