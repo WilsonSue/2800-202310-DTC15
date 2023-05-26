@@ -3,114 +3,135 @@
     <div class="container" id="profile-container">
       <h4 class="heading">User Profile</h4>
       <form action="/userProfile" method="POST">
+        <!-- First Name -->
         <div class="form-group">
           <label for="firstName">First Name</label>
           <input type="text" id="firstName" name="firstName" value="<%= user.firstName %>" required>
         </div>
+        <!-- Last Name -->
         <div class="form-group">
           <label for="lastName">Last Name</label>
           <input type="text" id="lastName" name="lastName" value="<%= user.lastName %>" required>
         </div>
+        <!-- Username -->
         <div class="form-group">
           <label for="username">Username</label>
           <input type="text" id="username" name="username" value="<%= user.username %>" required>
         </div>
+        <!-- Email -->
         <div class="form-group">
           <label for="email">Email</label>
           <input type="text" id="email" name="email" value="<%= user.email %>" required>
         </div>
+        <!-- Password -->
         <div class="form-group">
           <label for="password">Password</label>
           <input type="text" id="password" name="password" value="" placeholder="Enter new password to update">
         </div>
+        <!-- Skills form -->
         <div class="form-group">
           <label>Skills</label>
           <br>
+          <!-- HTML -->
           <label>
             <input type="checkbox" name="skills[]" value="HTML" <% if (user.skills && user.skills.includes('HTML')) {
               %>checked<% } %>>
               HTML
           </label>
+          <!-- CSS -->
           <label>
             <input type="checkbox" name="skills[]" value="CSS" <% if (user.skills && user.skills.includes('CSS')) {
               %>checked<% } %>>
               CSS
           </label>
+          <!-- JavaScript -->
           <label>
             <input type="checkbox" name="skills[]" value="JavaScript" <% if (user.skills &&
               user.skills.includes('JavaScript')) { %>checked<% } %>>
               JavaScript
           </label>
+          <!-- Python -->
           <label>
             <input type="checkbox" name="skills[]" value="Python" <% if (user.skills && user.skills.includes('Python'))
               { %>checked<% } %>>
               Python
           </label>
+          <!-- Java -->
           <label>
             <input type="checkbox" name="skills[]" value="Java " <% if (user.skills && user.skills.includes('Java ')) {
               %>checked<% } %>>
               Java
           </label>
+          <!-- C -->
           <label>
             <input type="checkbox" name="skills[]" value="C" <% if (user.skills && user.skills.includes('C')) {
               %>checked<% } %>>
               C
           </label>
+          <!-- C++ -->
           <label>
             <input type="checkbox" name="skills[]" value="C++" <% if (user.skills && user.skills.includes('C++')) {
               %>checked<% } %>>
               C++
           </label>
+          <!-- C# -->
           <label>
             <input type="checkbox" name="skills[]" value="C#" <% if (user.skills && user.skills.includes('C#')) {
               %>checked<% } %>>
               C#
           </label>
+          <!-- Ruby -->
           <label>
             <input type="checkbox" name="skills[]" value="Ruby" <% if (user.skills && user.skills.includes('Ruby')) {
               %>checked<% } %>>
               Ruby
           </label>
+          <!-- PHP -->
           <label>
             <input type="checkbox" name="skills[]" value="PHP" <% if (user.skills && user.skills.includes('PHP')) {
               %>checked<% } %>>
               PHP
           </label>
+          <!-- React -->
           <label>
             <input type="checkbox" name="skills[]" value="React" <% if (user.skills && user.skills.includes('React')) {
               %>checked<% } %>>
               React
           </label>
+          <!-- Angular -->
           <label>
             <input type="checkbox" name="skills[]" value="Angular" <% if (user.skills &&
               user.skills.includes('Angular')) { %>checked<% } %>>
               Angular
           </label>
+          <!-- Node.js -->
           <label>
             <input type="checkbox" name="skills[]" value="Node.js" <% if (user.skills &&
               user.skills.includes('Node.js')) { %>checked<% } %>>
               Node.js
           </label>
+          <!-- Select/Deselct all buttons -->
           <input type="button" id="deselect-all-skills" value="Select All" onclick="selectAllSkills(this)">
           <input type="button" id="select-all-skills" value="Deselect All" onclick="deselectAllSkills(this)">
         </div>
+        <!-- Functions for select/deselect all buttons -->
         <script>
           function deselectAllSkills(checkbox) {
-              var skillCheckboxes = document.getElementsByName("skills[]");
+            var skillCheckboxes = document.getElementsByName("skills[]");
 
-              for (var i = 0; i < skillCheckboxes.length; i++) {
-                skillCheckboxes[i].checked = checkbox.checked;
-              }
+            for (var i = 0; i < skillCheckboxes.length; i++) {
+              skillCheckboxes[i].checked = checkbox.checked;
             }
-            function selectAllSkills(checkbox) {
-                var skillCheckboxes = document.getElementsByName("skills[]");
+          }
+          function selectAllSkills(checkbox) {
+            var skillCheckboxes = document.getElementsByName("skills[]");
 
-                for (var i = 0; i < skillCheckboxes.length; i++) {
-                  skillCheckboxes[i].checked = !checkbox.checked;
-                }
-              }
+            for (var i = 0; i < skillCheckboxes.length; i++) {
+              skillCheckboxes[i].checked = !checkbox.checked;
+            }
+          }
         </script>
-        <!-- ... -->
+        <!-- Personality type (MBTI) -->
         <div class="form-group">
           <label for="personality">Personality Type</label>
           <select id="personality-select" name="personality" required class="mb-3" size="4">
@@ -125,42 +146,43 @@
                 <% } %>
           </select>
         </div>
+        <!-- Save profile button -->
         <button id="profile-submit-btn" class="btn btn-lg btn-primary btn-block rounded-pill px-4 py-2 mb-3 mx-auto"
           type="submit">
           Save Profile
         </button>
       </form>
     </div>
-  
-  <script>
-  $(document).ready(function() {
-  //check if any changes are made in the form
-  function hasFormChanged() {
-    var form = $('form[action="/userProfile"]');
-    var originalFormValues = form.data('originalValues');
-    var currentFormValues = form.serialize();
-    return originalFormValues !== currentFormValues;
-  }
 
-  // enable/disable save profile btn based on changes in the form
-  function toggleSubmitButton() {
-    var submitButton = $('#profile-submit-btn');
-    if (hasFormChanged()) {
-      submitButton.prop('disabled', false);
-    } else {
-      submitButton.prop('disabled', true);
-    }
-  }
+    <script>
+      $(document).ready(function () {
+        //check if any changes are made in the form
+        function hasFormChanged() {
+          var form = $('form[action="/userProfile"]');
+          var originalFormValues = form.data('originalValues');
+          var currentFormValues = form.serialize();
+          return originalFormValues !== currentFormValues;
+        }
 
-  // save the current data and disable save profile btn after form submission
-  $('form[action="/userProfile"] input, form[action="/userProfile"] select').on('input change', toggleSubmitButton);
-  var form = $('form[action="/userProfile"]');
-  form.data('originalValues', form.serialize());
-  toggleSubmitButton();
-  form.on('submit', function() {
-    $('#profile-submit-btn').prop('disabled', true);
-  });
-});
-</script>
+        // enable/disable save profile btn based on changes in the form
+        function toggleSubmitButton() {
+          var submitButton = $('#profile-submit-btn');
+          if (hasFormChanged()) {
+            submitButton.prop('disabled', false);
+          } else {
+            submitButton.prop('disabled', true);
+          }
+        }
 
-<%- include("templates/footer") %>
+        // save the current data and disable save profile btn after form submission
+        $('form[action="/userProfile"] input, form[action="/userProfile"] select').on('input change', toggleSubmitButton);
+        var form = $('form[action="/userProfile"]');
+        form.data('originalValues', form.serialize());
+        toggleSubmitButton();
+        form.on('submit', function () {
+          $('#profile-submit-btn').prop('disabled', true);
+        });
+      });
+    </script>
+
+    <%- include("templates/footer") %>
