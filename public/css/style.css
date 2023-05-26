@@ -277,11 +277,19 @@ body {
 }
 
 #basic-addon1,
-#search-submit-btn {
+#search-term-submit-btn {
   background-color: var(--lightest-blue);
   border: none;
   cursor: pointer;
   color: var(--darker-blue);
+}
+
+#search-term-submit-btn a {
+  color: var(--darker-blue);
+  font-size: 1.3rem;
+  font-family: var(--font-1);
+  font-weight: bold;
+  text-decoration: none;
 }
 
 /* ----------------------------------------------------------------
