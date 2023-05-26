@@ -1,7 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const { updateDocumentsWithMbti } = require("../MBTI_sort/mbtiAssignment.js");
-router.get("/update-mbti", (req, res) => {
+
+module.exports = function (app, jobCollection, updateDocumentsWithMbti) {
+  app.get("/update-mbti", (req, res) => {
     // Call your MongoDB function
     console.log(jobCollection);
     updateDocumentsWithMbti(jobCollection)
@@ -12,3 +13,4 @@ router.get("/update-mbti", (req, res) => {
         res.status(500).send("Error updating documents with MBTI");
       });
   });
+}
