@@ -1,9 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const bcrypt = require("bcrypt");
-const Joi = require("joi");
-const expireTime = 60 * 60 * 1000;
-function redirectToProfileIfAuthenticated(req, res, next) {
+module.exports = function (app, userCollection, bcrypt, Joi, expireTime) {
+  function redirectToProfileIfAuthenticated(req, res, next) {
     if (req.session.authenticated) {
       res.redirect("/userProfile");
     } else {
@@ -11,11 +9,11 @@ function redirectToProfileIfAuthenticated(req, res, next) {
     }
   }
 
-  router.get("/login", redirectToProfileIfAuthenticated, (req, res) => {
+  app.get("/login", redirectToProfileIfAuthenticated, (req, res) => {
     res.render("login", { errorMessage: null });
   });
 
-  router.post("/loginSubmit", async (req, res) => {
+  app.post("/loginSubmit", async (req, res) => {
     var password = req.body.password.trim();
     var email = req.body.email.trim();
     const schema = Joi.string().email().required();
@@ -49,3 +47,4 @@ function redirectToProfileIfAuthenticated(req, res, next) {
 
     res.render("login", { errorMessage: errorMessage });
   });
+}
