@@ -62,10 +62,10 @@ function sort_priority_order(jobs_with_mbti, personality) {
         job.percent = (job.percent - 10).toFixed(2);
       }
       if (index >= 8 && index <= 11) {
-        job.percent = (job.percent - 15).toFixed(2);
+        job.percent = (job.percent - 20).toFixed(2);
       }
       if (index >= 12 && index <= 15) {
-        job.percent = (job.percent - 20).toFixed(2);
+        job.percent = (job.percent - 30).toFixed(2);
       }
     }
   }
