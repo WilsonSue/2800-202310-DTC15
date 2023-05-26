@@ -135,23 +135,29 @@ To set up the development environment for the project, follow these steps:
 
 ## How to use Techommend (Features)
 
-### feature 1
+### As a user, I want to be able to search for jobs based on my skills and personality.
 
-1.
-2.
-3.
+1. First login with your user credentials.
+2. Click on the search button on the navigation bar.
+3. Type the job title, skill, or company you want to search for in the search bar.
+4. Click search.
+5. You will be redirected to the search results page which is populated with job listings based on your search query. Great job! :smile:
 
-### feature 2
+### As a user, I want to be able to save jobs that I am interested in.
 
-1.
-2.
-3.
+1. First login with your user credentials.
+2. Do the steps previously done in searching for a job.
+3. Once you've found a job you're interested in, click on the save button.
+4. Next, click on the saved listings button on the navigation bar to view your saved listings.
+5. You will be redirected to the saved listings page which is populated with the jobs you've saved. Great job! :smile:
+6. (Optionally) to remove a saved listing, click on the save button again.
 
-### feature 3
+### As a user, I want to login and save my skills, personality, and other information.
 
-1.
-2.
-3.
+1. First login with your user credentials.
+2. Click the hamburger menu at the top right corner of the navigation bar.
+3. Click on the profile button.
+4. You will be redirected to the profile page where you can view and edit your profile information. Great job! :smile:
 
 ---
 
