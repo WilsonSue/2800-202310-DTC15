@@ -3,7 +3,7 @@ const router = express.Router();
 
 module.exports = function (app, jobCollection, updateDocumentsWithMbti) {
   app.get("/update-mbti", (req, res) => {
-    // Call your MongoDB function
+    // Call your MongoDB update function
     console.log(jobCollection);
     updateDocumentsWithMbti(jobCollection)
       .then(() => {
