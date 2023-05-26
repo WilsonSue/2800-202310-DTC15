@@ -7,19 +7,22 @@ module.exports = function (app, userCollection, jobCollection, sort_priority_ord
       res.redirect("/login");
       return;
     }
+    // search and filter variables
     let query = (req.query.query || "").trim();
     let mbti = (req.query.mbti || "").trim();
     let location = (req.query.location || "").trim();
-    let minRating = parseFloat(req.query.minRating);
-    let maxRating = parseFloat(req.query.maxRating);
+    let minRating = parseFloat(req.query.minRating);// convert to float
+    let maxRating = parseFloat(req.query.maxRating);// convert to float
     let jobType = (req.query.jobType || "").trim();
-    let minSalary = parseInt(req.query.minSalary);
-    let maxSalary = parseInt(req.query.maxSalary);
+    let minSalary = parseInt(req.query.minSalary);// convert to int
+    let maxSalary = parseInt(req.query.maxSalary);// convert to int
     let skills = null;
     let disabled = "";
+    // pagination variables
     const page = parseInt(req.query.page) || 1;
     const limit = 10;
     const skip = (page - 1) * limit;
+    // get user information
     const email = req.session.email;
     const user = await userCollection.findOne({ email: email });
     if (user && user.bookmarks) {
@@ -31,6 +34,7 @@ module.exports = function (app, userCollection, jobCollection, sort_priority_ord
       return res.status(400).send({ error: "Invalid query parameter." });
     }
 
+    // redirect to search page if no query is provided
     if (!query) {
       return res.redirect("/searchPage");
     }
@@ -59,6 +63,7 @@ module.exports = function (app, userCollection, jobCollection, sort_priority_ord
       ],
     };
 
+    // skills (from user profile)
     if (skills) {
       mongoQuery.$and.push({ $or: [] });
       for (const skill of skills) {
@@ -68,11 +73,12 @@ module.exports = function (app, userCollection, jobCollection, sort_priority_ord
       }
     }
 
-    // location (dropdown provinces)
+    // location filter (dropdown provinces)
     if (location) {
       mongoQuery.$and.push({ Location: { $regex: location } });
     }
-    // job type
+
+    // job type filter
     if (jobType) {
       mongoQuery.$and.push({ JobType: { $regex: jobType, $options: "i" } });
     }
@@ -82,6 +88,7 @@ module.exports = function (app, userCollection, jobCollection, sort_priority_ord
     // Perform a case-insensitive search in the 'jobs' collection
     var listings = await jobCollection.find(mongoQuery).toArray();
 
+    // triggers for the easter egg
     if (req.session.authenticated) {
       const user = await userCollection.findOne({ email: req.session.email });
       if (
@@ -98,9 +105,10 @@ module.exports = function (app, userCollection, jobCollection, sort_priority_ord
       return res.redirect("/easterEgg");
     }
 
+    // Sort by mbti priority order
     if (mbti) {
       listings = sort_priority_order(listings, mbti);
-      disabled = "disabled";
+      disabled = "disabled"; // disable the mbti dropdown
     }
 
     function filterByRating(jobListings, minRating, maxRating) {
@@ -129,11 +137,11 @@ module.exports = function (app, userCollection, jobCollection, sort_priority_ord
       return jobListings.filter(function (jobListing) {
         if (jobListing.SalaryEstimate != "None Given") {
           let minsalaryint = parseInt(
-            jobListing.SalaryEstimate.substring(0, 8).replace(/[^0-9]/g, "")
+            jobListing.SalaryEstimate.substring(0, 8).replace(/[^0-9]/g, "") // remove non-numeric characters
           );
           console.log(minsalaryint);
           let maxsalaryint = parseInt(
-            jobListing.SalaryEstimate.substring(8).replace(/[^0-9]/g, "")
+            jobListing.SalaryEstimate.substring(8).replace(/[^0-9]/g, "") // remove non-numeric characters
           );
           console.log(maxsalaryint);
           return minsalaryint >= minSalary && maxsalaryint <= maxSalary;
@@ -152,10 +160,11 @@ module.exports = function (app, userCollection, jobCollection, sort_priority_ord
     req.session.lastSearchResults = listings.slice(0, 3); // only save first 3 listings
     req.session.lastSearchTerm = query; // Save the last search term into the session
 
-    listings = listings.slice(skip, skip + limit);
+    listings = listings.slice(skip, skip + limit); // select only the listings for the current page
     const totalPages = Math.ceil(totalListings / limit);
     console.log(totalListings);
 
+    // convert back to string
     minRating = minRating.toString();
     maxRating = maxRating.toString();
     minSalary = minSalary.toString();
@@ -176,7 +185,7 @@ module.exports = function (app, userCollection, jobCollection, sort_priority_ord
       maxSalary,
       totalListings,
       user,
-    }); // pass the mbti to the view
+    }); // pass the all filter selections to the view
   });
 
   app.get("/searchPage", (req, res) => {
