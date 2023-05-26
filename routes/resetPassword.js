@@ -12,7 +12,7 @@ const { v4: uuidv4 } = require("uuid");
 const bcrypt = require("bcrypt");
 const NodeCache = require("node-cache");
 const cache = new NodeCache({ checkperiod: 1200 });
-const { database } = require("../databaseConnection");
+const { database } = require("../database/databaseConnection");
 require("dotenv").config();
 
 // import required collections

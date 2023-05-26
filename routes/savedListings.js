@@ -4,7 +4,7 @@ const express = require("express");
 // create a new router instance
 const router = express.Router();
 
-const { database } = require("../databaseConnection");
+const { database } = require("../database/databaseConnection");
 require("dotenv").config();
 const { ObjectId } = require("mongodb");
 
