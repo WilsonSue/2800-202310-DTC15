@@ -1,22 +1,29 @@
-# Techommend
+## Project Title
 
-COMP 2800 DTC15
+### Techommend
 
 ---
 
 ## Project Description
 
-placeholder
+Our Team, NeedJobPls, is developing Techommend, to provide personalized job recommendations for CS students based on their skills and MBTI personality.
 
 ---
 
-## Technologies
+## Technologies Used
+Frontend:
+- HTML
+- CSS
+- Bootstrap
 
-- placeholder
+Backend:
+- MEN stack (MongoDB, Express, Node.js)
+- Python
+- Custom MBTI Sorting Algorithm
 
 ---
 
-## Files
+## File Contents
 
 <pre>
 │   CNAME
@@ -74,20 +81,45 @@ placeholder
 │           header.ejs
 │           nav.ejs
 │
-└───templates
+└───routes
+        404.js
+        easterEgg.js
+        home.js
+        login.js
+        logout.js
+        profile.js
         resetPassword.js
         savedListings.js
-
+        search.js
+        signup.js
+        update_mbti.js
 </pre>
 
 ---
 
-## Installation
+## Setup and Installation
 
-### placeholder
+### Dependencies
+The following dependencies are required to run this project:
+- Node.js 
+- MongoDB 
 
-1.
-2.
+Additionally, the project relies on the following npm packages:
+- bcrypt@5.1.0
+- connect-mongo@5.0.0
+- dotenv@16.0.3
+- ejs@3.1.9
+- express-session@1.17.3
+- express@4.18.2
+- fs@0.0.1- security
+- joi@17.9.2
+- mongodb@5.4.0
+- node-cache@5.1.2
+- nodemailer@6.9.2
+- path@0.12.7
+- python-shell@5.0.0
+- uuid@9.0.0
+
 
 ### placeholder
 
@@ -96,7 +128,7 @@ placeholder
 
 ---
 
-## Features
+## How to use Techommend (Features)
 
 ### feature 2
 
@@ -118,14 +150,28 @@ placeholder
 
 ---
 
-## Credits
+## Credits, References, and More
+This project acknowledges the use of the following resources:
 
-### credits
+### Credits
 
 ### References
 
 ---
 
+## How was AI Used
+
+1. AI was used to help create ___________.
+2. AI was not used to create or clean data sets in this project.
+3. This project does not utilize _________.
+4. The limitations encountered were primarily related to the _________________.
+
+---
+
 ## Contact Information
+For any inquiries or support regarding this project, please reach out to:
+- Wilson: xxxxxxx@gmail.com
+- Elijah: xxxxx@gmail.com
+- Joanne: cyh66368@gmail.com
 
 ---
