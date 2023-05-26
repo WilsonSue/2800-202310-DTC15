@@ -10,8 +10,8 @@ module.exports = function (app, userCollection, jobCollection, sort_priority_ord
     let query = (req.query.query || "").trim();
     let mbti = (req.query.mbti || "").trim();
     let location = (req.query.location || "").trim();
-    let minRating = parseInt(req.query.minRating);
-    let maxRating = parseInt(req.query.maxRating);
+    let minRating = parseFloat(req.query.minRating);
+    let maxRating = parseFloat(req.query.maxRating);
     let jobType = (req.query.jobType || "").trim();
     let minSalary = parseInt(req.query.minSalary);
     let maxSalary = parseInt(req.query.maxSalary);
@@ -67,10 +67,7 @@ module.exports = function (app, userCollection, jobCollection, sort_priority_ord
         });
       }
     }
-    // Filter by rating (number 0-5)
-    if (minRating && maxRating) {
-      mongoQuery.$and.push({ Rating: { $gte: minRating, $lte: maxRating } });
-    }
+
     // location (dropdown provinces)
     if (location) {
       mongoQuery.$and.push({ Location: { $regex: location } });
@@ -104,6 +101,28 @@ module.exports = function (app, userCollection, jobCollection, sort_priority_ord
     if (mbti) {
       listings = sort_priority_order(listings, mbti);
       disabled = "disabled";
+    }
+
+    function filterByRating(jobListings, minRating, maxRating) {
+      return jobListings.filter(function (jobListing) {
+        if (jobListing.Rating != "None Given") {
+          let minratingfloat = parseFloat(
+            jobListing.Rating
+          );
+          let maxratingfloat = parseFloat(
+            jobListing.Rating
+          );
+          return minratingfloat >= minRating && maxratingfloat <= maxRating;
+        } else {
+          return false;
+        }
+      });
+    }
+
+    // Filter by rating (number 0-5)
+    if (minRating && maxRating) {
+      listings = filterByRating(listings, minRating, maxRating);
+      totalListings = listings.length;
     }
 
     function filterBySalary(jobListings, minSalary, maxSalary) {
