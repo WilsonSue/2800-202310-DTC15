@@ -4,6 +4,11 @@
       <p>
         <%= totalListings %> listings found
       </p>
+      <% if (mbti) { %>
+        <p>
+          *Percentages are based on how well the job listing matches its closest MBTI. These are then deducted based on how far down the priority order the MBTI is. For example, if the job listing is an ESTJ, and the user is an ENFP, the percentage will be 70% (100% - 30%).
+        </p>
+        <% } %>
 
       <!-- Here we add the MBTI filter form -->
       <form action="/search" method="get" class="mb-3">
