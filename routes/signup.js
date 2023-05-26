@@ -1,14 +1,12 @@
 const express = require("express");
 const router = express.Router();
-const bcrypt = require("bcrypt");
-const Joi = require("joi");
-const expireTime = 60 * 60 * 1000;
-const saltRounds = 12;
-router.get("/signup", (req, res) => {
+
+module.exports = function (app, userCollection, bcrypt, Joi, saltRounds, expireTime) {
+  app.get("/signup", (req, res) => {
     res.render("signup");
   });
 
-  router.post("/submitUser", async (req, res) => {
+  app.post("/submitUser", async (req, res) => {
     var username = req.body.username.trim();
     var password = req.body.password.trim();
     var email = req.body.email.trim();
@@ -51,7 +49,7 @@ router.get("/signup", (req, res) => {
     res.redirect("/search"); // Change this line to redirect to userProfile instead of /members
   });
 
-  router.get("/signupSubmit", (req, res) => {
+  app.get("/signupSubmit", (req, res) => {
     const missingInput = req.query.missing;
     const errorMessages = {
       1: "Email is required",
@@ -61,3 +59,4 @@ router.get("/signup", (req, res) => {
 
     res.render("signupSubmit", { missingInput, errorMessages });
   });
+}
