@@ -131,10 +131,6 @@ To set up the development environment for the project, follow these steps:
 - Run `npm install --global nodemon` to automatically restart the app whenever changes are made to the source code.
 - Run `nodemon index.js` to start working on Techommend.
 
-        
-
-
-
 ---
 
 ## How to use Techommend (Features)
